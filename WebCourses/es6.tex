@@ -1,0 +1,433 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=2cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+
+\begin{large}
+
+\begin{center}
+\section*{Javascript ES6.}
+\end{center}
+
+\medskip
+
+\section*{JavaScript let}
+
+The let keyword allows you to declare a variable with block scope.
+
+\begin{lstlisting}
+var x = 10;
+// Here x is 10
+{
+  let x = 2;
+  // Here x is 2
+}
+// Here x is 10
+\end{lstlisting}
+
+
+
+\section*{JavaScript const}
+
+The const keyword allows you to declare a constant (a JavaScript variable with a constant value).
+
+Constants are similar to let variables, except that the value cannot be changed.
+
+\begin{lstlisting}
+var x = 10;
+// Here x is 10
+{
+  const x = 2;
+  // Here x is 2
+}
+// Here x is 10
+\end{lstlisting}
+
+
+
+
+\section*{Arrow Functions}
+
+Arrow functions allows a short syntax for writing function expressions.
+
+You don't need the function keyword, the return keyword, and the curly brackets.
+
+\begin{lstlisting}
+// ES5
+var x = function(x, y) {
+   return x * y;
+}
+
+// ES6
+const x = (x, y) => x * y;
+\end{lstlisting}
+
+Arrow functions do not have their own this. They are not well suited for defining object methods.
+
+Arrow functions are not hoisted. They must be defined before they are used.
+
+Using const is safer than using var, because a function expression is always a constant value.
+
+You can only omit the return keyword and the curly brackets if the function is a single statement. Because of this, it might be a good habit to always keep them:
+
+\begin{lstlisting}
+const x = (x, y) => { return x * y };
+\end{lstlisting}
+
+
+
+
+\section*{The Spread (...) Operator}
+
+The ... operator expands an iterable (like an array) into more elements:
+
+\begin{lstlisting}
+const q1 = ["Jan", "Feb", "Mar"];
+const q2 = ["Apr", "May", "Jun"];
+const q3 = ["Jul", "Aug", "Sep"];
+const q4 = ["Oct", "Nov", "May"];
+
+const year = [...q1, ...q2, ...q3, ...q4];
+\end{lstlisting}
+
+
+
+
+
+\section*{The For/Of Loop}
+
+The JavaScript for/of statement loops through the values of an iterable objects.
+
+for/of lets you loop over data structures that are iterable such as Arrays, Strings, Maps, NodeLists, and more.
+
+\begin{lstlisting}
+const cars = ["BMW", "Volvo", "Mini"];
+let text = "";
+
+for (let x of cars) {
+  text += x + " ";
+}
+\end{lstlisting}
+
+
+
+
+
+\section*{JavaScript Maps}
+
+You can create a JavaScript Map by: Passing an Array to new Map(); 
+Create a Map and use Map.set().
+
+The get() method gets the value of a key in a Map.
+
+\begin{lstlisting}
+// Create a Map
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+fruits.set("lemons", 600);
+
+fruits.get("apples");    // Returns 500
+\end{lstlisting}
+
+
+
+
+
+\section*{JavaScript Sets}
+
+You can create a JavaScript Set by: Passing an Array to new Set(); Create a new Set and use add() to add values. If you add equal elements, only the first will be saved.
+
+The forEach() method invokes a function for each Set element.
+
+The values() method returns an Iterator object containing all the values in a Set. For a Set, typeof returns object.
+
+\begin{lstlisting}
+const letters = new Set(["a","b","c"]);
+
+letters.add("d");
+letters.add("e");
+
+\end{lstlisting}
+
+
+
+
+
+
+\section*{JavaScript Classes}
+
+JavaScript Classes are templates for JavaScript Objects.
+
+Use the keyword class to create a class.
+
+Always add a method named constructor():
+
+\begin{lstlisting}
+class Car {
+  constructor(name, year) {
+    this.name = name;
+    this.year = year;
+  }
+}
+
+const myCar1 = new Car("Ford", 2014);
+const myCar2 = new Car("Audi", 2019);
+\end{lstlisting}
+
+
+
+
+
+
+\section*{JavaScript Promises}
+
+A Promise is a JavaScript object that links "Producing Code" and "Consuming Code".
+
+"Producing Code" can take some time and "Consuming Code" must wait for the result.
+
+\begin{lstlisting}
+const myPromise = new Promise(function(myResolve, myReject) {
+  setTimeout(function() { myResolve("I love You !!"); }, 3000);
+});
+
+myPromise.then(function(value) {
+  document.getElementById("demo").innerHTML = value;
+});
+\end{lstlisting}
+
+
+
+
+
+
+
+\section*{The Symbol Type}
+
+A JavaScript Symbol is a primitive datatype just like Number, String, or Boolean.
+
+It represents a unique "hidden" identifier that no other code can accidentally access.
+
+For instance, if different coders want to add a person.id property to a person object belonging to a third-party code, they could mix each others values.
+
+\begin{lstlisting}
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+
+let id = Symbol('id');
+person[id] = 140353;
+// Now person[id] = 140353
+// but person.id is still undefined
+\end{lstlisting}
+
+
+
+
+
+
+
+\section*{Default Parameter Values}
+
+ES6 allows function parameters to have default values.
+
+\begin{lstlisting}
+function myFunction(x, y = 10) {
+  // y is 10 if not passed or undefined
+  return x + y;
+}
+myFunction(5); // will return 15
+\end{lstlisting}
+
+
+
+
+
+
+
+\section*{Function Rest Parameter}
+
+The rest parameter (...) allows a function to treat an indefinite number of arguments as an array:
+
+\begin{lstlisting}
+function sum(...args) {
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
+}
+
+let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
+\end{lstlisting}
+
+
+
+
+
+
+
+\section*{String methods.}
+
+The includes() method returns true if a string contains a specified value, otherwise false:
+
+\begin{lstlisting}
+let text = "Hello world, welcome to the universe.";
+text.includes("world")    // Returns true
+\end{lstlisting}
+
+The startsWith() method returns true if a string begins with a specified value, otherwise false:
+
+\begin{lstlisting}
+let text = "Hello world, welcome to the universe.";
+text.startsWith("Hello")   // Returns true
+\end{lstlisting}
+
+The endsWith() method returns true if a string ends with a specified value, otherwise false:
+
+\begin{lstlisting}
+var text = "John Doe";
+text.endsWith("Doe")    // Returns true
+\end{lstlisting}
+
+
+
+
+
+\section*{Array methods}
+
+The Array.from() method returns an Array object from any object with a length property or any iterable object.
+
+\begin{lstlisting}
+Array.from("ABCDEFG")   // Returns [A,B,C,D,E,F,G]
+\end{lstlisting}
+
+
+The keys() method returns an Array Iterator object with the keys of an array.
+
+\begin{lstlisting}
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+const keys = fruits.keys();
+
+let text = "";
+for (let x of keys) {
+  text += x + "<br>";
+}
+\end{lstlisting}
+
+
+The find() method returns the value of the first array element that passes a test function.
+
+\begin{lstlisting}
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.find(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+\end{lstlisting}
+
+The findIndex() method returns the index of the first array element that passes a test function.
+
+\begin{lstlisting}
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.findIndex(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+\end{lstlisting}
+
+
+
+
+
+\section*{New Math Methods}
+
+ES6 added the following methods to the Math object:
+
+Math.trunc(x) returns the integer part of x;
+
+Math.sign(x) returns if x is negative, null or positive;
+
+Math.cbrt(x) returns the cube root of x;
+
+Math.log2(x) returns the base 2 logarithm of x;
+
+Math.log10(x) returns the base 10 logarithm of x.
+
+
+
+
+\section*{New Number Methods}
+
+The Number.isInteger() method returns true if the argument is an integer.
+
+A safe integer is an integer that can be exactly represented as a double precision number.
+
+The Number.isSafeInteger() method returns true if the argument is a safe integer.
+
+\begin{lstlisting}
+Number.isSafeInteger(10);    // returns true
+Number.isSafeInteger(12345678901234567890);  // returns false
+\end{lstlisting}
+
+
+\section*{New Global Methods}
+
+The global isFinite() method returns false if the argument is Infinity or NaN.
+
+Otherwise it returns true.
+
+\begin{lstlisting}
+isFinite(10/0);       // returns false
+isFinite(10/1);       // returns true
+\end{lstlisting}
+
+The global isNaN() method returns true if the argument is NaN. Otherwise it returns false:
+
+
+\begin{lstlisting}
+isNaN("Hello");       // returns true
+\end{lstlisting}
+
+
+
+\end{large}
+\end{document}
+
