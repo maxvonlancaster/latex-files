@@ -1,0 +1,61 @@
+\def\bibname{\vspace{-30mm}\centerline{\Large\bf Список використаних джерел}
+\vspace{-5mm}}
+\def\contentsname{Зміст}
+\def\chaptername{}
+\def\thechapter{}
+\def\thesection{}
+\def\thesubsection{}
+
+\renewcommand{\@pnumwidth}{1.9em}  %Koля, 26/06/2010
+
+\renewcommand{\chapter}{\clearpage
+%\thispagestyle{empty}%
+\global\@topnum=0
+\@afterindenttrue
+\secdef\@chapter\@schapter
+}
+
+\renewcommand{\section}{\@startsection{section}{1}{0pt}
+{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}{\Large\bf}} 
+
+\renewcommand{\@makechapterhead}[1]{
+{\parindent=0pt
+%\vspace{10pt}
+\begin{center}
+\par
+\Large \bf #1 
+\end{center}
+\vspace{20 pt}
+}
+}
+
+\renewcommand{\@biblabel}[1]{#1.\hfill}
+
+\renewcommand{\tableofcontents}
+{{\parindent=0pt
+%\vspace{10pt}
+\begin{center}
+\par
+\Large\bf\contentsname 
+\end{center}
+\vspace{50 pt}
+\@starttoc{toc}}}
+
+
+%\renewcommand{\chaptermark}[1]{\markboth
+%{\chaptername\thechapter\hspace{1em}#1}
+%{\chaptername\thechapter\hspace{1em}#1}
+%}
+%
+%\renewcommand{\sectionmark}[1]{\markright
+%{\thesection\hspace{1em}#1}
+%}
+%
+\renewcommand{\@evenhead }{\thepage\hfill}
+\renewcommand{\@evenfoot }{}
+
+\renewcommand{\@oddhead }{\hfill\thepage}
+\renewcommand{\@oddfoot }{}
+
+
+\endinput
