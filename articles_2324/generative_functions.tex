@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{cmap}
 \usepackage[cp1251]{inputenc}
 \usepackage[english, ukrainian, russian]{babel}
@@ -29,6 +29,49 @@
 
 \medskip
 \medskip
+
+
+\section*{Generating functions.}
+
+Given sequence $\{a_{n}\}\in \mathbb{R}$ the generative function for it is defined as: $f(x)=\sum\limits_{n=0}^{\infty}a_{n}x^{n}.$ Generative functions provide a great way to operate over sequences, solve recurrent series, understand different enumeration problems etc.
+
+Lets take a look at a simple example of a famous Euler's problem, and how it can be solved using generating functions.
+
+\textbf{Example 1.1.}
+Generative functions can be used to solve the recurrent series. Take, for example, famous Fibonacci sequence: $a_{0}=1$, $a_{1}=1$, $a_{n} = a_{n-1}+a_{n-2}$. For it we can write generative function $f(x) = \sum\limits_{n=0}^{\infty}a_{n}x^{n} =a_{0} + a_{1}x + \sum\limits_{n=2}^{\infty}(a_{n-1} + a_{n-2})x^{n} = a_{0} + a_{1}x + \sum\limits_{n=2}^{\infty}a_{n-1}x^{n} + \sum\limits_{n=2}^{\infty}a_{n-2}x^{n} = 1 + x + \sum\limits_{n=0}^{\infty}a_{n}x^{n+1} - x + \sum\limits_{n=0}^{\infty}a_{n}x^{n+2} = 1 + x\sum\limits_{n=0}^{\infty}a_{n}x^{n} + x^{2}\sum\limits_{n=0}^{\infty}a_{n}x^{n} = 1 + xf(x) + x^{2}f(x)$. So, we got the following equality: $f(x) = 1 + xf(x) + x^{2}f(x)$. From this, we get the generating function for Fibonacci sequence: $f(x) = \frac{1}{1 - x - x^{2}}$.
+
+
+\section*{Some results for certain types of functions.}
+
+
+
+\section*{n queens problem and some approaches.}
+
+The $n$ queens problem is the problem of placing $n$ chess queens on an $n\times n$ chessboard so that no two queens attack each other. Solutions exist for all natural numbers $n$ with the exception of $n = 2$ and $n = 3$. Although the exact number of solutions is only known for $n = 27$, the asymptotic growth rate of the number of solutions is approximately $(0.143 n)^{n}$.
+
+
+\section*{Partial solution for some figures.}
+
+Lets consider the following figure: partial bishop~--- the figure, that will only be attacking on one line. We will denote the amount of different ways we can place $k$ such figures on a board $n\times n$ by $b_{n}^{k}$.
+
+In case of board $1\times 1$, we get the amount of possible allocations of one such bishop is $1$; so $b_{1}^{1} = 1$ and $b_{1}^{0} = 1$. 
+
+Let's assume, that we have the amount of possible allocations of $k$ figures for the board $(n-1)\times (n-1)$. The board $n\times n$ will contain board $(n-1)\times (n-1)$ as it's part (consider lower part to the left, see pic.). If we place $k-i$ figures in the part $(n-1)\times (n-1)$, in that case in the remaining $2n-1$ squares we place the rest $i$ figures. But the remaining $2n-1$ slice has only $2n-1-(k-i)$ squares available (as the rest $(k-i)$ squares are under the attack from the already placed $(k-i)$ bishops). That implies the total amount of placements for the remaining slice as $C_{2n-1-(k-i)}^{i}$ (where $C_{n}^{k}=\frac{n!}{(n-k)!k!}$~--- amount of combinations from $n$ to $k$). From that we get, that there are in total $b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i}$ ways to place $k-i$ figures on $(n-1)\times (n-1)$ part of the board and $i$ figures on the rest of the board.
+
+By adding all these products for $i=0,1,...,k$ we get the total amount of placements of $k$ figures on the board $n\times n$: $b_{n}^{k}=\sum\limits_{i=0}^{k} b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i}$.
+
+This way, we have proven the following theorem:
+
+\textbf{Theorem 1.} The amount of possible arrangements of $k$ partial bishops on the board $n\times n$ is given by the following recursive formula: $$b_{n}^{k}=\sum\limits_{i=0}^{k} b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i} (1)$$
+
+Lets calculate $b_{n}^{k}$ for the case of $k=2$.
+
+\textbf{Theorem 2.} The amount of arrangements of two partial bishops on board $n\times n$ is: $$b_{n}^{2} = 1 - 10(n+1)+\frac{29}{2}(n+2)(n+1) + \frac{16}{3}(n+3)(n+2)(n+1) + \frac{1}{2} (n+4)(n+3)(n+2)(n+1).$$
+
+\textit{Proof.} By the recursive formula $(1)$ we have:  $b_{n}^{2}=b_{n-1}^{2} + b_{n}^{1}(2n-2) + \frac{1}{2}b_{n}^{0}(2n-1)(2n-2)$. Considering, that $b_{n-1}^{0}=1$ and $b_{n-1}^{1}=(n-1)^{2}$ (there are always 1 way to place 0 figures on any board and $n^{2}$ ways to place $1$ figure on the board $n\times n$) we get $b_{n}^{2}=b_{n-1}^{2} + 2n^{3} - 4n^{2} + 3n -1$. 
+
+Lets find the generating function for this recursive sequence, and after that, we will be able to find the solution to this sequence. 
+
 
 
 

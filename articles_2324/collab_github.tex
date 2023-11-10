@@ -1,10 +1,33 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{cmap}
 \usepackage[cp1251]{inputenc}
 \usepackage[english, ukrainian, russian]{babel}
 \usepackage[left=2cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=csh,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 \begin{document}
 
@@ -29,6 +52,63 @@
 
 \medskip
 \medskip
+
+In the dynamic landscape of modern education, technology continues to play a transformative role in enhancing learning experiences. GitHub Classroom, a powerful tool born from the realm of software development, has emerged as a versatile platform for educators to facilitate collaboration, code sharing, and project-based learning. This thesis explores the benefits and innovative applications of GitHub Classroom in student education, showcasing how it empowers educators and learners alike.
+
+\textbf{GitHub Classroom: A Brief Overview} \\
+GitHub Classroom is an extension of the widely used version control platform GitHub. It provides educators with a streamlined way to distribute, collect, and review assignments in a collaborative and organized manner. Leveraging the power of Git, GitHub Classroom offers students a practical introduction to version control, a fundamental skill in software development and beyond. 
+
+Introducing technology such as GitHub requires that the students are comfortable with the
+tools and can understand their use.
+
+The best approach to starting the usage of GitHub classroom for university course is to start with a creation of github organization. There you can register classroom for every laboratory task in the course and add a roster of students assigned to the course.
+
+\textbf{Autograding} \\
+You can use autograding to automatically check a student's work for an assignment on GitHub Classroom. You configure tests for an assignment, and the tests run immediately every time a student pushes to an assignment repository on GitHub.com. The student can view the test results, make changes, and push to see new results. Autograding tests can be added during the creation of a new assignment. You can also download a CSV of your students' autograding scores via the "Download" button. A pull request can be automatically created, where you can provide feedback and answer a student's questions about an assignment. To create and access the feedback pull request, you must enable the feedback pull request when you create the assignment.
+
+Lets create as an example a simple github actions yaml file, that is going to check deployment for the existance of 'index.html' file. 
+
+\begin{lstlisting}
+name: Check for index.html
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+
+jobs:
+  check-index-html:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Check for index.html
+      run: |
+        if [ -e index.html ]; then
+          echo "index.html found in the repository."
+        else
+          echo "Error: index.html not found in the repository."
+          exit 1
+        fi
+\end{lstlisting}
+
+After that, when we create a new assignment in github classroom, we can add tests, that will run this yaml file and check student work.
+
+
+
+\textbf{GitHub Pages in connection with classroom} \\
+Github Pages can be used to automatically deploy student works and make them available via url link. GitHub Pages is available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. 
+
+Furthermore, GitHub Pages simplifies the process of sharing student projects and assignments with peers, instructors, and potential employers. Students can easily share their project URLs, allowing others to access and review their work without the need for complex web hosting setups.
+
+Additionally, GitHub Pages integrates seamlessly with version control workflows. Students can continuously update their projects as they learn and grow, and GitHub Pages will automatically reflect these changes, making it an ideal platform for tracking project progress and iterations over time.
+
+Instructors can leverage GitHub Pages to create course websites, syllabi, and project documentation, making it easy for students to access essential course materials in one centralized location. The collaborative nature of GitHub also enables students to collaborate on group projects by simply adding contributors to the repository.
+
+\textbf{GitHub Issues in connection with classroom} \\
+Students can use GitHub Issues for educational purposes by creating, managing, and tracking tasks, assignments, and discussions related to their coursework. It provides an organized and collaborative environment where students and instructors can communicate, ask questions, and work together to solve problems. GitHub Issues can also be used to report and address bugs or issues in coding assignments, fostering a culture of debugging and problem-solving skills among students. Additionally, it serves as a valuable tool for time management, ensuring that students stay on top of their tasks and deadlines throughout the course.
 
 
 
