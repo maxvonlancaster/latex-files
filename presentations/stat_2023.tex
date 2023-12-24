@@ -1,0 +1,197 @@
+\documentclass[notes=show,9pt]{beamer}
+
+\usepackage[english,russian,ukrainian]{babel}
+\usepackage[cp1251]{inputenc}       % allow Latin1 characters
+
+\usepackage{textcomp}
+\usepackage{pgf}%,pgfarrows,pgfnodes,pgfautomata,pgfheaps
+
+\usepackage{beamerthemeshadow}
+\useinnertheme[shadow=true]{rounded}
+%\usecolortheme[named=CarnationPink]{structure}
+\usecolortheme{seahorse}
+%\usecolortheme{whale}
+\useoutertheme{shadow}
+\usefonttheme{structureitalicserif}
+%\usefonttheme[onlysmall]{structurebold}
+
+\setbeamercolor{title}{use=structure,fg=white,bg=structure.fg}
+\setbeamerfont{block title}{size={}}
+
+
+\usepackage{times}
+
+\usepackage{color}
+
+\newcommand{\tblue}[1]{\textcolor{blue}{#1}}
+\newcommand{\tred}[1]{\textcolor{red}{#1}}
+\newcommand{\tgreen}[1]{\textcolor{green}{#1}}
+\newcommand{\tyellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\tbrown}[1]{\textcolor{brown}{#1}}
+\newcommand{\tcyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\tmagenta}[1]{\textcolor{magenta}{#1}}
+\newcommand{\torange}[1]{\textcolor{orange}{#1}}
+\newcommand{\tviolet}[1]{\textcolor{violet}{#1}}
+\newcommand{\tpurple}[1]{\textcolor{purple}{#1}}
+
+\newcommand{\tpink}[1]{\textcolor{pink}{#1}}
+\newcommand{\tolive}[1]{\textcolor{olive}{#1}}
+\newcommand{\tdarkgray}[1]{\textcolor{darkgray}{#1}}
+\newcommand{\tgray}[1]{\textcolor{gray}{#1}}
+\newcommand{\tlightgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\twhite}[1]{\textcolor{white}{#1}}
+
+%\newcommand{\proclim}[2]{{\bf\sffamily #1} {\sffamily #2}}
+
+\usepackage{verbatim}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+
+\usepackage{fancybox}
+
+\usepackage{mathptmx}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathpazo}
+
+% \usepackage[sc]{mathpazo}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+
+\usepackage{datetime}
+\newdate{date}{13}{12}{2023}
+\date{\displaydate{date}}
+
+
+\beamertemplateshadingbackground{red!1}{blue!5}
+\beamertemplatetransparentcovereddynamic
+\beamertemplateballitem
+\beamertemplatenumberedballsectiontoc
+%\beamertemplatenotecompress
+
+%\setbeamersize{sidebar width left=0.3cm,sidebar width right=0.3cm}
+%{\usebeamercolor{yellow}}
+%\setbeamertemplate{sidebar canvas left}[horizontal shading]
+%[left=white,middle=yellow.bg,right=white]
+%\setbeamertemplate{sidebar canvas right}[horizontal shading]
+%[left=white,middle=yellow.bg,right=white]
+
+
+ \DeclareMathOperator{\re}{Re}
+ \DeclareMathOperator{\dist}{dist}
+ \DeclareMathOperator{\ecc}{\overline{\mathrm{co}}}
+ \DeclareMathOperator{\ec}{co}
+\newcounter{equi1}
+\newenvironment{equi}
+{\begin{list}
+        {$(\roman{equi1})$}
+        {\setlength{\itemsep}{0ex plus 0.2ex minus 0ex}
+         \setlength{\topsep}{0ex}
+         \setlength{\parsep}{0ex}
+         \setlength{\labelwidth}{7ex}
+         \usecounter{equi1}}}
+{\end{list}}
+
+\renewcommand{\raggedright}{\leftskip=4pt \rightskip=4pt plus 0cm}
+
+\hypersetup{pdfkeywords={pdftex, acrobat}, pdfpagemode={FullScreen}}
+
+
+
+%\title[\twhite{\small \centerline{Про рівномірну відстань до різних функціональних класів}}]
+
+\title[Дисперсійний аналіз]{Дисперсійний аналіз}
+
+
+\author[Melnyk Vasyl]{\textbf{Melnyk Vasyl}}
+
+
+\begin{document}
+
+
+\begin{plainframe}
+  \titlepage
+\end{plainframe}
+
+
+
+\begin{frame}{Дисперсійний аналіз}
+\begin{block}{}
+Дисперсійний аналіз~--- це тест, який використовується, щоб з'ясувати, чи існує статистично значуща різниця між середніми значеннями більш ніж однієї групи.
+\end{block}
+
+\includegraphics[scale=0.28]{anova_table.jpg}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Приклад}
+
+\includegraphics[scale=0.9]{example1.png}
+
+\begin{block}{}
+Середні значення: $\overline{X_{1}} = \frac{25+30+28+36+29}{5} = 29.6$, $\overline{X_{2}} = 45$, $\overline{X_{3}} = 31.2$, $\overline{X_{4}} = 60$, загальне $X = \frac{25+...+73}{20} = 41.45$.
+
+Сума квадратів між групами: $SSB_{c} = \sum n\times(\overline{X_{i}} - \overline{X} )^{2} = 5(29.6-41.45)^{2} + 5(45-41.45)^{2} + 5(60-41.45)^{2} + 5(31.2-41.45)^{2} = 3010.95$
+
+Сума квадратів в межах груп: $SSW = (25-29.6)^{2} + (30-29.6)^{2} + ... + (73-41.45)^{2} = 918$
+
+Загалом: $\textmd{Total} = SSB_{c} + SSW = 3928.95$.
+
+Замірів: $N=20$, $df_{w} = (5-1)*4 = 16$, $df_{b} = 4-1 = 3$, $df_{t}=5*4-1 = 19$;
+
+Далі, $MS_{b} = \frac{SSB_{c}}{df_{b}} = 1003.65$, $MS_{w}=\frac{SSW}{df_{w}} = 57.37$, $f = \frac{1003.65}{57.375} = 17.5$
+
+
+\end{block}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{F-test}
+
+\includegraphics[scale=0.46]{f_table.jpg}
+
+\begin{block}{}
+$f = 17.5 > 5.29$~--- існує різниця між середніми значеннями.
+
+
+\end{block}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Аналіз із повторними вимірами}
+\begin{block}{}
+Аналіз із повторними вимірами~--- використовується для визначення того, чи існує статистично значуща різниця між середніми значеннями трьох або більше груп, у яких однакові суб’єкти з’являються в кожній групі.
+\end{block}
+
+\includegraphics[scale=0.46]{repeated.png}
+
+\end{frame}
+
+
+
+\begin{frame}\frametitle{}
+\Huge \centerline{Thank you!}
+\end{frame}
+
+\end{document}
+

@@ -1,0 +1,1152 @@
+\documentclass[12pt]{report}
+\usepackage[cp1251]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian,ukrainian]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+%\usepackage{makeidx}
+%\usepackage[latin1]{inputenc}
+
+
+%\usepackage{kd}
+\sloppy
+\setlength{\voffset}{-20mm}
+\setlength{\hoffset}{-10mm}
+\setlength{\textwidth}{170mm}
+\setlength{\textheight}{250mm}
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+
+
+\makeindex
+\sloppy
+
+%\numberwithin{equation}{section}
+
+
+\begin{document}
+
+
+
+
+
+\large
+
+%\input{Maslyuchenko(notations).tex}
+
+\def\bibname{Список літератури}
+\def\contentsname{Зміст}\def\chaptername{РОЗДІЛ}\def\thesection{\arabic{section}}
+
+\newtheorem{thm}{Теорема}[section]
+\newtheorem{tve}[thm]{Твердження}
+\newtheorem{lem}[thm]{Лемма}
+\newtheorem{nas}[thm]{Наслідок}
+\newtheorem{zau}[thm]{Зауваження}
+\newtheorem{prb}[thm]{Проблема}
+\newtheorem{zad}{Задача}[section]
+
+\theoremstyle{definition}
+\newtheorem{ozn}{Означення}[section]
+\newtheorem{pry}{Приклад}[section]
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Грецькі букви %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\a{\alpha}       \def\b{\beta}   \def\g{\gamma}   \def\d{\delta}
+\def\e{\varepsilon}  \def\f{\varphi} \def\w{\omega}   \def\s{\sigma}
+\def\x{\xi}          \def\y{\eta}    \def\z{\zeta}
+\def\la{\lambda}      \def\m{\mu}     \def\n{\nu}      \def\k{\varkappa}
+\def\r{\varrho}      \def\t{\tau}    \def\i{\iota}    \def\p{\psi}
+\def\th{\theta}
+\def\G{\Gamma}       \def\D{\Delta}  \def\F{\Phi}     \def\W{\Omega}
+\def\S{\Sigma}       \def\La{\Lambda} \def\P{\Psi} \def\M{\mathrm{M}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Жирні грецькі букви %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\bM{{\bf M}}
+\def\bS{{\bf \Sigma}}
+\def\bG{{\bf \Gamma}}
+\def\bL{{\bf \Lambda}}
+\def\bP{{\bf \Pi}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Писані букви %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ca{{\mathcal A}} \def\cb{{\mathcal B}} \def\cc{{\mathcal C}} \def\cd{{\mathcal D}}
+\def\cf{{\mathcal F}} \def\ce{{\mathcal E}} \def\cu{{\mathcal U}} \def\cv{{\mathcal V}}
+\def\cw{{\mathcal W}} \def\cl{{\mathcal L}} \def\ct{{\mathcal T}} \def\cs{{\mathcal S}}
+\def\cg{{\mathcal G}} \def\cp{{\mathcal P}} \def\cn{{\mathcal N}} \def\cm{{\mathcal M}}
+\def\ci{{\mathcal I}} \def\cj{{\mathcal J}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Потовщенi букви %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\br{{\mathbb R}} \def\bc{{\mathbb C}} \def\bn{{\mathbb N}} \def\bl{{\mathbb L}}
+\def\bz{{\mathbb Z}} \def\bd{{\mathbb D}} \def\bi{{\mathbb I}}
+\def\bq{{\mathbb Q}} \def\obr{\ov{{\mathbb R}}} \def\bs{{\mathbb S}} \def\ba{{\mathbb A}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Операції та функції %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\Cup{\bigcup\limits}    \def\Cap{\bigcap\limits}    \def\iy{\infty}
+\def\Prod{\prod\limits}     \def\Sum{\sum\limits}       \def\Sqcup{\bigsqcup\limits}
+\def\<{\subseteq}           \def\>{\supseteq}           \def\*{\times}
+\def\ov{\overline}          \def\Int{{\rm int}}       \def\Cl{{\rm cl}}
+\def\pr{{\rm pr}}         \def\copr{{\rm copr}}     \def\dim{{\rm dim}}
+\def\fr{{\rm fr}}         \def\ext{{\rm ext}} \def\supp{{\rm supp}\,}
+\def\os{\stackrel{\underline{\phantom{\subset}}}{\subset}}
+\def\diam{{\rm diam}}     \def\span{{\rm span}}     \def\co{{\rm co}}
+\def\absco{{\rm absco}} \def\sup{\mathop{\rm sup}\limits}
+\def\inf{\mathop{\rm inf}\limits}  \def\lim{\mathop{\rm lim}\limits}
+\def\Lim{\mathop{\rm Lim}\limits}  \def\stm{\setminus}  \def\xp{{\rm xp}}
+\def\toto{\stackrel{\longrightarrow}{\scriptstyle\longrightarrow}}
+\def\lra{\Leftrightarrow}    \def\la{\Leftarrow}  \def\ra{\Rightarrow}
+\def\wg{\wedge} \def\lil{\lim\limits} \def\lr{{\rm lr}} \def\diam{{\rm diam}\,}
+\def\Fr{{\rm fr}\,} \def\Cr{\mathrm{cr}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Iнше %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\dis{\displaystyle}\def\~{\tilde}\def\wt{\widetilde}
+\def\#{\prec}\def\ua{U^\alpha}\def\ub{U^\beta}\def\va{V^\alpha}
+\def\vb{V^\beta}\def\lt{\ell_\iy(T)}\def\bigtu{\bigtriangleup}
+\def\ov{\overline}\def\wt{\widetilde} \def\iy{\infty}
+\def\0{\varnothing}\def\ts{\textstyle}\def\Cr{\mathrm{cr}\,}
+\def\CL{CL}\def\KL{KL}\def\LL{LL}
+\def\olim{\mathop{\overline{\mathrm{Lim}}}\limits}
+\def\iu{^{\vee}}
+\def\iul{^{\vee\hspace{-0,3em}\wedge}}
+\def\iulu{^{\vee\hspace{-0,3em}\wedge\hspace{-0,3em}\vee}}
+\def\il{^{\wedge}}
+\def\ilu{^{\wedge\hspace{-0,3em}\vee}}
+\def\ilul{^{\wedge\hspace{-0,3em}\vee\hspace{-0,3em}\wedge}}
+\def\ra{\Rightarrow}
+\def\intl{\int\limits} \def\tod{\stackrel{d}{\to}}
+\def\pperp{^{\perp\hspace{-0,4em}\perp}}
+\def\smr{\vartriangle}
+
+\def\Ls{\mathop{\overline{\mathrm{Lim}}}\limits}
+\def\cr{\operatorname{cr}}
+\def\cf{\operatorname{cf}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{titlepage}
+
+\begin{center}
+	
+		\begin{flushright}
+			{\normalsize \textbf{math\_2023\_010}}
+	\end{flushright}
+{\Large\bf Міністерство освіти і науки України
+
+Чернівецький національний університет
+
+імені Юрія Федьковича}
+
+\bigskip
+
+{ \textbf{\emph{Факультет математики та інформатики}}
+
+\textbf{\emph{Кафедра математичного аналізу}}
+}
+
+
+
+\vfill
+
+
+{\LARGE\bf Простір нарізно неперервних функцій з навхрест-рівномірною топологією}
+
+\bigskip
+
+{  \textbf{\emph{Кваліфікаційна робота}}
+
+\textbf{\emph{Рівень вищої освіти -- другий (магістерський)}}}
+\end{center}
+
+\vfill
+
+	\hfill
+\parbox{70mm}{\normalsize
+\textbf{\emph{Виконав}}:
+
+\emph{студент 6 курсу, 605 групи}
+		
+\textbf{\emph{Івасюк Роман Вікторович}}
+	
+\bigskip
+
+	\textbf{\emph{Керівник}}:
+
+\emph{доктор фізико-математичних наук,}
+
+\emph{професор}  \textbf{\emph{Маслюченко~O.~B.}} }
+
+\vfill
+
+ {\normalsize \textbf{\emph{До захисту допущено}}
+
+\textbf{\emph{на засіданні кафедри математичного аналізу}}
+
+\bigskip
+
+\textbf{\emph{Протокол  № \underline{\hspace{5mm}}
+від ``\underline{\hspace{5mm}}'' \underline{\hspace{25mm}} 2023 р.}}
+
+\bigskip
+
+\textbf{\emph{Зав. кафедри \underline{\hspace{30mm}} проф. Михайлюк~В.~В.}}}
+\vfill
+
+ \centerline{\bf Чернівці -- 2 0 2 3}
+
+
+
+
+
+\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+{\pagestyle{empty}
+%\chapter*{Анотація}
+\begin{center}
+\Large\bf  Анотація
+\end{center}
+
+
+Дана робота присвячена вивченню властивостей простору нарізно неперервних функцій з топологією навхрест-рівномірної збіжності. Зокрема, в роботі вводиться поняття точної клітковості топологічного простору і встановлюється, що для того, що компактний топологічний простір гомеоморфно вкладався в простір нарізно неперервних функцій на добутку двох компактів необхідно і досить, щоб вага вихідного компакта буле би менша за точну клітковість співмножників.
+
+\bigskip
+{\bf Ключові слова}: простір неперервних функцій, простір нарізно неперервних функцій, топологія поточкової збіжності, топологія навхрест-рівномірної збіжності, вага, щільність, клітковість, точна клітковість.
+
+\vfill
+
+\begin{center}
+\Large\bf  Annotation
+\end{center}
+
+
+This thesis devotes to the studying of properties of the space of separately continuous function with the cross-uniform topology. In particular, in this thesis we introduce the notion of the sharp cellularity and prove that a compact embeds into the space of separately continuous functions on the product of two compacts if and only if the weight of the compact less then the sharp cellularity of the multipliers.
+
+\bigskip
+{\bf Keywords}: space of continuous functions, space of separately continuous functions, topology of pointwise convergent, topology of cross-uniform convergent, weight, density, cellularity, sharp cellularity.
+
+\vfill
+
+
+Дипломна робота містить результати власних досліджень. Використання ідей, результатів і текстів наукових досліджень інших авторів мають посилання на відповідне джерело.
+
+
+
+\hfill\underline{\hspace{50mm}} Р.~В.~Івасюк
+
+
+
+}
+
+
+\setcounter{page}{2}
+\newpage
+\tableofcontents
+
+
+
+\newpage
+\section{Вступ}
+
+Природна топологія на просторі $S$ усіх нарізно неперервних функцій  $f:[0,1]^2\to \mathbb{R}$ була введена в  \cite{VMa} і називалася там \emph{топологією пошарово рівномірної збіжності}. Цю топологію можна розглядати і на просторі $S(X\times Y)$ усіх нарізно неперервних функцій  ${f:X\times Y\to \mathbb{R}}$ для довільних топологічних просторів $X$ і $Y$. База цієї топології складається з множин
+${
+	W_{E,\varepsilon}(f_0)=\Big\{f\in S(X\times Y):|f(p)-f_0(p)|<\varepsilon\mbox{ для довільного }p\in\mathrm{cr}E\Big\},
+}$
+де $E$ є скінченною підмножиною $X\times Y$,  $\mathrm{cr}E=(X\times\mathrm{pr}_Y(E))\cup(\mathrm{pr}_X(E)\times Y)$ -- \emph{хрест} множини $E$, $\varepsilon>0$ і $f_0\in S(X\times Y)$. Ми будемо називати її  \emph{топологією навхрест рівномірної збіжності} і завжди наділятимемо цією топологією простір $S(X\times Y)$. Якщо $X$ та $Y$ є компактами, то $S(X\times Y)$ є топологічним векторним простором.
+У статті \cite{VMa} було встановлено тільки, що $S=S([0,1]^2)$ є сепарабельним неметризовним повним простором і автор запитував про іншу властивості цього простору $S$.
+В \cite{VMaM1,VMaM2,VMaM3}  автори встановили, що $S(X\times Y)$ є простором першої категорії, повним, бочковим і борнологічним топологічним векторним простором для довільних компактів $X$ та $Y$  без ізольованих точок.
+
+
+Інше інтригуюче питання пов'язане з описом компактів, які гомеоморфно вкладаються в простір  ${S(X{\times}Y)}$ для деяких компактів  $X$ та $Y$.
+Скажімо, компактні підпростори простору $B_1(X)$ функцій першого класу з топологією поточкової збіжності на польському просторі $X$ -- це так звані компакти Розенталя.
+З іншого боку, відомо, що  $S([0,1]^2)\subseteq B_1([0,1]^2)$ а також кожна функція першого класу Бера на діагоналі одиничного квадрата продовжується до нарізно неперервної функції на квадраті. Крім того, компактні підпростори простору неперервних функцій з топологією поточкової збіжності на компакті -- це так звані компакти Еберлейна. Отож ми очікували на появу на появу просторів типу компактів Еберлейна чи Розенталя. Але виявилося, що структура компактних підпросторів простору  $S(X\times Y)$ набагато простіша. Нехай $w(X)$ -- це вага топологічного простору $X$ і  $c(X)$ -- клітковість $X$. \emph{Точна клітковість} -- це
+$c^\sharp(X)=\sup\Big\{|\mathcal U|^+:\mathcal U\mbox{ диз'юнктна відкрита система в }X\Big\}$,
+де  $|A|$ означає потужність множини $A$ і $\frak m^+$ -- найменше кардинальне число, що більше за $\frak m$. В даній роботі ми встановлюємо наступний результат: для того, щоб компакт $K$ гомеоморфно вкладався в простір $S(X\times Y)$ необхідно і досить, щоб ${w(K)<\min\{c^\sharp(X),c^\sharp(Y)\}}$. Це результат, а також його загальніша версія доповідалися на міжнародних конференціях \cite{MI1,MI2}.
+
+
+
+
+
+
+\newpage
+
+\section{Топологізація простору нарізно неперервних функцій}
+\label{section_1}
+Нехай $X$, $Y$, $Z$ -- топологічні простори, $P = X \times Y$ і $f: P \to Z$ -- деяка функція двох змінних. Для $x \in X$ i $y \in Y$ позначимо
+
+$$
+f_x(y)=f^y(x)=f(x,y)
+$$
+
+Таким чином визначаються функції $f^x:Y \to Z$ і $f_y:X \to Z$ для довільних $x \in X, y \in Y.$
+
+Функція $f$ називається \emph{нарізно неперервною в точці} $(x_0, y_0) \in X \times Y$, якщо $f^{x_0}$
+неперервне в точці $y_0$ і $f_{y_0}$ неперервне в точці $x_0$. Кажемо, що $f$ \emph{нарізно неперервна},
+якщо $f$ нарізно неперервна в кожній точці $p \in P = X \times Y$ тобто, якщо $f^x$ і $f_y$ неперервні для довільних $x \in X$ і $y \in Y$. Символом $S(P,Z) = S(X \times Y,Z)$ позначатимемо
+множину усіх нарізно неперервних функцій $f: X \times Y \to Z$. У випадку, якщо $Z=\br$, то $Z$ пропускатимемо, тобто $S(P) = S(P,\br)$.
+
+Зрозуміло що $S(P)$ є векторним простором з $\br$ відносно операцій поточкового додавання і множення на скаляри
+$$
+(f+g)(p)=f(p)+g(p), (\lambda f)(p) = \lambda f(p), \quad p \in P,
+$$
+для довільних $f, g \in S(P)$ і $\lambda \in \br$. Більше того, $S(P)$ є векторною алгеброю відносно операції поточкового множення
+$$
+(f\cdot g)(p)=f(p) g(p), \quad p \in P,
+$$
+для $f,g \in S(P).$
+
+\emph{Координатні проекції} $\pr_X:P \to X$ і $\pr_Y:P \to Y$ визначаються формулами $\pr_X(p)=x$, $\pr_Y(p)=y,$ де $p=(x,y) \in P.$ Для множини $E\subseteq P$ множина
+$$
+\cr E=(\pr_X(E)\times Y)\cup (X \times \pr_Y(E))
+$$
+називається \emph{хрестом} множини $E$
+
+У випадку $E=\{p\},$ де $p=(x,y) \in P$, матимемо, що
+$$
+\cr\{p\}=(\{x\}\times Y)\cup (X \times \{y\})
+$$
+
+Зрозуміло, що $f^x$ буде неперервною тоді і тільки тоді, коли звуження $f \big|_{\{x\}\times Y}$
+неперервне. Аналогічно, функція $f_y$ буде неперервною, якщо $f \big|_{X\times \{y\}}$ неперервна.
+
+Таким чином, функція $f$ буде нарізно неперервною в тому і тільки в тому випадку коли звуження
+$$
+f \big|_{\cr\{p\}} \text{ неперервне для кожного } p \in P.
+$$
+
+До речі, хрест множини можна записати інакше
+
+$$
+\cr E=\{(u,v) \in P: u \in pr_X(E) \text{ або }v \in pr_X(E)\}
+$$
+а у випадку $E=\{p\}$, де $p=(x,y),$
+$$
+\cr\{p\}=\{(u,v) \in P: u = x \text{ або }v = y\}
+$$
+
+Нехай $X,Y$ -- топологічні простори, а  $Z$ -- метричний простір.
+Опишемо природний спосіб топологізації простору $S(X \times Y, Z)$.
+Метрику на просторі $Z$ позначатимемо символом $| \cdot - \cdot |_Z$.
+Нехай $E$ -- скінченна підмножина $P=X\times Y$ $\varepsilon > 0$ і $s_0 \in S(P,Z)$.
+Позначимо
+$$
+W_{E,\varepsilon}(s_0)=\Big\{s\in S(P,Z):\forall p \in \mathrm{cr}E\  \Big|\  |s(p)-s_0(p)|_Z<\varepsilon\Big\}.
+$$
+\emph{Топологія навхрест-рівномірної збіжності} -- це
+$$
+\ct_{cr}=\Big\{G\subseteq S(P,Z):\forall s \in G\  \exists E\text{ -- скінченна в }P\  \exists \varepsilon>0\  \Big|\
+W_{E,\varepsilon}(s)\subseteq G\Big\}
+$$
+тобто система $\{W_{E,\varepsilon}(s):E$ -- скінченна в $P$ і $\varepsilon > 0 \}$ утворює базу околів цієї топології. Іншими словами
+$$
+W\text{ -- окіл }s\text{ в }S(P,Z)\Leftrightarrow \exists E\text{ -- скінченна }\exists \varepsilon > 0 \Big| W_{E,\varepsilon}(s)\subseteq W
+$$
+На просторі $S(P,Z)$ завжди розглядатимемо топологію навхрест-рівномірної збіжності $\ct_{cr}$.
+Назва цієї топології походить від того факту факту, що для напрямленості $(s_m)_{m \in M}$ в $S(P,Z)$ і $s \in S(P,Z)$
+$$
+s_m \to s \text{ в }S(P,Z)\Leftrightarrow \forall p \in P \Big| s_m \rightrightarrows s\text{ на }cr\{p\}
+$$
+
+Насправді, ця топологія багато в чому подібна до \emph{топології поточкової збіжності} на просторі неперервних функцій $C(X,Z)$, яка породжується базисним околом
+$$
+V_{E,\varepsilon}(s_0)=\Big\{s\in C(X,Z):\forall x \in E \Big| |s_0(x)-s(x)|_Z<\varepsilon\Big\}
+$$
+тобто, топологія поточкової збіжності -- це
+$$
+\ct_p=\Big\{G\subseteq C(X,Z):\forall s \in G \exists E \text{ -- скінченна }\exists \varepsilon > 0 \Big|
+V_{E,\varepsilon}(s_0)\subseteq G\Big\}
+$$
+\emph{Простір неперервних функцій з топологією поточкової збіжності} позначатимемо $C_p(X,Z)$, (і, як звичайно $Z$ пропускається у випадку $Z=\br$). Як відомо
+$$
+s_m \to s \text{ в } C_p(X,Z)\Leftrightarrow \forall x \in X \Big| s_m(x) \rightarrow s(x).
+$$
+На жаль в загальній ситуації топологія $\ct_{\cr}$ не є лінійною топологією на $S(X \times Y)$, бо операція множення на скаляр не є, взагалі кажучи, неперервною.
+\begin{pry}
+Операція множення на скаляр не є неперервною в просторі $S(\br^2)$.
+\end{pry}
+Але природною ситуацією, коли топологія $\ct_{\cr}$ лінійна є компактність (навіть псевдокомпактність) просторів $X$ та $Y$. І надалі ми вважатимемо, що $X$ та $Y$ компакти. Для $p=(x,y) \in P$ визначену функцію $\| \cdot \|_p:S(X \times Y)\rightarrow \br$ за правилом
+$$
+\|s\|_p=\max \limits_{q \in \cr\{p\}} |s(q)|=\max \limits_{u=x \text{ або } v=y} |s(u,v)|=
+$$
+$$
+=\max \{\max \limits_{v \in Y} |s^x(v), \max \limits_{u \in X}|s_y(u)|\} = \max \{\|s^x\|_\infty, \|s_y\|_\infty\}, s \in S,
+$$
+де $\| \cdot \|_\infty$ означає максимум норму у відповідному просторі неперервних функцій $C(X)$ чи $C(Y)$.
+
+Тоді для довільної скінченної множини $E \subseteq P$ і числа $\varepsilon > 0$
+$$
+W_{E,\varepsilon}(s_0)=\{s \in S(P): \forall p \in E \big| \|s-s_0\|_p < \varepsilon\},
+$$
+адже $E = \bigcup \limits_{p \in E} \cr\{p\}.$
+
+Отже, топологія $\ct_{cr}$ в цій ситуації породжується сім'єю переднорм \mbox{$(\| \cdot \|_p)_{p \in P}$}. Таким чином $S(P)$ буде локально опуклим топологічним векторним простором.
+
+В роботах [1 - 3] було доведено, що $S(P)$ є повним топологічним векторним простором, не метризовним (якщо $P=[0,1]^2$ першої категорії Бера ($X$ -- нескінченний, $Y$ без ізольованих точок)), бочковий і борнологічний.
+
+Нагадаємо, що компакт $K$ називається \emph{компактом Еберлейна}, якщо існує компакт $X$ такий, що $K$ гомеоморфний до деякого підпростору $C_p(X)$. Також є відомими клас \emph{компактів Розенталя} тобто таких компактів, які гомеоморфно вкладаються в простір $B_1(X)$ функцій першого класу Бера для деякого польського простору $X$.
+
+У зв'язку з цими класами компонентів природно постає наступне питання:
+\begin{prb}
+Для який компактів $K$ існують компакти $X$ та $Y$ такі, що $K$ гомеоморфно вкладається в $S(X \times Y) ?$
+\end{prb}
+Особливої інтриги додають наступні обставини:
+
+-- кожна нарізно неперервна функція $f:[0;1]^2 \rightarrow \br$ належить до першого класу Бера,
+
+-- для кожної функції першого класу Бера $g:[0;1] \rightarrow \br$ існує нарізно неперервна функція $f:[0;1]^2 \rightarrow \br$ така, що $f(x,x)=g(x)$ при $x \in [0;1].$
+
+\newpage
+
+\section{Нарізна неперервність функції обчислення на просторі $S(X \times Y)$}
+
+Нехай $T$ -- деяка множина і $\br^T$ -- це простір цих функцій $s:T \rightarrow \br$. Розглянемо деяку підмножину $S \subseteq \br^T$ \emph{Функцією обчислення} множини $S$ називається  функція двох змінних $e_S:S \times T \rightarrow \br$, що діє за правилом
+$$
+e_S(s,t)= s(t),\ \ \  s \in S,\  t \in T
+$$
+Нагадаємо, що для функції $n$ змінних $f:P= \Prod_{k=1}^n X_k \to Z$
+$a=(a_k)_{k=1}^n$ і $j=1,2,...,n$ функція однієї змінної $f_{a,j}:X_j \to Z$ визначається формулою
+$$
+f_{a,j}(t)=f(a_1,...,a_{j-1},t,a_{j+1},...,a_n),\ \  t \in X_j
+$$
+Функція а називається \emph{нарізно неперервною}, якщо для довільних $a \in P$ та $j = 1,2,...,n$ функція $f_{a,j}$ неперервна. Якщо $f:X \times Y \rightarrow Z$ функція двох змінних і $p=(x,y) \in P = X \times Y$ то
+$$
+f_{p,1}(t)=f(t,y)=f_y(t),\ \  t \in X,
+$$
+$$
+f_{p,2}(t)=f(x,t)=f^x(t),\ \  t \in Y.
+$$
+Тобто $f_{p,1}=f_y$ і $f_{p,2}=f^x.$ Таким чином, у випадку $n = 2$ це означення нарізної неперервності збігається з означенням з пункту~\ref{section_1}
+\begin{tve}
+\label{tve_1}
+Нехай $X$ -- топологічний простір, $Z$ -- метричний простір і $C=C_p(X,Z).$ Тоді функція обчислення $e=e_C:C \times X \rightarrow Z$, що діє за правилом $e(s,x)=s(x), s \in C, x \in X$, є нарізно неперервною функцією.
+\end{tve}
+\begin{proof}
+Нехай $s_0 \in C$ і $x_0 \in X.$ Тоді $e^{s_0}(x)=s(x)$ для $x \in X$.
+Отже, $e^{s_0}(x)=s_0$ є неперервною функцією.
+
+Перевіримо неперервність функції $e_{x_0}:C \rightarrow Z.$ в точці $s_0.$
+Візьмемо $\varepsilon > 0$ і покладемо
+$$
+V=V_{\{x_0\},\varepsilon}(s_0)=\big\{s \in C: |s(x_0)-s_0(x_0)|_Z < \varepsilon \big\}
+$$
+Тоді для довільного $s \in V$ матимемо, що
+$$
+|e_{x_0}(s)-e_{x_0}(s_0)|_Z=|s(x_0)-s_0(x_0) < \varepsilon
+$$
+Отже, ми показали, що
+$$
+\forall \varepsilon > 0 \exists V \text{ окіл } s_0 \text{ в } C \forall s \in V \Big| |e_{x_0}(s)-e_{x_0}(s_0)| < \varepsilon .
+$$
+Тобто, функція $e_{x_0}$ є неперервною. Значить, $e$ є нарізно неперервною функцією.
+\end{proof}
+
+\begin{tve}
+\label{tve_2}
+Нехай $X,Y$ -- топологічні простори, $Z$ -- метричний простір, $S = S(X \times Y, Z)$, $\overline{X}=X \times S$, $\wt{Y}= Y \times S$ і функції $e : X \times Y \times S \rightarrow Z$,  $e_1: X \times \wt{Y} \rightarrow Z$, $e_2: \wt{X} \times Y \rightarrow Z$ діють за правилом
+$$
+e(x,y,s)=e_1(x,\~{y})=e_2(\~{x},y)=s(x,y)
+$$
+для довільних $x \in X$, $y \in Y$, $s \in S$, $\~{x}=(x,s) \in \wt{X}$, $\~{y}=(y,s) \in \wt{Y}$
+
+Тоді функції $e,e_1,e_2$ є нарізно неперервними
+\end{tve}
+\begin{proof}
+Перевіримо, що $e$ є нарізно неперервною функцією трьох змінних. Розглянемо $a=(x_0,y_0,s_0)$ з добутку $P=X \times Y \times S$. Тоді
+$$
+e_{a,1}(x)=e(x,y_0,s_0)=s_0(x,y_0)=(s_0)_{y_0}(x), \, x \in X
+$$
+$$
+e_{a,2}(y)=e(x_0,y,s_0)=s_0(x_0,y)=s_0^{x_0}(y), \, y \in Y,
+$$
+а значить, функції $e_{a,1}=(s_0)_{y_0}$ і $e_{a,2}=s_0^{x_0}$ неперервні, бо $s_0$ є нарізно неперервною.
+
+Перевіримо неперервність функції $e_{a,3}$ в точці $s_0$. Візьмемо $\varepsilon > 0$. Покладемо $p_0=(x_0,y_0)$ і
+$$
+W=W_{\{p_0\},\varepsilon}(s_0)=\big\{s \in S: \forall p \in cr\{p_0\} \Big| |s(p)-s_0(p)|_Z < \varepsilon\big\}
+$$
+Зрозуміло, що $W$ є околом $s_0$ в $S$. Тоді для довільного $s \in W$ матимемо, що
+$$
+\big|e_{a,3}(s)-e_{a,3}(s_0)\big|_Z = \big|e(x_0,y_0,s)-e(x_0,y_0,s_0)\big|_Z =
+$$
+$$
+=\big|s(x_0,y_0)-s_0(x_0,y_0)\big|_Z = \big|s(p_0-s_0(p_0))\big|_Z < \varepsilon,
+$$
+адже $p_0 \in \cr\{p_0\}$. Таким чином, ми пояснили, що
+$$
+\forall \varepsilon > 0 \exists W \text{ -- окіл }s_0\text{ в } S \forall s \in W\Big| |e_{a,3}(s)-e_{a,3}(s_0)|_Z < \varepsilon.
+$$
+Отже, $e_{a,3}$ теж є неперервною, і тому $e$ є нарізно неперервною функцією трьох змінних.
+
+Перевіримо нарізну неперервність функції $e_1$. Візьмемо $x_0 \in X, y_0 \in Y, s_0 \in S$, $\tilde{y_0}=(y_0,s_0) \in Y \times S = \wt{Y}$. Тоді
+$$
+(e_1)_{\tilde{y_0}}=e_1(x,\tilde{y_0})=s_0(x,y_0)=(s_0)_{y_0}(x), x \in X.
+$$
+Отже, функція $(e_1)_{\tilde{y_0}}=(s_0)_{y_0}$ неперервна, адже $s_0$ є нарізно неперервною функцією.
+
+Залишилося перевірити неперервність функції $e^{x_0}_1$ в точці $\tilde{y_0}$. Візьмемо $\varepsilon{>}0$ і позначимо $p_0=(x_0,y_0)$. Оскільки $s_0$ нарізно неперервна в точці $p_0$, то функція $s^{x_0}_0$ неперервна в точці $y_0$. Отже, існує окіл $V$
+ точки $y_0$ такий, що
+$$
+\big|s^{x_0}_0(y)-s^{x_0}_0(y_0)\big|_Z < \frac{\varepsilon}{2} \text{ при } y \in V.
+$$
+Далі покладемо
+$$
+W=W_{\{p_0\}, \frac{\varepsilon}{2}}(s_0)=\Big\{s \in S: \forall p \in \cr\{p_0\} \Big| |s(p)-s_0(p)|_Z< \tfrac{\varepsilon}{2}\Big\}
+$$
+Зрозуміло, що $W$ є околом $s_0$ в $S$, а тому $\wt{V}=V \times W$ є околом $\tilde{y_0}=(y_0,s_0)$ в просторі $\wt{Y}$. Візьмемо деяку точку $\tilde{y}=(y,s) \in \wt{V}$. Тоді $y \in V$ і $s \in W$. Тому, враховуючи, що $p=(x_0,y) \in
+ \cr\{p_0\}$, матимемо
+$$
+\big|e^{x_0}_1(\tilde{y})-e^{x_0}_1(\tilde{y_0})\big|_Z=\big|e_1(x_0,\times{y})-e_1(x_0,\times{y_0})\big|_Z=
+$$
+$$
+=\big|s(x_0,y)-s_0(x_0,y_0)\big|_Z \leq \big|s(x_0,y)-s_0(x_0,y)\big|_Z + \big|s_0(x_0,y)-s_0(x_0,y_0)\big|_Z
+$$
+$$
+=\big|s(p)-s_0(p)\big|_Z + \big|s^{x_0}_0(y)-s^{x_0}_0(y_0))\big|_Z < \tfrac{\varepsilon}{2}+\tfrac{\varepsilon}{2}=\varepsilon
+$$
+Отже, ми перевірили, що
+$$
+\forall \varepsilon > 0 \exists \wt{V} \text{ -- окіл } \tilde{y_0} \forall \tilde{y} \in \wt{V} \Big| |e^{x_0}_1(\tilde{y})-e^{x_0}_1(\tilde{y_0})|_Z < \varepsilon .
+$$
+таким чином функція $e^{x_0}_1$ неперервна в точці $\tilde{y_0}$. А тому $e_1$ є нарізно неперервною функцією
+
+Перевіримо, що $e_2$ теж є нарізно неперервною. Візьмемо $x_0 \in X, y_0 \in Y, s_0 \in S$, $\tilde x_0=(x_0,s_0) \in X \times S = \wt{X}$. Тоді
+$$
+(e_2)_{\tilde x_0}=e_2(\tilde{x_0},y)=s_0(x_0,y)=(s_0)_{x_0}(y), y \in Y.
+$$
+Отже функція $(e_2)_{\tilde x_0}=(s_0)_{x_0}$ неперервна, адже $s_0$ є нарізно неперервною функцією.
+
+Залишилося перевірити неперервність функції $e^{y_0}_2$ в точці $\tilde x_0$. Візьмемо ${\varepsilon > 0}$ і позначимо $p_0=(x_0,y_0)$. Оскільки $s_0$ нарізно неперервна в точці $p_0$, то функція $s^{y_0}_0$ неперервна в точці $x_0$. Отже, існує окіл $V$
+ точки $x_0$ такий, що
+$$
+\big|s^{y_0}_0(x)-s^{y_0}_0(x_0)\big|_Z < \tfrac{\varepsilon}{2} \text{ при } x \in V.
+$$
+Далі покладемо
+$$
+W=W_{\{p_0\}, \frac{\varepsilon}{2}}(s_0)=\Big\{s \in S: \forall p \in \cr\{p_0\} \Big| |s(p)-s_0(p)|_Z< \tfrac{\varepsilon}{2}\Big\}
+$$
+Зрозуміло, що $w$ є околом $s_0$ в $S$, а тому $\wt{V}=V \times W$ є околом $\tilde x_0=(x_0,s_0)$ в просторі $\tilde{X}$. Візьмемо деяку точку $\tilde{x}=(x,s) \in \tilde{V}$. Тоді $x \in V$ і $s \in W$. Тому, враховуючи, що $p=(y_0,x) \in
+ \cr\{p_0\}$, матимемо
+$$
+\big|e^{y_0}_2(\tilde{x})-e^{y_0}_2(\tilde x_0)\big|_Z=\big|e_2(y_0,\times{x})-e_2(y_0,\times{x_0})\big|_Z=
+$$
+$$
+=\big|s(y_0,x)-s_0(x_0,y_0)\big|_Z \leq \big|s(y_0,x)-s_0(y_0,x)\big|_Z + \big|s_0(y_0,x)-s_0(x_0,y_0)\big|_Z
+$$
+$$
+=\big|s(p)-s_0(p)\big|_Z + \big|s^{y_0}_0(x)-s^{y_0}_0(x_0))\big|_Z < \tfrac{\varepsilon}{2}+\tfrac{\varepsilon}{2}=\varepsilon
+$$
+Отже, ми перевірили, що
+$$
+\forall \varepsilon > 0\  \exists \tilde{V} \text{ -- окіл } \tilde x_0\  \forall \tilde{x} \in \tilde{V} \Big| |e^{y_0}_2(\tilde{x})-e^{y_0}_2(\tilde{x_0})|_Z < \varepsilon .
+$$
+таким чином функція $e^{y_0}_2$ неперервна в точці $\tilde{x_0}$. А тому $e_2$ є нарізно неперервною функцією
+\end{proof}
+
+\newpage
+
+\section{Аксіоми відокремленості}
+
+Топологічний простір $X$ називається \emph{$T_1$-простором}, якщо в ньому виконується аксіома відокремленості $T_1$. Тобто якщо для довільних різних точок $a,b \in X$ існує відкрита множина $U$ в $X$ така, що $a \in U$ і $b \notin V$.
+Як відомо, топологічний простір $X$ буде $T_1$-простором тоді і тільки тоді, коли кожна одноточкова множина $\{a\}$ є замкненою в $X$.
+
+Кажемо, що топологічний простір $X$ є \emph{гаусдорфовим} (або \emph{$T_2$ -- простором}), якщо в ньому виконується аксіома відокремленості $T_2$. Тобто якщо для довільних різних точок $a,b \in X$ існують відкриті множини $U, V$ в $X$ такі, що $a \in U$, $d \in V$ і $U \cap V = \0$.
+
+Простір $X$ називається \emph{$T_3$-простором}, якщо в ньому виконується аксіома відокремленості $T_3$. Тобто якщо для довільної замкненої множини $A$ в $X$ і точки $b \in X \setminus A$ існують відкриті множини $U, V$ в $X$ такі, що $A \subseteq U$, $b \in V$ і $U \cap V = \0$. Простір $X$ називається \emph{регулярним}, якщо він є $T_1$ -- простором і $T_3$ -- простором. Ясно, що кожний регулярний простір є гаусдорфовим.
+
+Топологічний простір $X$ називається \emph{$T_4$-простором}, якщо в ньому виконуються аксіоми відокремленості $T_4$. Тобто якщо для довільних неперервних замкнених множин $A$ та $B$ в $X$ існують відкриті множини $U$ та $V$ в $X$ такі, що $A \subseteq U$, $B \subseteq V$ і $U \cap V = \0$. Простір $X$ називається \emph{нормальним}, якщо він є $T_1$-простором і $T_4$-простором.
+
+Як відомо в нормальних просторах (навіть в $T_4$ -- просторах) виконується
+\begin{lem}[Лема Урисона]
+\label{lem_1}
+Нехай $X$ -- $T_4$ -- простір, $A,B$ -- замкнені в $X$ такі, що $A \subseteq B = \0$. Тоді існує неперервна функція $f: X \rightarrow [0;1]$ така, що $f(x)=0$ при $x \in A$ і $f(x)=1$ при $x \in B$.
+\end{lem}
+
+Нагадаємо, що топологічний простір $X$ називається \emph{$T_{3 \frac{1}{2}}$ -- простором} якщо в ньому виконується аксіома відокремленості $T_{3\frac{1}{2}}$. Тобто якщо для довільної замкненої множини $A$ в $X$ і для довільної точки $b$ в $X \setminus A$ існує неперервна функція $f:X \rightarrow [0;1]$ така, що $f(x)=0$ при $x \in A$ і $f(b)=1$
+
+Простір $X$ називається \emph{цілком регулярним}, якщо він є $T_1$-простором і $T_{3 \frac{1}{2}}$-простором. Зрозуміло, що цілком регулярний простір є регулярним. Крім того з леми Урисона випливає, що кожний нормальний простір є цілком регулярним.
+
+Зауважимо, що кожний метризовний простір є нормальним. Крім того, кожний гаусдорфовий компактний простір є нормальним.
+
+\section{Скрізь розривність функції обчислення і неберовість простору $S(X \times Y, Z)$}
+
+Нехай $X$ -- топологічний простір. Нагадаємо, що точка $x$ називається \emph{ізольованою} в $X$, якщо множина $\{x\}$ є відкритою в $X$.
+
+\begin{tve}
+\label{tve_3}
+Нехай $X$ та $Y$ -- цілком регулярні топологічні простори без ізольованих точок, $Z$ -- нормований простір і $S=S(X \times Y, Z)$ і $e,e_1,e_2$ такі як в твердженні ~\ref{tve_2}. Тоді ці функції будуть скрізь розривними.
+\end{tve}
+\begin{proof}
+Оскільки $e(x,y,s)=e_1(x,(y,s))=e_2((x,s),y)=s(x,y)$ для $x \in X$, $y \in Y$, $s \in S$ то досить перевірити, що функція $e$ буде скрізь розривною на $X \times Y \times S$.
+
+Візьмемо деяку точку $(x_0,y_0,s_0) \in X \times Y \times S$ і покажемо, що функція $e$ розривна в цій точці. Нехай $z_0=e(x_0,y_0,s_0)=s_0(s_0,y_0)$. Оскільки $|Z|\geq 2$, то існує $z_1 \in Z$ таке, що $z_1 \neq z_0$. Визначимо функцію $\gamma : [0;1]\rightarrow Z$, $\gamma(t)=t(z_1-z_0)$, $t \in [0;1]$. Тоді $\gamma$ є неперервною і $\gamma(0)=0$, $\gamma(1)=z_1-z_0$
+
+Покладемо $\varepsilon_0 = |z_0-z_1|_Z$, і доведемо, що для довільного околу $G$ точки $(x_0,y_0,s_0)$ існує точка $(x,y,z) \in G$ така, що
+$$
+|e(x,y,s)-z_0|_Z \geq \varepsilon_0
+$$
+Візьмемо окіл $G$ точки $(x_0,y_0,s_0)$. Тоді існують відкриті множини $U \ni x_0$, $V \ni y_0$ і скінченна множина $E \subseteq X \times Y$ та число $\delta > 0$ такі що для $W=W_{E,\delta}(s_0)$ виконується, що $U \times V \times W \subseteq G$. Множина $E_0=E\cup \{x_0,y_0\}$ теж скінченна, а тому її проекції $\pr_X(E_0)$ і $\pr_Y(E_0)$  є скінченними, а значить, ніде не щільними в $X$ та $Y$ відповідно, адже ці простори не мають ізольованих точок. Тому існують відкриті непорожні множини $U_1\subseteq U$ та $V_1 \subseteq V$ такі, що $U_1 \cap \pr_X(E_0)= \0$ і $V_1 \cap \pr_X(E_0)= \0$. Тоді $(U_1 \times V_1) \cap  \cr E_0 = \0$. Далі виберемо деяку точку $(x_1,y_1) \in U_1 \times V_1$. Оскільки простори $X$ та $Y$ цілком регулярні, то існують неперервні функції $\alpha:X\rightarrow [0;1]$, $\beta:Y\rightarrow [0;1]$ такі, що $\alpha (x_1)=1$, $\beta (y_1)=1$
+ і $\alpha (x)=0$ при $x \in X \setminus U_1$, $\beta (y)=0$ при $y \in Y \setminus V_1$. Тоді функція $\tilde{s}:X \times Y \rightarrow Z$, $\tilde{s}(x,y)=\gamma(\alpha(x) \beta(y))$, $(x,y) \in X \times Y$, є неперервною, а значить є нарізно неперервною. Крім того $\tilde{s}(x_1,y_1)=\gamma(\alpha(x_1) \beta(y_1))=\gamma(1)=z_1-z_0$. Далі при $(x,y) \in \cr E_0$, то $x \in X \setminus U_1$ і $y \in Y \setminus V_1$, а тому $\tilde{s}(x,y)=\gamma(\alpha(x) \beta(y))=\gamma(0)=0$
+
+Покладемо $s_1=s_0+ \tilde{s}$. Тоді $s_1 \in S$ причому $s_1(x,y)=s_0(x,y)+\tilde{s}(x,y)=s_0(x,y)$ при $(x,y) \in crE_0$ а тому $s_1 \in W_{E,\varepsilon}(s_0)=W$. Отже $(x_1,y_1,s_1) \in U \times V \times W \subseteq G$. Крім того,
+$$e(x_1,y_1,s_1)=s_1(x_1,y_1)=s_0(x_1,y_1)+ \tilde{s}(x_1,y_1)=z_0 +(z_1-z_0)=z_1.$$
+Отже, $|e(x_1,y_1,s_1)-e(x_0,y_0,s_0)|_Z = |z_1-z_0|_Z= \varepsilon_0$.
+Таким чином, $e$ розривне в точці $(x_0,y_0,z_0)$.
+\end{proof}
+
+\begin{thm}
+Нехай $X$ та $Y$ -- метризовні компакти без ізольованих точок, і $Z$ нормований простір. Тоді $S=S(X \times Y, Z)$ є першої категорії в собі.
+\end{thm}
+
+\begin{proof}
+За твердженнями ~\ref{tve_2} і ~\ref{tve_3} функція обчислення $e:X \times Y \times S \rightarrow Z $ є нарізно неперервною скрізь розривною функцією. Тоді для довільної відкритої множини $G$ в $S$ функція $f=e\big|_{X \times Y \times G}$ теж є нарізно неперервною і скрізь розривною. Але з узагальнення теореми Бера про горизонталі випливає, що $f$ була би неперервна в багатьох точках, якби $G$ був берівським. Таким чином $G$ не є берівським простором. Звідси слідує, що берівське ядро простору $S$ є порожнім, а тому, $S$ першої категорії
+\end{proof}
+
+\newpage
+\section{Зведення до випадку компактів Еберлейна}
+Нагадаємо, що відображення $f:X \rightarrow Y$ між $X$ та $Y$ називається \emph{гомеоморфізмом}, якщо $f$ є бієкцією і $f$ та $f^{-1}$ є неперервними. Простори $X$ та $Y$ називаються \emph{гомеоморфними}, якщо існує деякий гомеоморфізм $f:X\rightarrow Y$. Відображення $f:X\rightarrow Y$ називається \emph{гомеоморфним вкладенням}, якщо $f$ є гомеоморфізмом простору $X$ і підпростору $f(X)\subseteq Y$. Кажемо, що простір $X$ \emph{гомеоморфно вкладається} в $Y$,
+якщо існує гомеоморфне вкладення $f:X\rightarrow Y$. Тобто $X$ гомеоморфно вкладається в $Y$ тоді і тільки тоді, коли $X$ гомеоморфний до деякого підпростору простору $Y$.
+
+Компакт $K$ називається \emph{компактом Еберлейна}, якщо існує такий компакт $X$, що $K$ гомеоморфно вкладається в простір неперервних функцій $C_p(X)$ з топологією поточкової збіжності
+
+\begin{lem}
+Нехай $X,Y,Z$ -- топологічні простори, $f:X \times Y \rightarrow Z$ і $\varphi:X \rightarrow Z^Y$, $\varphi(x)(y)=f(x,y)$ для $x \in X$, $y \in Y$. Тоді функція $f$ буде нарізно неперервною в тому і тільки тому випадку, коли $\varphi:X \rightarrow C_p(Y,Z)$ є неперервними відображеннями.
+\end{lem}
+
+\begin{proof}
+Нехай $f:X \times Y \rightarrow Z$ є нарізно неперервною. Тоді $\varphi(x)(y)=f(x,y)=f^x(y)$ для $x \in X$, $y \in Y$. А тому $\varphi(x)=f^x$ при $x \in X$. Але $f^x \in C_p(Y,Z)$. Тому $\varphi:X \rightarrow C_p(Y,Z)$. Перевіримо неперервність $\varphi$. Нехай $f \in X$ і напрямленість $(x_m)_{m \in M}$ збігається в $X$. Візьмемо $y \in Y$. Оскільки $f$ нарізно неперервна, то $f_y$ неперервна. Тому $f_y(x_m)\rightarrow f_y(a)$. Таким чином,
+$$
+\varphi(x_m)(y)=f(x_m,y)=f_y(x_m)\rightarrow f_y(a)=f(a,y)=\varphi(a)(y)
+$$
+для кожного $y \in Y$. Отже, $\varphi(x_m) \rightarrow \varphi(a)$ поточково, а значить, $\varphi(x_m)\rightarrow \varphi(a)$ в $C_p(Y,Z)$. Тому $\varphi:X \rightarrow C_p(Y,Z)$ неперервне
+
+$\Leftrightarrow$ Припустимо, що $\varphi:X\rightarrow C_p(Y,Z)$ неперервне. Доведемо, що $f$ нарізно неперервна. Візьмемо $x \in X$. Тоді $f^x=\varphi(x) \in C_p(Y,Z)$, тобто $f^x$ неперервна
+
+Нехай тепер $y \in Y$. Перевіримо неперервність $f_y$. Нехай $a \in X$ і $(x_m)_{m \in M}$ -- збіжна до $a$ напрямленість в $X$. Тоді $\varphi(x_m)\rightarrow \varphi(a)$ в просторі $C_p(Y,Z)$, а значить, $\varphi(x_m)\rightarrow \varphi(a)$ поточково збіжна. Зокрема, $\varphi(x_m)(y)\rightarrow \varphi(a)(y)$, а тому
+$$
+f_y(x_m)=f(x_m,y)=\varphi(x_m)(y)\rightarrow \varphi(a)(y)=f(a,y)=f_y(a)
+$$
+Отже, $f_y(x_m)\rightarrow f_y(a)$ а значить $f_y$ неперервна. Тому $f$ нарізно неперервна.
+\end{proof}
+
+\begin{lem}
+\label{lem_2}
+Нехай $X,Y,Z$ -- компакти, $f:X\rightarrow Z$ -- неперервна функція і $h:X\rightarrow Y$ -- неперервна сюр'єкція така, що
+$$
+\forall x, x' \in X \big| h(x)=h(x')\Longrightarrow f(x)=f(x')
+\eqno(*)
+$$
+Тоді існує єдина неперервна функція $g:Y\rightarrow Z$ така, що $f=g \circ h$
+\end{lem}
+\begin{proof}
+\textit{Існування}. Оскільки $h:X\rightarrow Y$ є сюр'єкцією, то для кожного $y \in Y$ існує деякий елемент $x=\xi(y) \in X$ такий, що $h(x)=y$. Тоді функція $\xi:Y\rightarrow X$ є правим оберненням до $h$, тобто
+$$
+h(\xi(y))=y \text{ для довільного } x \in X.
+$$
+Візьмемо $x \in X$ і позначимо $y=h(x)$ і $x'=\xi(y)$. Тоді $x,x' \in X$ причому
+$$
+h(x')=h(\xi(y))=y=h(x).
+$$
+Отже, з $(*)$ випливає, що $f(x)=f(x')$. Отже, з означення $g,x'$ і $y$ випливає, що
+$$
+f(x)=f(x')=f(\xi(y))=g(y)=g(h(x)).
+$$
+Таким чином існування функції $g$ доведено
+
+
+\textit{Єдиність.} Нехай $g,g_1:Y\rightarrow$ -- такі функції, що $f=g_1 \circ h$. Візьмемо $y \in Y$. Оскільки $h$
+є сюр'єкцією, то $y=h(x)$ для деякого $x \in X$. Тому
+$$
+g(y)=g(h(x))=f(x)=g_1(h(x))=g_1(y).
+$$
+Отже, $g(y)=g_1(y)$ для кожного $y \in Y$, а значить, $g=g_1$.
+
+\textit{Неперервність}. Розглянемо замкнену множину $C$ в $Z$ і доведемо, що $g^{-1}(C)$ теж є замкненою в $Y$. Оскільки $f$ неперервна, то з відомого критерію неперервності\cite{En} випливає, що прообраз $A=f^{-1}(C)$ є замкненою в $X$ множиною. Але $X$ є компактом. Тому\cite{En} $A$ є компактом. Далі, оскільки $h$ неперервна, то $B=h(A)$ теж буде компактом, як неперервний образ компакту\cite{En}. Тобто $B$ є компактним підпростором гаусдорфового простору $Y$. Отже, з\cite{En} випливає, що множина $B$ є замкненою в $Y$.
+Врахуємо, що
+$$
+A=f^{-1}(C=(g \circ h)^{-1}(C)=h^{-1}(g^{-1}(C))
+$$
+і $h$ сюр'єктивна. Тому
+$$
+B=h(A)=h(h^{-1}(g^{-1}(C)))=g^{-1}(C)
+$$
+Таким чином, ми довели, що прообраз $g^{-1}(C)=B$ є замкненою множиною в $Y$. Значить, на основі згаданого вище критерію неперервності\cite{En} відображення $g$ є неперервним.
+\end{proof}
+
+
+\begin{tve}
+\label{tve_4}
+Нехай $X$, $Y$ і $K$ -- компакти причому $K\subseteq S(X \times Y)$. Тоді існує компакт Еберлейна $\widetilde{X}$, який є неперервним образом $X$, такий, що $K$ гомеоморфно вкладається в $S(\widetilde{X} \times Y)$.
+\end{tve}
+\begin{proof}
+Позначимо $P=X \times Y$, $S=S(P), \widetilde{Y}=Y \times K$. Зрозуміло, що $K\subseteq S$ і $\widetilde{Y}$ компактний, як добуток компактів (за теоремою Тихонова $[E_n,\text{теорема ...}]$). Розглянемо функцію $f:X \times \widetilde{Y} \rightarrow \br$, що діє за правилом
+$$
+f(x, \tilde{y})=s(x,y) \text{, якщо } x \in X, y \in Y, s \in K \text{ і } \tilde{y}=(y,s) \in \widetilde{Y}
+$$
+За твердженням ~\ref{tve_2} ця функція $f$ буде нарізно неперервною, адже $f$ є звуженням функції $e_1$ на добуток $X \times (Y \times K)$. В такому разі, скориставшись лемою ~\ref{lem_1} асоціативне відображення $f:X \rightarrow C_p(\widetilde{Y}), \varphi(x)(\tilde{y})=f(x)(\tilde{y}), x \in X, \tilde{y} \in \widetilde{Y}$, є неперервним. Покладемо $\widetilde{X}=\varphi(X)$. Оскільки неперервний образ компакту є компактом, то $\widetilde{X}$ є компактним підпростором $C_p(\widetilde{Y})$. Тому $\widetilde{X}$ є компактним підпростором $C_p(\widetilde{Y})$. Тому $\widetilde{X}$ є компактом Еберлейна, адже $\widetilde{Y}$ є компактом. Залишилося довести, що $K$ гомеоморфно вкладається в простір $\widetilde{S}=S(\widetilde{P})$ де $\widetilde{P}=\widetilde{X} \times Y$
+
+Позначимо функцію
+$$
+\psi(p)=(\varphi(x),y)\text{, якщо } p=(x,y)\text{ де }x \in X, y \in Y.
+$$
+Визначимо лінійний оператор $T:\widetilde{S}\rightarrow S$ наступним чином
+$$
+T\tilde{s}=\tilde{s} \circ \psi \text{, де } \tilde{s} \in \widetilde{S}.
+$$
+Зрозуміло.ю що оскільки функція $\tilde{s} \in \widetilde{S}$ є
+нарізно неперервною, то
+$$
+T \tilde{s}(x,y)=\tilde{s}(\varphi(x),y), x \in X, y \in Y
+$$
+є також нарізно неперервною функцією.
+
+Отже справді $T:\widetilde{S}\rightarrow S$. Крім того $T$ є, очевидним чином, лінійним.
+
+Перевіримо спочатку, що $T$ є ін'єктивним. Справді нехай $\tilde{s} \in \widetilde{S}$ така, що $T \tilde{s}=0$. Тоді
+$$
+T\tilde{s}(p)=\tilde{s}(\psi(p))=0
+$$
+для кожного $p \in P$. Візьмемо $\tilde{p} \in \widetilde{P}$. Оскільки $\widetilde{P}=\psi(P)$, то існує $p \in P$ така, що $\tilde{p}=\psi(p)$. В такому разі $\tilde{s}(\tilde{p})=\tilde{s}(\psi(p))=0$. Отже $\tilde{s}(\tilde{p})=0$ для кожного $\tilde{p} \in \widetilde{P}$. Значить, $\tilde{s}=0$. Врахувавши лінійність $T$ одержимо, що $T$ є ін'єкцією.
+
+Доведемо тепер, що $T(\widetilde{S})\supseteq K$. Для цього будемо використовувати лему ~\ref{lem_2}. Розглянемо деякий елемент $s \in K$ і покажемо, що $s \in T(\widetilde{S})$, тобто, що існує $\tilde{s} \in \widetilde{S}$ така, що $s=T\tilde{s}$.
+
+Зафіксуємо деяке $y \in Y$ і розглянемо функцію $\alpha=s_y:X\rightarrow \br$. Оскільки $s \subseteq K \subseteq S = S (X \times Y)$, то $s$ є нарізно неперервною функцією. Тому $\alpha$ неперервна. Далі розглянемо неперервну сюр'єкцію $\gamma=\varphi:X\rightarrow\widetilde{X}$ і переконаємося, що виконується властивість $(*)$ з леми ~\ref{lem_2} для $f=\alpha$ і $h=\gamma$, $x = X$, $Y=\widetilde{X}$, $Z=\br$.
+
+Візьмемо $x,x' \in X$ такі, що $\gamma(x)=\gamma(x')=\tilde{x}$. Тоді для $\tilde{y}=(y,\delta) \in Y \times K= \widetilde{Y}$ маємо, що
+$$
+\alpha(x)=s_y(x)=s(x,y)=\alpha(x)(\tilde{x})=\tilde{x}(\tilde{y})=\varphi(x')(\tilde{y})=s(x',y)=\\
+=s_y(x')=\alpha(x')
+$$
+Отже, $(*)$ виконується. Тому за лемою ~\ref{lem_2}, застосованого до функцій $f=\alpha$, $h=\gamma$ і просторів $X$, $Y=\widetilde{X}$ і $Z=\br$, існує неперервна функція $\beta:\widetilde{X}\rightarrow \br$ така, що $\alpha=\beta\circ\gamma$. Визначимо функція $\tilde{s}$ покладаючи
+$$
+\tilde{s}(\tilde{x},y)=\tilde{s}_y(\tilde{x})=\beta(\tilde{x}), \tilde{x} \in \widetilde{X}
+$$
+Таким чином, ми побудували функцію $\tilde{s}:\widetilde{P}=\widetilde{X} \times Y \rightarrow \br$ таку, що $\tilde{s}_y$ неперервна для кожного $y \in Y$ і, крім того, $\tilde{s}_y\circ\varphi=\beta\circ\gamma=\alpha=s_y$, тобто
+$$
+\tilde{s}(\varphi(x),y)=s(x,y), x \in X, y \in Y
+$$
+Перевіримо, що $\tilde{s}$ неперервна відносно другої змінної. Візьмемо $\tilde{x} \in \widetilde{X}$. Оскільки $\widetilde{X}=\varphi(X)$, то існує $x \in X$ така, що $\tilde{x}=\varphi(x)$. Тоді
+$$
+\tilde{s}^{\tilde{x}}(y)=\tilde{s}(\tilde{x},y)=\tilde{s}(\varphi(x),y)=s(x,y)=s^x(y), y \in Y
+$$
+Отже, $\tilde{s}^{\tilde{x}}=s^x$ неперервне, бо $s$ нарізно неперервна. Таким чином ми з'ясували, що $\tilde{s}:\widetilde{X}\times Y\rightarrow \br$ є нарізно неперервною функцією, тобто $\tilde{s} \in \widetilde{S}$. Але $T\tilde{\delta}(x,y)=\tilde{\delta}(\varphi(x),y)=s(x,y)$ для довільних $x \in X$ і $y \in Y$. Тому $s = T\tilde{s}$. Отже, ми довели, що $T(\widetilde{S}\supseteq)K$. Таким чином ми показали, що оператор $T:\widetilde{S}\rightarrow S_0$, де $S_0=T(\widetilde{S})\supseteq K$, є лінійною бієкцією. Тому існує обернений оператор $T^{-1}:S_0\rightarrow \widetilde{S}$, який теж є лінійною бієкцією.
+
+Перевіримо, що $T$ і $T^{-1}$ є неперервними. Для цього досить показати, що
+$$||T \tilde{s}||_{p_0}=||\tilde{s}||_{\tilde{p}_0}\text{, якщо }\tilde{s} \in \widetilde{S}\text{, }p_0 \in P\text{ і }\tilde{p}_0=\psi(p_0) \eqno (**)
+$$
+Перевіримо цю властивість $(**)$. Візьмемо $\tilde{s} \in \widetilde{S}$ $p_0=(x_0,y_0) \in P$, $\tilde{p}_0=\psi(p_0)=(\tilde{x}_0,y_0)$, де $\tilde{x}_0=\varphi(x_0)$. Тоді
+$$
+||T \tilde{s}||_{p_0}
+=\sup\limits_{p \in \cr\{p_0\}}|T \tilde{s}(p)|
+=\sup\limits_{p \in \cr\{p_0\}}|\tilde{s}(\psi(p))|=
+$$
+$$
+=\sup\limits_{x=x_0\text{ або }y=y_0}|\tilde{s}(\psi(x,y))|=
+\sup\limits_{x=x_0\text{ або }y=y_0}|\tilde{s}(\varphi((x),y)|
+$$
+Далі, покладаючи $\varphi(x)=\tilde{x}$ і $\tilde{p}=(\tilde{x},y)$ матимемо, що
+$$
+||T \tilde{s}||_{p_0}=\sup\limits_{x=x_0\text{, або }y=y_0}|\tilde{s}(\tilde{x},y)|=\sup\limits_{p \in \cr\{p_0\}}|\tilde{s}(\tilde{p})|=||\tilde{s}||_{\tilde{p}_0}
+$$
+Отже, ми встановили $(**)$ і тому $T,T^{-1}$ неперервні. Зокрема $h=T^{-1}|_K$ є гомеоморфним вкладенням простору $K$ в $\widetilde{S}$. Таким чином, $K$ гомеоморфно вкладається в $\widetilde{S}$.
+\end{proof}
+\newpage
+\section{Вага, щільність і клітковість метризовного простору}
+
+Нехай $X$ -- топологічний простір і $\mathcal{B} \subseteq X$. Система $\mathcal{B}$
+називається \emph{базою простору} $X$, якщо система $\mathcal{B}$ складається з відкритих множин і для довільної точки $x \in X$ і її околу $U$ в $X$ існує множина $B \in \mathcal{B}$ така, що $x \in B \subseteq U$. Це рівносильно тому, що для довільної відкритої множини $G$ в $X$ виконується, що $G=\bigcup \mathcal{B}_G$, де $\mathcal{B}_G=\{B \in \mathcal{B}; B \subseteq G\}$
+
+
+\emph{Вагою} топологічного простору $X$ називається кардинальне число $w(X)$ яке є мінімальною потужністю баз цього простору. Тобто
+$$
+w(X)=\min\Big\{|B|:B \text{ є базою простору } X\Big\}
+$$
+
+Нагадаємо, що множина $A$ називається \emph{щільною в Х} якщо $\overline{A}=X$ тобто, якщо для кожної відкритої непорожньої множини $U$ в $X$ виконується, що $U \cap A = \0$. \emph{Щільністю} простору $X$ називається кардинальне число $d(X)$, яке є мінімальною потужністю щільної в $X$ множини. Тобто
+$$
+d(X)=\min \Big\{|A|:\overline{A}=X\Big\}
+$$
+
+Казатимемо, що система $\mathcal{U}$ є \emph{відкритою} в топологічному просторі $X$, якщо кожна множина $U \in \mathcal{U}$ є відкритою в $X$. Система $\mathcal{U}$ називається \emph{диз'юктною}, якщо для довільних різних множин $U,V \in \mathcal{U}$ виконується, що $U \cap V = \0$.
+
+\emph{Клітковість} простору $X$ називається таке найменше кардинальне число $\frak m=c(X)$ таке, що кожна відкрита диз'юнктна система $\mathcal{U}$ непорожніх множин має потужність $|\mathcal{U}|\leq \frak m$. Тобто
+$$
+c(X)=\min\Big\{\frak m:|\mathcal{U}|\leq \frak m \hspace{10cm}
+$$
+$$
+\hspace{3cm}\text{ для довільної відкритої диз'юнктної
+ системи } \mathcal{U} \subseteq 2^X \setminus \{\0\}\Big\}
+$$
+Або інакше, використовуючи означення супремуму, матимемо, що
+$$
+c(X)= \sup \Big\{|\mathcal{U}|:\mathcal{U}\subseteq 2^X \setminus \{\0\} \text{ відкрита і диз'юнктна в }X\Big\}
+$$
+Нагадаємо, що множина $X$, що наділена \emph{дискретною топологією} $\mathcal{T}=2^X$, називається \emph{дискретним топологічним простором}. Зауважимо, що для дискретного топологічного простору $X$ система $\mathcal{B}=\Big\{\{x\}: x \in X\Big\}$ є базою. Крім того, ця система є відкритою і диз'юнктною в $X$, а також, якщо $\overline{A}=X$, то $A=X$. Таким чином,
+$$
+d(X)=w(X)=c(X)=|X|
+$$
+для довільного дискретного простору $X$. В цьому пункті ми доведемо перших дві рівності для довільного метризовного простору. Але почнемо з встановлення загальних нерівностей між цими кардинальними характеристиками.
+\begin{tve}
+\label{tve_5}
+Нехай $X$ -- топологічний простір. Тоді $$c(X)\leq d(X) \leq w(X).$$
+\end{tve}
+\begin{proof}
+доведемо спочатку, що $c(X) \leq d(X)$. Виберемо щільну в $X$ множину $A$ таку, що $|A|=d(X)$ і покажемо, що $c(X) \leq |A|$. Візьмемо деяку відкриту диз'юнктну систему $\mathcal{U}$ в $X$ таку, що $\0 \notin \mathcal{U}$. Оскільки $\overline{A}=X$, то $U \cap A = \0$ для довільного $U \in \mathcal{U}$. В такому разі, для кожного $U \in \mathcal{U}$ існує точка $a_U \in U \cap A$. Зауважимо, що для різних $U,V \in \mathcal{U}$ матимемо, що $U \cap V = \0$, адже $\mathcal{U}$ диз'юнктна, а значить $a_U \neq a_V$ бо $a_U \in U$ і $a_V \in V$. Отже, відображення
+$$
+\mathcal{U} \rightarrow U \mapsto a_U \in A
+$$
+є ін'єкцією, а значить, $|\mathcal{U}|\leq|A|$.
+$$
+c(X)=\sup\{|\mathcal{U}|:\mathcal{U} \text{ відкрита диз'юнктна в Х і } \0 \notin\mathcal{U}\}\leq|A|=d(X).
+$$
+
+Доведемо тепер, що $d(X)\leq w(X)$. Розглянемо деяку базу $\mathcal{B}$ простору $X$, для якої $|\mathcal{B}|=w(X)$. Покажемо, що $d(X)\leq |\mathcal{B}|$. Можна вважати, що $\0 \notin \mathcal{B}$. Тоді для довільної множини $B \in \mathcal{B}$ існує деяка точка $a_B \in B$. Розглянемо множину
+$$
+A=\Big\{a_B:B \in \mathcal{B}\Big\}
+$$
+Зрозуміло, що $|A|\leq|\mathcal{B}|$.
+
+Доведемо, що $\overline{A}=X$. Візьмемо $x \in X$ і розглянемо її окіл $U$ в $X$. З означення бази випливає, що існує множина $B \in \mathcal{B}$ така, що $x \in B \subseteq U$. Тоді $a_B \in B \subseteq U$. Отже, $A \cap U \rightarrow a_B$. Таким чином, ми поясним, що $A \cap U \neq \0$ для кожного околу $U$ точки $x$. Тому $x \in \overline{A}$ для кожного $x \in X$. Отже, $\overline{A}=X$. В такому разі, $d(X)\leq|A|\leq|\mathcal{B}|=w(X)$
+\end{proof}
+
+\begin{tve}
+\label{tve_6}
+Нехай $X$ -- метризовний топологічний простір. Тоді $$c(X)=d(X)=w(X).$$
+\end{tve}
+\begin{proof}
+Перш за все зауважимо, що якщо $|X|<\aleph_0$ то $X$ буде дискретним і тому, як ми зауважували на початку цього пункту, $|X|=c(X)=d(X)=w(X)$. Отож, нехай $|X|\geq \aleph_0$.
+
+Зафіксуємо метрику $|\cdot-\cdot|$, що породжує топологію $X$. Покладемо $\frak m=c(X)$. Нескладно зрозуміти, що тоді $\frak m\geq \aleph_0$. Доведемо спочатку, що $d(X)\leq \frak m$. Зафіксуємо номер $n \in \bn$ і розглянемо систему
+$$
+\mathcal{S}_n=\Big\{S \subseteq X: \forall s,t \in S| s \neq t \Rightarrow |s-t|_X\geq \tfrac{1}{n}\Big\}
+$$
+Нескладно зрозуміти, що властивість $S \in \mathcal{S}_n$ є властивість скінченного характеру. Тому за лемою Тейхмюллера-Тьюкі.\cite{En} існує максимальна множина $S_n$ в $(\mathcal{S}_n,\subseteq)$ тобто $S_n \in \mathcal{S}_n$ і
+$$
+\forall S \in \mathcal{S}\  \Big|\  S_n \subseteq S \Rightarrow S_n=S.\eqno{(1)}
+$$
+Покажемо, що
+$$
+\forall x \in X \exists s \in S_n\  \Big|\  |x-s|_X<\tfrac{1}{n}.\eqno{(2)}
+$$
+Припустимо, що (2) не виконується. Тоді існує $x \in X$, що $|x-s|_X \geq \frac{1}{n}$ для кожного $s \in S_n$. Тоді множина $S=S_n \cup \{x\}$ належить до $\mathcal{S}_n$ і $S_n \subseteq S$. Тому з (1) маємо що $S_n=S$. А значить, $x \in S = S_n$, і тому $|x-s|=0<\frac{1}{n}$ для $s=x \in S_n$, що неможливо. Тому (2) виконується. З того, що $S_n \in \mathcal{S}_n$ маємо, що
+$$
+\forall s,t \in S_n \big| s \neq t \Rightarrow |s-t|_X \geq \frac{1}{n}.\eqno{(3)}
+$$
+Тоді система
+$$
+\mathcal{U}_n=\Big\{B(s,\tfrac{1}{2n}): s \in S_n\Big\}
+$$
+є диз'юнктною. А тому $|S_n|=|\mathcal{U}_n|\leq c(X)=\frak m$. Розглянемо множину $S=\bigcup\limits_{n=1}^{\infty} S_n$. З властивості (2) випливає, що $\overline{S}=X$. Крім того,
+$$
+|S|=|\bigcup\limits_{n=1}^{\infty}S_n|\leq \sum\limits_{n=1}^{\infty}|S_n|\leq \sum\limits_{n=1}^{\infty}\frak m=\aleph_0\cdot\frak  m \leq \frak m \cdot \frak m=\frak m^2
+$$
+Але з теореми Гессенберга $[E_n,???]$ $\frak m^2=\frak m$, адже $\frak m\geq \aleph_0$. Тому $|S|\leq \frak m^2=\frak m$. Отже, $d(X)\leq|S|\leq\frak m$.
+
+Доведемо тепер, що $w(X)\leq \frak m$. Розглянемо систему
+$$
+\mathcal{B}=\Big\{B(s,\tfrac{1}{n}): s \in S, n \in \bn\Big\}.
+$$
+Зауважимо, що
+$$
+|\mathcal{B}|\leq|S \times \bn|=|S|\cdot|\bn|\leq \frak m\cdot \aleph_0 \leq \frak m \cdot\frak m=\frak m^2=\frak m
+$$
+за теоремою Гессенберга.
+
+Покажемо, що $\mathcal{B}$ є базою простору $X$. Візьмемо $x \in X$ і деякий окіл $U$ точки $x$ в $X$. Тоді існує $\varepsilon > 0$ таке, що $\mathcal{B}(x,\varepsilon)\subseteq U$. Виберемо $n \in \bn$, для якого $\frac{2}{n}<\varepsilon$. Оскільки $\overline{S}=X$, то існує $s \in S$ таке, що $|s-x|_X<\frac{1}{n}$. В такому разі куля $B=B(s,\frac{1}{n})$ містить точку $x$. Покажемо, що $B \subseteq U$. Візьмемо $y \in B$. Тоді $|y-s|_X<\frac{1}{n}$. В такому разі,
+$$|y-x|_X\leq|y-s|_X+|s-x|_X<\tfrac{1}{n}+\tfrac{1}{n}=\tfrac{2}{n}<\varepsilon.$$ Отже, $y \in B(x,\varepsilon)\subseteq U$. Таким чином, ми встановимо, що $x \in \mathcal{B} \subseteq U$, і тому $\mathcal{B}$ є базою $X$. В такому разі $w(X)\leq |\mathcal{B}|\leq m$.
+
+Отже, ми довели, що $w(X)\leq \frak m=c(X)$. Але за твердженням ~\ref{tve_5} $c(X)\leq d(X) \leq w(X)$. Отже, з теореми Кантора-Бернштейна випливає, що $c(X)=d(X)=w(X)$.
+\end{proof}
+
+
+
+\begin{tve}\label{tve:SchilnistWagaKlitkowistEberlein} Нехай $X$ -- деякий компакт Еберлейна. Тоді $$c(X)=w(X)=d(X).$$
+\end{tve}
+\begin{proof}
+Перш за все доведемо, що $d(X)=w(X)$. Зауважимо, що за теоремою Аміра-Лінденштраусса \cite{Ar} $X$ є компактом Корсона, тобто  існує така множина $T$, що $X$ гомеоморфно вкладається в підпростір
+$$
+\S(T)=\Big\{x\in\br^T:|S_x|\le\aleph_0\Big\}
+$$
+простору $\br^T$ з топологією поточкової збіжності, де
+$$
+S_x=\Big\{t\in T:x(t)\ne 0\Big\}.
+$$
+для функції $x\in \br^T$. Отож, можна вважати, що $X\<\S(T)$. Нехай $\frak m=d(X)$.
+Випадок, коли $\frak m$ скінченна очевидний. Отож вважатимемо, що $\frak m\ge \aleph_0$.
+Візьмемо деяку всюди щільну множину $A$ з $|A|=\frak m$. Покладемо
+$$
+S=\Cup_{x\in A}S_x.
+$$
+Тоді, використовуючи теорему Гессенберга \cite{En} матимемо, що
+$$
+|S|\le\Sum_{x\in A}|S_x|=|A|\cdot \aleph_0 =\frak m\cdot \aleph_0\le\frak m\cdot\frak m=\frak m^2=\frak m.
+$$
+Зауважимо, що $S_x\<S$ для довільного $x\in A$, а тому $x(t)=0$ на $T\stm S$ для довільного $x\in A$. Переходячи до поточкової границі матимемо, що $x(t)=0$ на $T\stm S$ для довільного $x\in \ov{A}=X$. Таким чином $X$ буде гомеоморфним до простору
+$$
+X_S=\Big\{x|_S:x\in X\Big\}\<\br^S.
+$$
+В такому разі
+$$w(X)=w(X_S)\le w(\br^S)=w(\br)\cdot |S|\le \aleph_0\cdot\frak m\le\frak m^2=\frak m=d(X).$$
+Врахувавши, що зворотна нерівність $d(X)\le w(X)$ виконується для довільних топологічних просторів, одержимо, що $d(X)=w(X)$.
+
+Приступимо тепер до доведення того, що $c(X)=w(X)$. За означенням компакту Еберлейна можна вважати, що $X$ є підпростором простору $C_p(K)$ для деякого компакту $K$. Тоді за твердженням~\ref{tve_1}  функція обчислення $e_X:X\times K\to\br$ є нарізно неперервною функцією. Тоді з теореми Наміоки \cite{Ar} існує всюди щільна $G_\d$-множина $M$ в $X$ така, що $e_X$ неперервна в кожній точці множини $M\times K$. А це фактично означає, що нормована топологія і топологія поточкової збіжності збігаються на підпросторі $M$. Зокрема, підпростір $M$ буде метризовним. Тоді з твердження~\ref{tve_6} випливає, що $d(M)=c(M)=w(M)\le w(X)$.
+Ale $\ov M=X$. Тому $d(X)\le d(M)$. З першої частини доведення маємо, що $w(X)=d(X)$. Таким чином,
+$$
+w(X)=d(X)\le d(M)=c(M)=w(M)\le w(X),
+$$
+а тому $w(X)=c(M)$. Зауважимо, що оскільки $\ov M=X$, то відображення
+$$\cu\mapsto\cu_M=\Big\{U\cap M:U\in\cu\Big\}$$
+встановлює бієкцію між відкритими диз'юнктними системами в $X$ і в $M$, причому це відображення зберігає потужність системи, тобто $|\cu|=|\cu_M|$ для довільної відкритої диз'юнктної в $X$ системи $\cu$. В такому разі ${c(X)=c(M)}$. Отже, $c(X)=w(X)$.
+\end{proof}
+
+
+Нам також буде потрібне одне просте твердження про зв'язок між щільністю і вагою для компактних підпросторів простору неперервних функцій.
+\begin{tve}\label{tve10} Нехай $X$ -- топологічний простір, $M$ -- метризовний топологічний простір і $K$ -- компактний підпростір простору неперервних функцій $C_p(X,M)$. Тоді $w(K)\le d(X)\le c(X)$.
+\end{tve}
+\begin{proof}%stwierdzenie 6
+	Розглянемо щільний підпростір $D$ в $X$ такий, що $|D|\le d(X)$. Визначимо відображення $\F:C_p(X,M)\to C_p(D,M)$ за правилом $\F(g)=g|_D$. Зрозуміло, що $\F$ є неперервною ін'єкцією. В такому разі, з компактності $K$ випливає, що $K$ гомеоморфний до $L=\F(K)$. Але $L$ є підпростором $C_p(D,M)\<M^D$. Нехай $\pr_x:M^D\to M$ -- координатна проекція. Тобто $\pr_x(g)=g(x)$ для довільного $g\in M^D$. З неперервності координатних проекцій відносно топології поточкової збіжності на добутку випливає неперервність координатних проекцій. Таким чином, образи $L_x=\pr_x(L)\<M$ є метризовним компактом для кожного $x\in D$. Отже , $w(L_x)\le \aleph_0$ для кожного $x\in X$. А тому з \cite{En} випливає, що $w(K)=w(L)\le w\big(\Prod_{x\in D}L_x\big)\le |D|\cdot\aleph_0\le d(X)\cdot \aleph_0=d(X)$
+\end{proof}
+
+
+
+\section{Точна клітковість метризовних просторів і компактів Еберлейна}
+
+Для довільного кардинального числа $\frak m$ позначатимемо
+$$
+\frak m^+=\min\Big\{\frak n:\frak m<\frak n\Big\}.
+$$
+Нагадаємо, що кардинальне число $\frak m$ називається \textit{регулярним}, якщо для довільної сім'ї $(\frak m_s)_{s\in S}$ кардинальних чисел $\frak m_s<\frak m$ такої, що $|S|<\frak m$ виконується, що $\sup\limits_{s\in S}\frak m_s<\frak m$. Як відомо \cite{KM}, число $\frak m^+$ завжди є регулярним. \textit{Кофінальністю} кардинального числа $\frak m$ називаємо потужність
+$$
+\cf(\frak m)=\min\Big\{|\ca|:\exists \ca\  \forall A\in \ca\ \big|\ |A|<\frak m\text{ i }\big|\ts\Cup\ca\big|=\frak m\Big\}
+$$
+Таким чином, кардинальне число $\frak m$ буде регулярним тоді і тільки тоді, коли $\cf(\frak m)=\frak m$.
+
+
+\emph{Точною клітковістю} простору $X$ називається кардинальне число
+$$
+c^\sharp(X)= \sup \Big\{|\mathcal{U}|:\mathcal{U}\subseteq 2^X \setminus \{\0\} \text{ відкрита і диз'юнктна в }X\Big\}
+$$
+
+
+
+
+
+
+\begin{tve}\label{tve7} Нехай $X$ --  метризовний топологічний простір. Тоді $$c^\sharp(X)=d(X)^+=c(X)^+.$$
+\end{tve}
+\begin{proof}%stwierdzenie 3
+Покладемо $\frak m=d(X)$ і виберемо всюди щільну множину $A$ в $X$ таку, що $|A|=X$.
+Доведемо, що $c^\sharp(X)=\frak m^+$.
+
+Розглянемо спочатку випадок, коли простір $X$ дискретний. Тоді, оскільки $\overline{A}=X$ і усі одноточкові множини відкриті, то $A=X$. З іншого боку, система
+$$
+\cu_0=\Big\{\{x\}:x\in X\Big\}
+$$
+є диз'юнктною  системою відкритих непорожніх множин з найбільшою потужністю, адже вона вписана в кожну іншу відкриту диз'юнкту систему. Тому $c^\sharp(X)=|\cu_0|^+=|X|^+=|A|^+=\frak m^+$.
+
+Отож, надалі вважатимемо, що простір $X$ недискретний. Зокрема, ${\frak m\ge\aleph_0}$.
+
+Розглянемо тепер випадок, коли $\frak m=\aleph_0$. Візьмемо деяку неізольовану точку $a\in X$. Виберемо довільну точку $x_1\ne a$ і покладемо $\e_1=\frac12 |x_1-a|_X$. Далі, оскільки $a$ неізольована, то існує точка $x_2\in B(a,\frac{\e_1}{2})\stm\{a\}$. Тоді $$\e_2=\tfrac12|x_2-a|_X\in (0;\tfrac{\e_1}{4}),$$
+причому кулі $U_1=B(x_1,\e_1)$ та $U_2=B(x_2,\e_2)$ диз'юнкті. Справді, якби існувала точка $x\in U_1\cap U_2$, то $|x-x_1|_X<\e_1$, $|x-x_2|_X<\e_2<\frac{\e_1}{4}$ і $|x_2-a|=2\e_2<\frac{\e_1}{2}$, а значить,  $$2\e_1=|x_1-a|_X\le|x_1-x|_X+|x-x_2|_X+|x_2-a|_X<\e_1+\e_2+2\e_2<\tfrac{7\e_1}{4},$$
+що неможливо. Припустимо, що для деякого $n>2$ уже побудовані точки $x_k\in X\stm\{a\}$ такі, що для чисел $\e_k=\frac12|x_k-a|_X$ виконується, що $\e_k<\frac14\e_{k-1}$ і множини $U_k=B(x_k,\e_k)$ диз'юнктні для $k<n$. Виберемо точку $x_n\in B(x,\frac{\e_{n-1}}{2})$ і покладемо $\e_n=\frac12|x_n-a|_X$. Тоді $$\e_{n}=\tfrac12|x_n-a|_X\in (0;\tfrac{\e_{n-1}}{4}),$$
+причому куля $U_n=B(x_1,\e_1)$  не перетинається з кулями $U_k=B(x_k,\e_k)$ для $k<n$. Справді, якби для деякого $k<n$ існувала точка $x\in U_k\cap U_n$, то $|x-x_k|_X<\e_k$, $|x-x_n|_X<\e_n<\frac{\e_{n-1}}{4}\le\frac{\e_k}{4}$ і $|x_n-a|=2\e_n<\frac{\e_{n-1}}{2}\le\frac{\e_k}2$, а значить,  $$2\e_k=|x_k-a|_X\le|x_k-x|_X+|x-x_n|_X+|x_n-a|_X<\e_k+\e_n+2\e_n<\tfrac{7\e_k}{4},$$
+що неможливо.
+
+Отже, ми побудували диз'юнктну  послідовність відкритих непорожніх множин $U_n$, а тому $c^\sharp(X)\ge |\bn|^+=\aleph_0^+=\frak m^+.$
+
+
+Перейдемо тепер до розгляду випадку $\frak m>\aleph_0$. Припустимо спочатку, що $\cf(\frak m)>\aleph_0$. Міркуючи як в доведенні твердження~\ref{tve_6} побудуємо послідовність множин $S_n\<A$ таку, що для довільних $s,t\in S_n$ таких, що $s\ne t$ виконується, що $|s-t|_X\ge\frac1n$ і для кожного $x\in X$ існує $s\in S_n$ такий, що $|x-s|_X<\frac1n$. Тоді множина $S=\Cup_{n=1}^\infty S_n$ буде щільною в $X$, а тому $|S|\ge d(X)=\frak m$. З іншого боку, оскільки $S\<A$, то $|S|\le |A|=\frak m$. Таким чином,
+$$
+\frak m=|S|\le \Sum_{n=1}^\infty |S_n|=\sup_{n\in\bn}|S_n|\le\frak m.
+$$
+Отже, $\frak m=\sup\limits_{n\in\bn}|S_n|$. Оскільки $\cf(\frak m)>\aleph_0$, то $|S_n|=\frak m$ для деякого $n\in\bn$. Покладемо
+$$
+\cu=\Big\{B(s,\tfrac{1}{2n}):s\in S_n\Big\}.
+$$
+Тоді система $\cu$ є відкритою і диз'юнктною в $X$, причому $|\cu|=|S_n|=\frak m$. Отже, $c^\sharp(X)\ge \frak m^+$.
+
+Розглянемо нарешті випадок, коли $\frak m\ge\aleph_0$ і $\cf(\frak m)=\aleph_0$. Тоді існує строго зростаюча послідовність регулярних кардинальних чисел $\frak m_n>\aleph_0$ така, що $\frak m=\sup\limits_{n\in\bn}\frak m_n$. Перш за все зауважимо, що оскільки $\frak m=d(X)=c(X)$, то для довільного $\frak n<\frak m$ існує відкрита диз'юнктна система $\cu$ така, що $|\cu|=\frak m$ і $\overline{\Cup\cu}=X$ (остання умова досягається додаванням при потребі множини $X\stm\overline{\Cup\cu}$)
+
+
+Зараз ми побудуємо послідовність відкритих диз'юнктних систем $\cu_n$ в $X$ і множини $W_n\in\cu_n$ таких, що $|\cu_n|=\frak m_n$, $\overline{\Cup \cu_n}=X$ і $\cu_n\stm\{W_n\}\<\cu_{n+1}$ для довільного $n\in\bn$. На першому кроці виберемо довільну відкриту диз'юнктну систему $\cu_1$ для якої $|\cu_1|=\frak m_1$ і $\overline{\Cup\cu_1}=X$. Припустимо, що для деякого $n\in\bn$ уже побудована відкрита диз'юнктна система $\cu_n$, для якої $|\cu_n|=\frak m_n$ і $\overline{\Cup\cu_n}=X$. Далі виберемо деяку відкриту диз'юнктну систему $\cg\not\ni\0$ таку, що $|\cg|=\frak m_{n+1}$. Для довільного $U\in\cu_n$ покладемо
+$$
+\cg_U=\Big\{G\in\cg:G\cap U\ne\0\Big\}.
+$$
+Оскільки $\Cup\cu_n$ всюди щільна і $\0\notin\cg$, то $\cg=\Cup_{U\in\cu_n}\cg_U$. Тоді
+$$\frak m_{n+1}=|\cg|=\Sum_{U\in\cu_n}|\cg_U|=\sup_{U\in\cu_n}|\cg_U|,$$
+причому $|\cu_n|=\frak m_n<\frak m_{n+1}$. Отже, з регулярності кардинального числа $\frak m_{n+1}$ випливає, що існує $W_n\in\cu_n$ таке, що $|\cg_{W_n}|=\frak m_{n+1}$. Покладемо
+$$
+\cu_{n+1}=\big(\cu_n\stm\{W_n\}\big)\cup\Big\{G\cap W_n:G\in \cg_{W_n}\Big\}.
+$$
+Оскільки $\big|\cu_n\stm\{W_n\}\big|=|\cu_n|=\frak m_n<\frak m_{n+1}=|\cg_{W_n}|$, то $|\cu_{n+1}|=\frak m_{n+1}$. Крім того, $\cu_n\stm\{W_n\}\<\cu_{n+1}$. Отже шукані системи $\cu_n$ і множини $W_n$ побудовані для кожного $n\in\bn$.
+
+Покладемо
+$$
+\cw=\Big\{W_n:n\in\bn\Big\}\ \text{ і }\ \cv_n=\cu_n\stm\cw\ \text{ для довільного }n\in\bn.
+$$
+Тоді, оскільки $|\cw|\le\aleph_0<\frak m_n=|\cu_n|$, то $|\cv_n|=\frak m_n$. Далі
+$$
+\cv_n=\cu_n\stm\cw\<\cu_n\stm\{W_n\}\<\cu_{n+1}
+$$
+а тому
+$$
+\cv_n=\cu_n\stm\cw\<\cu_{n+1}\stm\cw=\cv_{n+1}
+$$
+для довільного $n$. Крім того, оскільки $\cv_n\<\cu_n$, то $\cv_n$ відкрита і диз'юнктна. В такому разі, система $\cv=\Cup_{n=1}^\infty\cv_n$ теж є відкритою і диз'юнктною, причому
+$$
+|\cv|=\sup_{n\in\bn}|\cv_n|=\sup_{n\in\bn}\frak m_n=\frak m.
+$$
+Тоді $c^\sharp(X)\ge \frak m^+$.
+
+Таким чином, ми показали, що  $c^\sharp(X)\ge \frak m^+$ в будь-якому випадку. Але ${\frak m=d(X)=c(X)}$. Отже, $\frak m^+\ge c^\sharp(X)$. Звідки і одержуємо потрібну рівність.
+\end{proof}
+
+
+\begin{tve}\label{tve8} Нехай $X$ --  топологічний простір, що містить всюди щільний метризовний  підпростір. Тоді $c^\sharp(X)=c(X)^+$.
+\end{tve}
+\begin{proof}%stwierdzenie 4
+Нехай $M$ -- всюди щільний метризовний підпростір. Тоді $c^\sharp(M)=c(M)^+$. Отже існує відкрита диз'юнктна система $\cv$ в $M$ така, що $|\cv|=c(M)$. Але $c(M)=c(X)$, адже $\overline{M}=X$. Крім того, для кожного $V\in\cv$ існує відкрита множина $U_V$ в $X$ така, що $U_V\cap M=V$. В такому разі, система $\cu=\Big\{U_V:V\in\cv\Big\}$ є відкритою і диз'юнктною в $X$, причому $|\cu|=|\cv|=c(X)$. Отже,  $c^\sharp(X)=c(X)^+$.
+\end{proof}
+
+\begin{tve}\label{tve9} Нехай $X$ --  компакт Еберлейна. Тоді $$c^\sharp(X)=d(X)^+=w(X)^+=c(X)^+.$$
+\end{tve}
+\begin{proof}%stwierdzenie 4
+Випливає з тверджень~\ref{tve:SchilnistWagaKlitkowistEberlein} і \ref{tve8}
+\end{proof}
+
+\section{Характеризація компактних підпросторів $S(X\times Y)$}
+
+
+\begin{thm}\label{thm1} Нехай $X$, $Y$ і $K$ -- нескінченні компакти. Тоді для того, щоб простір $K$ гомеоморфно вкладався в $S(X\times Y)$ необхідно і досить, щоб $w(K)<\min\{c^\sharp(X),c^\sharp(Y)\}$.
+	
+\end{thm}
+\begin{proof}%twierdzenie 1
+\textbf{Достатність.} Нехай $\frak m=w(K)$ причому $\frak m<c^\sharp(X)$ і $\frac m<C^\sharp(Y)$. Тоді існують диз'юнктні сім'ї $(U_i)_{i\in I}$ та $(V_i)_{i\in I}$  відкритих непорожніх підмножин $X$ та $Y$ відповідно і такі, що $|I|=\frak m$. З теореми Тихонова про універсальність тихонівських кубів \cite{En} випливає, що $K$ гомеоморфно вкладається в тихонівський куб $[0;1]^T$. Отож, залишається побудувати гомеоморфне вкладення цього тихонівського кубу в простір $S(X\times Y)$. Оскільки простори $X$ та $Y$ цілком регулярні, то існують неперервні функції $u_i:X\to[0;1]$ і $v_i:Y\to[0;1]$, $i\in I$,  такі, що $u_i(x)=0$ поза $U_i$, $v_i(y)=0$ поза $V_i$ і для деяких $a_i\in U_i$ та $b_i\in V_i$ виконується, що $u_i(a_i)=1$ і $v_i(b_i)=1$ для довільного $i\in I$. Покладемо $p_i=(a_i,b_i)$
+
+Розглянемо неперервні функції $w_i(x,y)=u_i(x)v_i(y)$ на добутку $P=X\times Y$. Візьмемо $t=(t_i)_{i\in I}\in [0;1]^I$ і визначимо функцію $g=f(t):P\to[0;1]$ за правилом
+$$
+g(p)=f(t)(p)=\Sum_{i\in I}t_iw_i(p),\ p\in P.
+$$
+Покажемо, що $g$ нарізно неперервна. Візьмемо $x\in X$. Тоді існує $j\in I$ таке, що $x\notin U_i$ для довільного $i\ne j$. В такому разі $u_i(x)=0$, а тому $w_i(x,y)=u_i(x)v_i(y)=0$ для довільних $i\ne j$ та $y\in Y$. Отже, $g^x(y)=t_jw_j(x,y)$ для довільного $y\in Y$, а значить, $g^x$ є неперервною функцією. Аналогічно перевіряємо неперервність функції $g_y$ для $y\in Y$. Таким чином, ми з'ясували, що $f:[0;1]^I\to S(P)$.
+
+Перевіримо неперервність функції $f$. Розглянемо деяку точку $\a=(\a_i)_{i\in I}\in [0;1]^I$. Нехай $s_0=f(\a)$. Розглянемо деякий базисний окіл $W=W_{E,\e}(s_0)$ точки $s_0$ в просторі $S(P)$, де $\e>0$ і $E$ -- скінченна підмножина $P$. Тоді скінченні множини $\pr_X(E)$ та $\pr_Y(E)$ перетинаються щонайбільше зі скінченним числом множин $U_i$ та $V_i$ відповідно. А тому $\cr E$ перетинається щонайбільше зі скінченним числом множин $W_i$. Отже, існує скінченна множина $J\<I$ така, що $W_i\cap \cr E=\0$ для довільного $i\notin J$. Нехай $\d>0$ таке, що $\d|J|< \e$ і
+$$U=U_{J,\d}(\a)=\Big\{t\in[0;1]^I:\forall i\in J\ \big|\ |t_i-\a_i|<\d\Big\}$$
+є базисним околом точки $\a$ в тихонівському кубі $[0;1]^I$. Візьмемо $t\in U$ та $p\in\cr E$. Тоді $w_i(p)=0$ для $i\notin J$. В такому разі,
+$$\big|f(t)(p)-f(\a)(p)\big|=\Sum_{i\in J}|t_i-\a_i|w_i(p)\le\d|J|<\e,
+$$
+а значить, $f(t)\in W$. Отже, $f$ неперервна.
+
+Перевіримо, що $f$ ін'єктивна. Нехай $t=(t_i)_{i\in I}, t'=(t'_i)_{i\in I}\in [0;1]^I$ такі, що $t\ne t'$. Тоді для деякого $j\in I$ виконується, що $t_j\ne t'_j$. Нехай $p_j=(a_j,b_j)$. Тоді $w_j(p_j)=1$ і $w_i(p_j)=0$ при $j\ne i$. В такому разі,
+$$
+f(t)(p_j)=\Sum_{i\in I}t_iw_i(p_i)=t_j\ne t_j'=\Sum_{i\in I}t'_iw_i(p_i)=f(t')(p_j),
+$$
+а тому $f(t)\ne f(t')$.
+
+Перевіримо неперервність оберненого відображення $f^{-1}$. Візьмемо деяку точку $s_0\in f\big([0;1]^I\big)$. Тоді існує $\a=(\a_i)_{i\in I}\in[0;1]^I$ таке, що $s_0=f(\a)$. Тоді $\a=f^{-1}(s_0)$. Розглянемо базисний окіл
+$$U=U_{J,\e}(\a)=\Big\{t\in[0;1]^I:\forall i\in J\ \big|\ |t_i-\a_i|<\e\Big\},$$
+де $\e>0$ і $J$ скінченна. Покладемо $E=\Big\{p_j:j\in J\}$ і $W=W_{E,\e}(s_0)$. Візьмемо $s\in f\big([0;1]^I\big)\cap W$ і покладемо $t=(t_i)_{i\in I}=f^{-1}(s)$. Тоді  $s=f(t)$, причому $t_j=f(t)(p_j)$ для $j\in J$, адже $w_i(p_j)=0$ для $i\ne j$ і $w_j(p_j)=1$. Аналогічно, $\a_j=f(a)(p_j)$ для $j\in J$. Таким чином, $|t_j-\a_j|=\big|f(t)(p_j)-f(\a)(p_j)\big|<\e$ для $j\in J$. Отже, $t=f^{-1}(s)\in W$, що і доводить неперервність оберненого відображення $f^{-1}$. Таким чином, $f$ є гомеоморфним вкладенням.
+
+\textbf{Необхідність.} Нехай $K$ гомеоморфно вкладається в $S(P)$. Покажемо, скажімо, що $w(K)<c^\sharp(X)$. З твердження~\ref{tve_4} випливає, що існує компакт Еберлейна $\wt X$, для якого $K$ гомеоморфно вкладається в $S({\wt X\times Y})$,  причому $\wt X$ є неперервним образом $X$. Тоді $c^\sharp(\wt X)\le c^\sharp(X)$. Отже досить показати, що $w(K)<c^\sharp(\wt X)$. Тому не буде обмеженням вважати, що $X$ є компактом Еберлейна і $K\<S(P)$, де $P=X\times Y$.
+
+
+Розглянемо банаховий простір $M=C(Y)$ з максимум-нормою і відображення $\f:S(P)\to C_p(X,M)$, що діє за правилом $\f(s)(x)(y)=s(x,y)$ для довільних $x\in X$, $y\in Y$ і $s\in S(P)$. Зрозуміло, що бієкція $\f$ є лінійним оператором, причому
+$$
+\big\|\f(s)(x_0)\big\|=\max_{y\in Y}\big|\f(s)(x_0)(y)\big|
+=\max_{y\in Y}\big|s(x_0,y)\big|
+\le \max_{p\in\cr\{p_0\}}\big|s(p)\big|
+=\|s\|_{p_0},
+$$
+якщо $p_0=(x_0,y_0)\in P$ і $s\in S(P)$. Звідси, зокрема, випливає неперервність оператора $\f$.
+
+Отже, $K$ гомеоморфний до $\wt K=\f(K)\<C_p(X,M)$. Тоді за твердженням~\ref{tve10} $w(K)\le d(X)$. Але за твердженням~\ref{tve9} маємо, що
+$$c^\sharp(X)=d(X)^+>d(X)\ge w(K),$$
+що і треба було довести.
+\end{proof}
+
+\begin{nas} Нехай $X$, $Y$ і $K$ -- нескінченні компакти, причому $X$ та $Y$ метризовні і сепарабельні. Тоді для того, щоб простір $K$ гомеоморфно вкладався в $S(X\times Y)$ необхідно і досить, щоб $K$ був метризовним і сепарабельним.
+	
+\end{nas}
+\begin{proof}%twierdzenie 1
+Негайно випливає з попередньої теореми.
+\end{proof}
+
+\newpage
+\section{Висновки}
+
+В даній роботі отримано наступні результати:
+\begin{itemize}
+\item введено природну топологізацію простору нарізно неперервних функцій, яка називається топологією навхрест-рівномірної збіжності;
+
+\item доведено нарізно неперервність функції обчислення і з її допомогою встановлено неберовість простору нарізно неперервних функцій;
+
+\item встановлено можливість редукції загального питання про вкладення компакту у простір нарізно неперервних функцій до випадку, коли один із співмножників є компактом Еберлейна
+
+\item доведено, що для метризовних просторів і для компактів Еберлейна вага, щільність і клітковість рівні, причому наступником до цього кардинального числа є точна клітковість.
+
+\item вперше отримано повну характеризацію компактів, які вкладаються в простір нарізно неперервних функцій на добутку двох компактів: для того, щоб компакт вкладався в простір нарізно неперервних функцій на добутку двох компактів з топологією навхрест рівномірної збіжності необхідно і досить, щоб його вага була меншою за точну клітковість співмножників.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\begin{thebibliography}{9}
+\addcontentsline{toc}{abcd}{\hspace{7mm}{\bf Список літератури}\hfill}
+
+
+\bibitem{VMa} Voloshyn H.A., Maslyuchenko V.K. \emph{The topologization of the space of separately continuous functions}, Carpathian Mathematical Publications 2013, 5(2), 199–-207.
+
+\bibitem{VMaM1} H. A. Voloshyn, V. K. Maslyuchenko, O. V. Maslyuchenko, \emph{Embedding of the space of separately continuous functions into the product of Banach spaces and its barrelledness}, Mathematical Bulletin of Shevchenko Scientific Society,  \textbf{11} (2014), 36-50.
+
+\bibitem{VMaM2} H. A. Voloshyn, V. K. Maslyuchenko, O. V. Maslyuchenko, \emph{The bornologicity of the space of separately continuous functions}, Mathematical Bulletin of Taras Shevchenko Scientific Society,  \textbf{12} (2015), 61-67.
+
+\bibitem{VMaM3} H. A. Voloshyn, V. K. Maslyuchenko, O. V. Maslyuchenko, \emph{On Baireness of the space of separately continuous function}. Transactions of Institute of Mathematics, the NAS of Ukraine, 12 (2015) No. 3, 78-96.
+
+\bibitem{MI1} Ivasiuk R., Maslyuchenko O., \textit{Compact subspaces of the space of separately continuous functions with the cross-uniform topology and the sharp cellularity}//
+Report of Meeting. The Twenty-second Debrecen–Katowice Winter Seminar on Functional Equations and Inequalities Hajd\'uszoboszl\'o (Hungary), February 1–4, 2023. P.9-10. Annales Mathematicae Silesianae. 2023. Retrieved from https://journals.us.edu.pl/index.php/AMSIL/article/view/15621
+DOI: 10.2478/amsil-2023-0006
+
+\bibitem{MI2}  Ivasiuk R., Maslyuchenko O., \textit{Characterization of compact subspaces of the space of separately
+continuous functions with the cross-uniform topology}. Матеріали міжнародної конференції ``Математика та інформаційні технології'' присвяченої 55-річчю факультету математики та інформатики. 28-30 вересня 2023 року. Чернівці. c.~62.
+
+
+\bibitem{En}  {Engelking}, R. \emph{General topology}. - Berlin: Heldermann Verlag. - 1989. - 529 p.
+
+\bibitem{Ar} Архангельський А. В.\textit{ Топологические пространства функций}. -- Москва: Издателство московского универитета, 1989, 222с.
+\bibitem{KM} Куратовський К., Мостовський К., \textit{Теория множеств}. -- Москва: Издателство ``Мир''. - 1970. - 416 с.
+
+\end{thebibliography}
+
+
+
+\end{document}
+
+
+
+
+

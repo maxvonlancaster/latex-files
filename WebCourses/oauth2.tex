@@ -1,0 +1,143 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=2cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+
+\begin{large}
+
+\begin{center}
+\section*{Токени та OAuth 2.}
+\end{center}
+
+\medskip
+
+\section{Токени та JWT.}
+
+JSON Web Token (або просто JWT)~--- це спеціальна строка, сгенерована на основі формату JSON, і яка використовується як простіша і безпечніша альтернатива іншим типам авторизації.
+
+JWT складається з трьох частин: header (заголовок), payload (дані), signature (підпис). Токен містить всю інформацію про авторизованого користувача. 
+
+Клієнт зберігає токен в об'єкті $sessionStorage$. Потім, клієнт може надіслати запит на сервер, розмістивши заголовок запиту $Authorisation: Bearer\textmd{ }\{token\}$. При цьому сервер перевіряє валідність токена при запиті.
+
+
+\section{Приклад.}
+
+Наведемо приклад написання сервісу в Node.js, що видає JWT при наданні юзером логіну та паролю.
+
+\begin{lstlisting}
+const express = require('express'),
+app = express(),
+crypto = require('crypto'),
+users = require('./users');
+
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 7000;
+
+const tokenKey = 'any-string-you-like';
+
+app.use(express.json());
+app.use((req, res, next) => {
+    if (req.headers.authorization) {
+        let tokenParts = req.headers.authorization
+            .split(' ')[1]
+            .split('.');
+        let signature = crypto
+            .createHmac('SHA256', tokenKey)
+            .update(`${tokenParts[0]}.${tokenParts[1]}`)
+            .digest('base64');
+
+        if (signature === tokenParts[2])
+            req.user = JSON.parse(
+                Buffer.from(
+                    tokenParts[1],
+                    'base64'
+                ).toString('utf8')
+            );
+        next();
+    }
+    next();
+});
+
+app.post('/api/auth', (req, res) => {
+    for (let user of users) {
+        if (
+            req.body.login === user.login &&
+            req.body.password === user.password
+        ) {
+            let head = Buffer.from(
+                JSON.stringify({ alg: 'HS256', typ: 'jwt' })
+            ).toString('base64');
+            let body = Buffer.from(
+                JSON.stringify(user)
+            ).toString('base64');
+            let signature = crypto
+                .createHmac('SHA256', tokenKey)
+                .update(`${head}.${body}`)
+                .digest('base64');
+
+            return res.status(200).json({
+                id: user.id,
+                login: user.login,
+                token: `${head}.${body}.${signature}`,
+            });
+        }
+    }
+    return res
+        .status(404)
+        .json({ message: 'User not found' });
+});
+
+app.get('/user', (req, res) => {
+    if (req.user) return res.status(200).json(req.user);
+    else
+        return res
+            .status(401)
+            .json({ message: 'Not authorized' });
+});
+
+app.listen(port, host, () =>
+    console.log(`Server listens ${host}:${port}`)
+);
+\end{lstlisting}
+
+\section{Що таке OAuth 2?}
+
+OAuth 2.0 - протокол авторизації, що дозволяє видати одному сервісу (додатку) права на доступ до ресурсів користувача на іншому сервісі. Протокол позбавляє необхідності довіряти додатку логін і пароль, а також дозволяє видавати обмежений набір прав, а не всі відразу.
+
+
+
+
+\end{large}
+\end{document}
+

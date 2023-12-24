@@ -7,6 +7,27 @@
 \usepackage{graphicx}
 \usepackage{listings}
 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 \begin{document}
 
 \pagenumbering{gobble}
@@ -22,7 +43,7 @@
 
 \section{Welcome to GraphQL}
 
-GraphQL, often dubbed as a query language for APIs, allows clients to request exactly the data they need, no more and no less. Unlike REST APIs, where endpoints dictate the structure of the response, GraphQL empowers clients to define their data requirements through queries. This level of control eliminates over-fetching and under-fetching of data, streamlining network requests and enhancing application performance.
+Технологія GraphQL (або query мова для API), дозволяє клієнту реквестати саме ті дані, які йому потрібні, ні більше ні менші. На відміну від REST API, де ендпоінти визначають структуру відповіді, GraphQL дозволяє клієнтам визначати свої вимоги до даних за допомогою запитів. Цей рівень контролю усуває надмірну та недостатню вибірку даних, оптимізує мережеві запити та підвищує продуктивність додатків.
 
 \includegraphics[scale=0.8]{gq1}
 
@@ -50,8 +71,8 @@ Disadvantages
 \end{itemize}
 
 
-\section{Queries and Mutations}
- 
+\section{Queries, mutations and subscriptions}
+
 In GraphQL, queries and mutations are two fundamental operations that clients can use to interact with the server and retrieve or manipulate data. They serve distinct purposes and are designed to facilitate efficient and flexible communication between clients and the GraphQL server.
 
 \textbf{Queries}: Queries in GraphQL are used to request data from the server. They resemble a data structure that defines the shape and structure of the data the client is interested in fetching. With queries, clients can specify exactly what fields they need, allowing them to retrieve only the necessary data and avoid over-fetching.
@@ -60,7 +81,14 @@ In GraphQL, queries and mutations are two fundamental operations that clients ca
 
 The query type in GraphQL represents a read-only view of all of our entities and ways to retrieve them. A query type is required for every GraphQL server.
 
+\section{Приклад.}
 
+Наведемо приклад написання сервісу в Node.js, що надає ендпоінт для квері мови GraphQL.
+
+\begin{lstlisting}
+
+
+\end{lstlisting}
 
 
 \end{large}
