@@ -44,7 +44,7 @@ In this article, we will approach a range of problems, involving placing $n$ che
 {Твірна функція — це структура, яка тісно пов’язана з числовою послідовністю, і дозволяє нам маніпулювати послідовністю як єдиною сутністю з метою її кращого розуміння. Грубо кажучи, твірні функції перетворюють проблеми про послідовності в проблеми про
 функції. Вони забезпечують систематичний спосіб кодування послідовностей чисел або інших комбінаторних об’єктів, дозволяючи вишукано розв’язувати складні проблеми в різних математичних областях.
 
-У цій статті ми розглянули ряд проблем, пов’язаних із розміщенням $n$ шахових фігур на $n\times n$ шахівниці так, щоб дві фігури не атакували одна одну, використовуючи підхід твірних функцій. Задача про розміщення $n$ королев на дошці $n\times n$ до сих пір є відкритою комбінаторною задачею, точної формули обчислення поки не відомо, лише приблизні апроксимації. Тим не менше, часто розглядаються часткові випадки, зокрема специфічні умови розміщень, інші фігури, які мають інші лінії атак і т.д. 
+У цій статті ми розглянули ряд проблем, пов’язаних із розміщенням $n$ шахових фігур на $n\times n$ шахівниці так, щоб дві фігури не атакували одна одну, використовуючи підхід твірних функцій. Задача про розміщення $n$ королев на дошці $n\times n$ до сих пір є відкритою комбінаторною задачею, точної формули обчислення поки не відомо, лише приблизні апроксимації. Тим не менше, часто розглядаються часткові випадки, зокрема специфічні умови розміщень, інші фігури, які мають інші лінії атак і т.д.
 
 Хоча проблема n-королев часто використовується як практичний приклад для алгоритмів, які вирішують задачі комбінаторної оптимізації; він знайшов кілька реальних застосувань, включаючи практичне планування та призначення завдань, керування комп’ютерними ресурсами та тестування схем надвеликого рівня інтеграції.
 
@@ -63,9 +63,9 @@ In this article, we will approach a range of problems, involving placing $n$ che
 % (for those authors, who don't understand what is it)
 
 \pyear{2023} % year
-\volume{3}   % volume
-\issue{1}    % issue
-\pageno{10}  % number of the first page
+\volume{11}   % volume
+\issue{2}    % issue
+\pageno{51}  % number of the first page
 \received{20.11.2023} % received date
 %\revised{?} % revised date
 
@@ -123,7 +123,7 @@ So far, there still remains open problem on the maximum arrangements of $n$ quee
 Lets consider the following figure: partial bishop~--- the figure, that will only be attacking on one line. We will denote the amount of different ways we can place $k$ such figures on a board $n\times n$ by $b_{n}^{k}$.
 
 \begin{center}
-\includegraphics[scale=1.5]{figure.png}
+\includegraphics[scale=1.3]{figure.png}
 \end{center}
 
 In case of board $1\times 1$, we get the amount of possible allocations of one such bishop is $1$; so $b_{1}^{1} = 1$ and $b_{1}^{0} = 1$.
@@ -131,7 +131,7 @@ In case of board $1\times 1$, we get the amount of possible allocations of one s
 Let's assume, that we have the amount of possible allocations of $k$ figures for the board $(n-1)\times (n-1)$. The board $n\times n$ will contain board $(n-1)\times (n-1)$ as it's part (consider lower part to the left, see pic.). If we place $(k-i)$ figures in the part $(n-1)\times (n-1)$, in that case in the remaining $2n-1$ squares we place the rest $i$ figures. But the remaining $2n-1$ slice has only $2n-1-(k-i)$ squares available (as the rest $(k-i)$ squares are under the attack from the already placed $(k-i)$ bishops). That implies the total amount of placements for the remaining slice as $C_{2n-1-(k-i)}^{i}$ (where $C_{n}^{k}=\frac{n!}{(n-k)!k!}$~--- amount of combinations from $n$ to $k$). From that we get, that there are in total $b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i}$ ways to place $k-i$ figures on $(n-1)\times (n-1)$ part of the board and $i$ figures on the rest of the board.
 
 \begin{center}
-\includegraphics[scale=1.5]{n_board.png}
+\includegraphics[scale=1.3]{n_board.png}
 \end{center}
 
 By adding all these products for $i=0,1,...,k$ we get the total amount of placements of $k$ figures on the board $n\times n$: $b_{n}^{k}=\sum\limits_{i=0}^{k} b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i}$.
@@ -194,7 +194,7 @@ In case of the $k>2$ the problem of calculation of the generative function somew
 % *** BOOK
 \bibitem{k1} P, S.S., 2011. New decision rules for exact search in n-queens. J. Global Optim. 497–514.
 
-\bibitem{k2} Кривий Л. Дискретна математика. 2-ге вид. Киїів : Букрек, 2017. 568 с.
+\bibitem{k2} Kryvyi L. Discrete mathematics. 2nd edition Kyiv: Bukrek, 2017. 568 p.
 
 \bibitem{k3} Dudeney H. E. "Bishops--Unguarded" and "Bishops--Guarded.". Amusements in Mathematics. 1970. Vol. 297, 298. P. 88–89.
 

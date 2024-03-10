@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{color}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -41,27 +42,27 @@
 
 \medskip
 
-\section{Welcome to GraphQL}
+\section{Що таке GraphQL?}
 
 Технологія GraphQL (або query мова для API), дозволяє клієнту реквестати саме ті дані, які йому потрібні, ні більше ні менші. На відміну від REST API, де ендпоінти визначають структуру відповіді, GraphQL дозволяє клієнтам визначати свої вимоги до даних за допомогою запитів. Цей рівень контролю усуває надмірну та недостатню вибірку даних, оптимізує мережеві запити та підвищує продуктивність додатків.
 
 \includegraphics[scale=0.8]{gq1}
 
-\section{GraphQL vs REST}
+\section{GraphQL та REST: порівняння}
 
-Advantages of GraphQL
+Переваги GraphQL:
 
 \begin{itemize}
-\item Efficiency in Data Retrieval: GraphQL enables clients to request precisely the data they need, minimizing over-fetching or under-fetching of information. This tailored approach enhances performance and reduces unnecessary network traffic, ultimately resulting in faster response times.
+\item Ефективність отримання даних: GraphQL дозволяє клієнтам запитувати саме ті дані, які їм потрібні, зводячи до мінімуму випадки запиту надмірної або недостатньої кількості інформації. Цей індивідуальний підхід підвищує продуктивність і зменшує непотрібний трафік, що в кінцевому підсумку призводить до швидшого часу відповіді серверу.
 
-\item Single Request, Multiple Resources: Unlike REST, which often necessitates multiple endpoints for different resources, GraphQL allows clients to retrieve related data in a single request. This reduces the infamous "N+1 query" problem and simplifies data aggregation.
+\item Один запит, кілька ресурсів: на відміну від REST, який часто потребує кількох кінцевих точок для різних ресурсів, GraphQL дозволяє клієнтам отримувати пов’язані дані в одному запиті. Це зменшує сумнозвісну проблему «N+1» і спрощує агрегацію даних.
 
-\item Flexible Schema Evolution: GraphQL's schema-first design empowers developers to evolve APIs without breaking changes. New fields and types can be added without impacting existing clients, fostering agility and accommodating changing business requirements.
+\item Можливість гнучкої еволюція схеми: дизайн GraphQL на основі схем дає змогу розробникам розвивати API без серйозних змін. Нові поля та типи можна додавати, не впливаючи на наявних клієнтів, сприяючи гнучкості та пристосовуючись до мінливих бізнес-вимог.
 
-\item Strongly Typed: GraphQL enforces a strongly typed schema, providing clear definitions of available data and operations. This eliminates ambiguity and reduces runtime errors, leading to more robust and maintainable codebases.
+\item Строга типізація: GraphQL забезпечує чітку типізацію схеми, надаючи чіткі визначення доступних даних і операцій. Це усуває неоднозначність і зменшує кількість помилок під час виконання, створюючи надійніші кодові бази, які можна підтримувати.
 \end{itemize}
 
-Disadvantages
+Недоліки:
 
 
 \begin{itemize}

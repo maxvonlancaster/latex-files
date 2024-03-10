@@ -1,0 +1,222 @@
+\documentclass[notes=show,9pt]{beamer}
+
+\usepackage[english,russian,ukrainian]{babel}
+\usepackage[cp1251]{inputenc}       % allow Latin1 characters
+
+\usepackage{textcomp}
+\usepackage{pgf}%,pgfarrows,pgfnodes,pgfautomata,pgfheaps
+
+\usepackage{beamerthemeshadow}
+\useinnertheme[shadow=true]{rounded}
+%\usecolortheme[named=CarnationPink]{structure}
+\usecolortheme{seahorse}
+%\usecolortheme{whale}
+\useoutertheme{shadow}
+\usefonttheme{structureitalicserif}
+%\usefonttheme[onlysmall]{structurebold}
+
+\setbeamercolor{title}{use=structure,fg=white,bg=structure.fg}
+\setbeamerfont{block title}{size={}}
+
+
+\usepackage{times}
+
+\usepackage{color}
+
+\newcommand{\tblue}[1]{\textcolor{blue}{#1}}
+\newcommand{\tred}[1]{\textcolor{red}{#1}}
+\newcommand{\tgreen}[1]{\textcolor{green}{#1}}
+\newcommand{\tyellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\tbrown}[1]{\textcolor{brown}{#1}}
+\newcommand{\tcyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\tmagenta}[1]{\textcolor{magenta}{#1}}
+\newcommand{\torange}[1]{\textcolor{orange}{#1}}
+\newcommand{\tviolet}[1]{\textcolor{violet}{#1}}
+\newcommand{\tpurple}[1]{\textcolor{purple}{#1}}
+
+\newcommand{\tpink}[1]{\textcolor{pink}{#1}}
+\newcommand{\tolive}[1]{\textcolor{olive}{#1}}
+\newcommand{\tdarkgray}[1]{\textcolor{darkgray}{#1}}
+\newcommand{\tgray}[1]{\textcolor{gray}{#1}}
+\newcommand{\tlightgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\twhite}[1]{\textcolor{white}{#1}}
+
+%\newcommand{\proclim}[2]{{\bf\sffamily #1} {\sffamily #2}}
+
+\usepackage{verbatim}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+
+\usepackage{fancybox}
+
+\usepackage{mathptmx}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathpazo}
+
+% \usepackage[sc]{mathpazo}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{pifont}
+
+\usepackage{datetime}
+\newdate{date}{21}{02}{2024}
+\date{\displaydate{date}}
+
+
+\beamertemplateshadingbackground{red!1}{blue!5}
+\beamertemplatetransparentcovereddynamic
+\beamertemplateballitem
+\beamertemplatenumberedballsectiontoc
+%\beamertemplatenotecompress
+
+%\setbeamersize{sidebar width left=0.3cm,sidebar width right=0.3cm}
+%{\usebeamercolor{yellow}}
+%\setbeamertemplate{sidebar canvas left}[horizontal shading]
+%[left=white,middle=yellow.bg,right=white]
+%\setbeamertemplate{sidebar canvas right}[horizontal shading]
+%[left=white,middle=yellow.bg,right=white]
+
+
+ \DeclareMathOperator{\re}{Re}
+ \DeclareMathOperator{\dist}{dist}
+ \DeclareMathOperator{\ecc}{\overline{\mathrm{co}}}
+ \DeclareMathOperator{\ec}{co}
+\newcounter{equi1}
+\newenvironment{equi}
+{\begin{list}
+        {$(\roman{equi1})$}
+        {\setlength{\itemsep}{0ex plus 0.2ex minus 0ex}
+         \setlength{\topsep}{0ex}
+         \setlength{\parsep}{0ex}
+         \setlength{\labelwidth}{7ex}
+         \usecounter{equi1}}}
+{\end{list}}
+
+\renewcommand{\raggedright}{\leftskip=4pt \rightskip=4pt plus 0cm}
+
+\hypersetup{pdfkeywords={pdftex, acrobat}, pdfpagemode={FullScreen}}
+
+
+
+%\title[\twhite{\small \centerline{Про рівномірну відстань до різних функціональних класів}}]
+
+\title[Рекурентна формула для задачі комбінаторної оптимізації про розміщення n шахматних фігур.]{Рекурентна формула для задачі комбінаторної оптимізації про розміщення n шахматних фігур.}
+
+
+\author[Лазорик Андрій]{\textbf{Лазорик Андрій}}
+
+
+\begin{document}
+
+
+\begin{plainframe}
+  \titlepage
+\end{plainframe}
+
+
+
+\begin{frame}{Твірні функції.}
+
+\begin{block}{Означення}
+Для послідовності $a_n\in R$ твірна функція визначається наступним чином: $$f(x)=\sum\limits_{n=0}^{\infty}a_{n}x^{n}$$
+\end{block}
+
+\begin{exampleblock}{Задача 1. (Задача Ейлера)}
+Яку вагу можна зважити за допомогою гирь вагою $1, 2, 2^2,..., 2^n, ...$ та скількома способами?
+
+(Твірна функція: $f(x) = \frac{1}{1-x} = \sum\limits_{n=0}^{\infty}x^{n}$)
+\end{exampleblock}
+
+\begin{exampleblock}{Задача 2. (Послідовність Фібоначчі)}
+Для рекурентної послідовності: $a_0=1$, $a_1=1$, $a_n=a_{n-1}+a_{n-2}$, знайти твірну функцію.
+
+Відповідь: $f(x)=\frac{1}{\sqrt{5}}(\frac{1}{1-\frac{1}{2}(1+\sqrt{5})x}-\frac{1}{1-\frac{1}{2}(1-\sqrt{5})x})$
+\end{exampleblock}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Задача про n ферзів та деякі підходи до її розв’язку.}
+
+\begin{block}{Означення}
+Задача $n$ ферзів – це задача про розміщення $n$ шахових ферзів на дошці $n\times n$ таким чином, що жодні два ферзі не атакують один одного. Розв’яки існують для всіх натуральних чисел $n$ за винятком $n=2$ та $n=3$. Хоча точне число розв’язків обчислено для $n=27$, число розв`язків апроксимується як $(0.143n)^{n}$.
+\end{block}
+
+\begin{thebibliography}{10}
+\bibitem{1}\textbf{Pablo, S.S.} 2011. New decision rules for exact search in n-queens. J. Global Optim. 497–514.
+\end{thebibliography}
+
+\begin{thebibliography}{10}
+\bibitem{2}\textbf{Dudeney H. E.} "Bishops--Unguarded" and "Bishops--Guarded.". Amusements in Mathematics. 1970. Vol. 297, 298. P. 88–89.
+\end{thebibliography}
+
+\end{frame}
+
+
+
+\begin{frame}{Часткові розв’язки для деяких фігур.}
+
+\begin{block}{Означення}
+Розглянемо таку фігуру: частковий слон — фігура, яка буде атакувати тільки на одній лінії. Ми позначимо кількість різних способів, якими ми можемо розмістити $k$ таких фігур на дошці $n\times n$ через $b_{n}^{k}$
+\end{block}
+
+\begin{center}
+\includegraphics[scale=1.1]{figure.png}
+\end{center}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Часткові розв’язки для деяких фігур.}
+
+\begin{exampleblock}{Теорема 1.}
+Кількість можливих розташувань $k$ часткових слонів на дошці $n\times n$ визначається наступною рекурсивною формулою:
+$$b_{n}^{k}=\sum\limits_{i=0}^{k} b_{n-1}^{k-i} \cdot C_{2n-1-(k-i)}^{i}$$
+\end{exampleblock}
+
+\begin{exampleblock}{Теорема 2.}
+Кількість розміщень двох часткових слонів на дошці $n\times n$ задається формулою: $$b_{n}^{(2)} = 1 - 10(n+1)+\frac{29}{2}(n+2)(n+1) +$$ $$+ \frac{16}{3}(n+3)(n+2)(n+1) + \frac{1}{2} (n+4)(n+3)(n+2)(n+1).$$
+\end{exampleblock}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Схема доведення.}
+
+\begin{block}{}
+За рекурсивною формулою матимемо: $b_{n}^{(2)}=b_{n-1}^{(2)} + b_{n}^{(1)}(2n-2) + \frac{1}{2}b_{n}^{(0)}(2n-1)(2n-2)$
+
+Знайдемо твірну функцію: $f(x) = \frac{x^{4}+6x^{3}+5x^{2}}{(1-x)^{5}}.$
+
+Розкладемо наступним чином: $$f(x) = \frac{1}{1-x}-\frac{10}{(1-x)^{2}}+\frac{29}{(1-x)^{3}}-\frac{32}{(1-x)^{4}}+\frac{12}{(1-x)^{5}}.$$
+
+Розклавши кожен із доданків в ряд, матимемо: $$\sum\limits_{n=0}^{\infty}b_{n}^{(2)}x^{n} = f(x)$$ $$= \sum\limits_{n=0}^{\infty}(1-10(n+1)+\frac{29}{2}(n+2)(n+1) +$$ $$+ \frac{16}{3}(n+3)(n+2)(n+1) + \frac{1}{2} (n+4)(n+3)(n+2)(n+1))x^{n}.$$
+
+
+\end{block}
+
+
+\end{frame}
+
+
+
+\begin{frame}\frametitle{}
+\Huge \centerline{Thank you!}
+\end{frame}
+
+\end{document}
+

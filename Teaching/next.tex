@@ -2,7 +2,7 @@
 \usepackage{cmap}
 \usepackage[cp1251]{inputenc}
 \usepackage[english, ukrainian, russian]{babel}
-\usepackage[left=2cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
 \usepackage{amssymb}
 \usepackage{graphicx}
 
@@ -10,62 +10,64 @@
 
 \pagenumbering{gobble}
 
-
 \begin{large}
 
 
 \begin{center}
-\section*{Різдв'яний турнір.}
+\section*{Нерівності}
 \end{center}
 
 \medskip
+\hrule
+\medskip
+\medskip
+\bigskip
+
+ \textbf{\textit{Нерівність Коші:}} $x^{2}+y^{2}\geq 2xy.$
+
+ \textbf{\textit{Нерівність Бернуллі:}} $(1+x)^{\alpha}\leq 1+\alpha x$, $x\geq -1$, $0<\alpha <1$.
+
+ \textbf{\textit{Нерівність Коші-Буняковського-Шварца:}} $$(a_{1}^{2}+a_{2}^{2}+...+a_{n}^{2})(b_{1}^{2}+b_{2}^{2}+...+b_{n}^{2}) \geq (a_{1}b_{1}+a_{2}b_{2}+...+a_{n}b_{n})^{2}.$$
+
+ \textbf{\textit{Нерівність перестановок:}} Нехай $x_{1}\geq x_{2}\geq ... \geq x_{n}$ та $y_{1}\geq y_{2}\geq ... \geq y_{n}$. Тоді для кожної перестановки $\sigma = \{\sigma_{1},\sigma_{2},...,\sigma_{n}\}$ чисел $(1,2,...,n)$ виконується: $$x_{1}y_{1}+x_{2}y_{2}+...+x_{n}y_{n}\geq x_{1}y_{\sigma_{1}}+x_{1}y_{\sigma_{2}}+...+x_{1}y_{\sigma_{n}}\geq x_{1}y_{n}+x_{2}y_{n-1}+...+x_{n}y_{1}.$$
+
+\textbf{\textit{Нерівність Шура:}} $x^{t}(x-y)(x-z) + y^{t}(y-x)(y-z) + z^{t}(z-y)(z-x) \geq 0$.
+
+\bigskip
+\bigskip
 
 \hrule height 1pt
 \vskip 3pt \hrule
 \medskip
 \medskip
 
-
-
 \medskip
 
 
 \begin{enumerate}
-\item 13 учнів з чотирьох різних класів написали 19 творів. Будь-які два однокласника написали однакову кількість творів, будь-які два школярі з різних класів написали різну кількість творів. Скільки школярів написали по одному твору?
+\item Нехай $a,b,c$~--- додатні числа, сума яких рівна 1. Довести, що $$(1+a)(1+b)(1+c)\geq 8(1-a)(1-b)(1-c)$$
+
+\item Доведіть для додатніх $x,y,z$: $$x(x - z)^{
+2} + y(y - z)^{
+2} \geq (x - z)(y - z)(x + y - z).$$
+
+\item Доведіть для $x,y,z$ таких, що $x+y+z$, наступну нерівність: $$6(x^{3}+y^{3}+z^{3})+1\geq 5(x^{2}+y^{2}+z^{2})$$
+
+\item Для $a,b,c > 0$ доведіть: $$(a+b)(b+c)(c+a) \geq 8abc$$
     
-\item Знайдіть остачу при діленні числа $6^{2023}=6\cdot 6\cdot 6\cdot ... \cdot 6$ на $7$.
-
-\item Довести, що число, в дестковому записі якого 120 одиниць та 120 нулів, не є повним квадратом.
+\item Доведіть, що для любих $x,y,z$ справджується нерівність $$x^{4}+y^{4}+z^{4}\geq xyz(x+y+z)$$.
     
-\item Замок має вигляд прямокутника $9\times 11$, кожна клітинка крім центральної - кімната, в центральній - басейн. В кожній стіні (стороні клітинки), що розділяє дві сусідні кімнати, є двері. Чи можна, не виходячи із замка, і не заходячи в басейн, обійти всі кімнати, побувавши в кожній рівно по одному разу?
+\item Нехай $a^{5}-a^{3}+a=2$. Довести, що $a^{6}>3$
+
+\item Доведіть, що $x^{4}+y^{4}+8\geq 8xy$ для любих $x$ та $y$.
     
+\item $x,y,z\geq 0$. Доведіть, що $xy+yz+zx\geq x\sqrt{yz}+y\sqrt{zx}+z\sqrt{xy}$.
 
-\item Чи можна із 13 кірпічів $1\times 1\times 2$ скласти куб $3\times 3\times 3$ з диркою $1\times 1\times 1$ в центрі.
-
-
-\begin{minipage}{.55\textwidth}
-       \item Нехай в шахматній дошці $2^{n}\times 2^{n}$ видалено кутову клітинку. Доведіть, що цю фігуру можна повністю покрити, без перекриття, фігурками вигляду:
-\end{minipage}
-\begin{minipage}{.35\textwidth}
-\begin{center}
-\includegraphics[scale=0.3]{triomino.png}
-\end{center}
-\end{minipage}
-
-\item Довести, що $$\frac{1}{1\cdot 4}+ \frac{1}{4\cdot 7}+ \frac{1}{7\cdot 10}+ ... + \frac{1}{(3n-2)\cdot (3n+1)} = \frac{n}{3n+1}$$
-
-\item Доведіть, що при всіх натуральних $n \geq 2$ виконується нерівність $2^{n}>1+n\sqrt{2^{n-1}}$.
-    
-\item Жук повзе по лініях тривимірної сітки з точки $(0,0,0)$ в точку $(n,n,n)$, збільшуючи кожну з координат на 1. Скількома способами він може це зробити?
-    
-\item Скількома способами троє людей можуть розділити між собою 7 однакових монет. А 7 різних?
-
+\item Для довільних $x,y,z>0$ таких, що $xyz=1$ доведіть: $$\frac{x^{3}}{(1+y)(1+z)} + \frac{y^{3}}{(1+x)(1+z)} + \frac{z^{3}}{(1+y)(1+x)}\geq \frac{3}{4}$$
 \end{enumerate}
 
 
-
-
-
 \end{large}
+
 \end{document}
 
