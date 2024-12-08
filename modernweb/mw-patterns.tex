@@ -1,0 +1,1665 @@
+
+\pagebreak
+\begin{center}
+\section*{Architecture patterns, GoF, SOLID.}
+\end{center}
+
+\medskip
+
+\section*{What are SOLID Design Principles?}
+
+SOLID is an acronym that stands for:
+
+\begin{itemize}
+\item Single Responsibility Principle (SRP)
+
+\item Open-Closed Principle (OCP)
+
+\item Liskov Substitution Principle (LSP)
+
+\item Interface Segregation Principle (ISP)
+
+\item Dependency Inversion Principle (DIP)
+\end{itemize}
+
+In the coming sections, we’ll look at what each of those principles means in detail.
+
+The SOLID design principles are a subcategory of many principles introduced by the American computer scientist and instructor, Robert C. Martin (A.K.A Uncle Bob) in a 2000 paper.
+
+Following these principles can result in a very large codebase for a software system. But in the long run, the main aim of the principles is never defeated. That is, helping software developers make changes to their code without causing any major issues.
+
+\medskip
+\begin{center}
+\textbf{The Single Responsibility Principle (SRP)}
+\end{center}
+
+The single responsibility principle states that a class, module, or function should have only one reason to change, meaning it should do one thing.
+
+For example, a class that shows the name of an animal should not be the same class that displays the kind of sound it makes and how it feeds.
+
+\textbf{Example}:
+
+\begin{lstlisting}
+public class BadBook {
+    private String name;
+    private String author;
+    private String text;
+    //...
+
+    void printTextToConsole(){
+        // our code for formatting and printing the text
+    }
+}
+\end{lstlisting}
+
+This code violates the single responsibility principle we outlined earlier.
+
+To fix our mess, we should implement a separate class that deals only with printing our texts:
+
+\begin{lstlisting}
+public class BookPrinter {
+
+    // methods for outputting text
+    void printTextToConsole(String text){
+        //our code for formatting and printing the text
+    }
+
+    void printTextToAnotherMedium(String text){
+        // code for writing to any other location..
+    }
+}
+\end{lstlisting}
+
+\medskip
+\begin{center}
+\textbf{The Open-Closed Principle (OCP)}
+\end{center}
+
+The open-closed principle states that classes, modules, and functions should be open for extension but closed for modification.
+
+This principle might seem to contradict itself, but you can still make sense of it in code. It means you should be able to extend the functionality of a class, module, or function by adding more code without modifying the existing code.
+
+\textbf{Example}:
+
+\begin{lstlisting}
+public class Guitar {
+
+    private String make;
+    private String model;
+    private int volume;
+
+    //Constructors, getters & setters
+}
+\end{lstlisting}
+
+What if we later decide the Guitar is a little boring and could use a cool flame pattern to make it look more rock and roll.
+
+At this point, it might be tempting to just open up the Guitar class and add a flame pattern — but who knows what errors that might throw up in our application.
+
+Instead, let’s stick to the open-closed principle and simply extend our Guitar class:
+
+\begin{lstlisting}
+public class SuperCoolGuitarWithFlames extends Guitar {
+
+    private String flameColor;
+
+    //constructor, getters + setters
+}
+\end{lstlisting}
+
+\medskip
+\begin{center}
+\textbf{The Liskov Substitution Principle (LSP)}
+\end{center}
+
+The Liskov substitution principle is one of the most important principles to adhere to in object-oriented programming (OOP). It was introduced by the computer scientist Barbara Liskov in 1987 in a paper she co-authored with Jeannette Wing.
+
+The principle states that child classes or subclasses must be substitutable for their parent classes or super classes. In other words, the child class must be able to replace the parent class. This has the advantage of letting you know what to expect from your code.
+
+\textbf{Example}:
+
+\begin{lstlisting}
+public interface Car {
+
+    void turnOnEngine();
+    void accelerate();
+}
+\end{lstlisting}
+
+Above, we define a simple Car interface with a couple of methods that all cars should be able to fulfill: turning on the engine and accelerating forward.
+
+But suppose, we have an electric car:
+
+\begin{lstlisting}
+public class ElectricCar implements Car {
+
+    public void turnOnEngine() {
+        throw new AssertionError("I don't have an engine!");
+    }
+
+    public void accelerate() {
+        //this acceleration is crazy!
+    }
+\end{lstlisting}
+
+By throwing a car without an engine into the mix, we are inherently changing the behavior of our program. This is a blatant violation of Liskov substitution and is a bit harder to fix than our previous two principles.
+
+One possible solution would be to rework our model into interfaces that take into account the engine-less state of our Car.
+
+\begin{lstlisting}
+public interface EnginelessCar {
+
+    void accelerate();
+}
+\end{lstlisting}
+
+
+\medskip
+\begin{center}
+\textbf{The Interface Segregation Principle (ISP)}
+\end{center}
+
+The interface segregation principle states that clients should not be forced to implement interfaces or methods they do not use.
+
+More specifically, the ISP suggests that software developers should break down large interfaces into smaller, more specific ones, so that clients only need to depend on the interfaces that are relevant to them. This can make the codebase easier to maintain.
+
+This principle is fairly similar to the single responsibility principle (SRP). But it’s not just about a single interface doing only one thing – it’s about breaking the whole codebase into multiple interfaces or components.
+
+Think about this as the same thing you do while working with frontend frameworks and libraries like React, Svelte, and Vue. You usually break down the codebase into components you only bring in when needed.
+
+This means you create individual components that have functionality specific to them. The component responsible for implementing scroll to the top, for example, will not be the one to switch between light and dark, and so on.
+
+\textbf{Example}:
+
+\begin{lstlisting}
+public interface BearKeeper {
+    void washTheBear();
+    void feedTheBear();
+    void petTheBear();
+}
+\end{lstlisting}
+
+As avid zookeepers, we’re more than happy to wash and feed our beloved bears. But we’re all too aware of the dangers of petting them. Unfortunately, our interface is rather large, and we have no choice but to implement the code to pet the bear.
+
+Let’s fix this by splitting our large interface into three separate ones:
+
+\begin{lstlisting}
+public interface BearCleaner {
+    void washTheBear();
+}
+
+public interface BearFeeder {
+    void feedTheBear();
+}
+
+public interface BearPetter {
+    void petTheBear();
+}
+\end{lstlisting}
+
+
+\medskip
+\begin{center}
+\textbf{The Dependency Inversion Principle (DIP)}
+\end{center}
+
+
+The dependency inversion principle is about decoupling software modules. That is, making them as separate from one another as possible.
+
+The principle states that high-level modules should not depend on low-level modules. Instead, they should both depend on abstractions. Additionally, abstractions should not depend on details, but details should depend on abstractions.
+
+In simpler terms, this means instead of writing code that relies on specific details of how lower-level code works, you should write code that depends on more general abstractions that can be implemented in different ways.
+
+This makes it easier to change the lower-level code without having to change the higher-level code.
+
+\textbf{Example}:
+
+\begin{lstlisting}
+public class Windows {
+
+    private StandardKeyboard keyboard;
+    private Monitor monitor;
+
+    public Windows() {
+        monitor = new Monitor();
+        keyboard = new StandardKeyboard();
+    }
+
+}
+\end{lstlisting}
+
+Not only does this make our Windows class hard to test, but we’ve also lost the ability to switch out our StandardKeyboard class with a different one should the need arise. And we’re stuck with our Monitor class too.
+
+Let’s decouple our machine from the StandardKeyboard by adding a more general Keyboard interface and using this in our class:
+
+\begin{lstlisting}
+public interface Keyboard { }
+
+public class StandardKeyboard implements Keyboard { }
+
+public class Windows{
+
+    private Keyboard keyboard;
+    private Monitor monitor;
+
+    public Windows(Keyboard keyboard, Monitor monitor) {
+        this.keyboard = keyboard;
+        this.monitor = monitor;
+    }
+}
+\end{lstlisting}
+
+
+\medskip
+\begin{center}
+\section*{GoF patterns.}
+\end{center}
+
+Gangs of Four Design Patterns is the collection of 23 design patterns from the book “Design Patterns: Elements of Reusable Object-Oriented Software”.
+
+This book was first published in 1994 and it’s one of the most popular books to learn design patterns. The book was authored by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. It got nicknamed as Gangs of Four design patterns because of four authors. Furthermore, it got a shorter name as “GoF Design Patterns”.
+
+GoF Design Patterns are divided into three categories:
+
+\begin{itemize}
+\item Creational: The design patterns that deal with the creation of an object (Singleton, Factory Method, Abstract Factory, Builder and Prototype).
+
+\item Structural: The design patterns in this category deals with the class structure such as Inheritance and Composition (Adapter, Bridge, Composite, Decorator, Facade, Flyweight and Proxy).
+
+\item Behavioral: This type of design patterns provide solution for the better interaction between objects, how to provide lose coupling, and flexibility to extend easily in future.
+\end{itemize}
+
+
+
+\medskip
+\begin{center}
+\textbf{Singleton}
+\end{center}
+
+The Singleton Pattern is one of the most commonly used design patterns in software development. It ensures that a class has only one instance while providing a global access point to that instance. This pattern is particularly useful for managing shared resources such as configuration settings, logging, or database connections.
+
+The Singleton Pattern ensures single instance (only one instance of the class exists throughout the application’s lifecycle) and global access (provides a centralized point of access to the single instance).
+
+Advantages: controlled access, resource efficiency and global point of access.
+
+\textbf{Common Use Cases:}
+
+\begin{itemize}
+\item Logging Services: Ensure that all parts of an application write to the same log file.
+
+\item Configuration Management: Store and manage application settings.
+
+\item Thread Pools: Manage a pool of threads with a single controller.
+
+\item Database Connections: Ensure only one connection object interacts with the database.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+public class Singleton
+{
+    // Static variable to hold the single instance
+    private static Singleton _instance;
+    private static readonly object _lock = new object();
+
+    // Private constructor to prevent instantiation from other classes
+    private Singleton()
+    {
+        Console.WriteLine("Singleton instance created.");
+    }
+
+    // Public method to provide access to the single instance
+    public static Singleton Instance
+    {
+        get
+        {
+            // Ensure thread safety
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Singleton();
+                    }
+                }
+            }
+            return _instance;
+        }
+    }
+
+    // Example method to demonstrate functionality
+    public void ShowMessage(string message)
+    {
+        Console.WriteLine($"Message from Singleton: {message}");
+    }
+}
+
+// Example usage
+class Program
+{
+    static void Main(string[] args)
+    {
+        Singleton instance1 = Singleton.Instance;
+        Singleton instance2 = Singleton.Instance;
+
+        instance1.ShowMessage("Hello, Singleton!");
+
+        // Verify that both instances are the same
+        Console.WriteLine($"Are instances equal? {ReferenceEquals(instance1, instance2)}");
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Factory Method}
+\end{center}
+
+The Factory Method Pattern is a creational design pattern that provides an interface for creating objects in a superclass, while allowing subclasses to alter the type of objects that will be created. It promotes loose coupling by delegating the instantiation process to child classes instead of instantiating concrete classes directly.
+
+The Factory Method Pattern is used when:
+
+\begin{itemize}
+\item The exact type of the object to be created is determined at runtime.
+
+\item You want to provide a common interface for creating objects while allowing subclasses to decide which specific object to instantiate.
+\end{itemize}
+
+This pattern is especially useful for frameworks where components need to work with objects that adhere to a specific interface but whose concrete classes may vary.
+
+\textbf{Example.}
+
+\begin{lstlisting}
+using System;
+
+namespace FactoryMethodPattern
+{
+    // Product Interface
+    public interface IVehicle
+    {
+        void Drive();
+    }
+
+    // Concrete Product: Car
+    public class Car : IVehicle
+    {
+        public void Drive()
+        {
+            Console.WriteLine("Driving a car.");
+        }
+    }
+
+    // Concrete Product: Bike
+    public class Bike : IVehicle
+    {
+        public void Drive()
+        {
+            Console.WriteLine("Riding a bike.");
+        }
+    }
+
+    // Creator (Abstract Class)
+    public abstract class VehicleFactory
+    {
+        // Factory Method
+        public abstract IVehicle CreateVehicle();
+
+        public void TestDrive()
+        {
+            IVehicle vehicle = CreateVehicle();
+            vehicle.Drive();
+        }
+    }
+
+    // Concrete Creator: Car Factory
+    public class CarFactory : VehicleFactory
+    {
+        public override IVehicle CreateVehicle()
+        {
+            return new Car();
+        }
+    }
+
+    // Concrete Creator: Bike Factory
+    public class BikeFactory : VehicleFactory
+    {
+        public override IVehicle CreateVehicle()
+        {
+            return new Bike();
+        }
+    }
+
+    // Client Code
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Use the Car Factory
+            VehicleFactory carFactory = new CarFactory();
+            carFactory.TestDrive();
+
+            // Use the Bike Factory
+            VehicleFactory bikeFactory = new BikeFactory();
+            bikeFactory.TestDrive();
+        }
+    }
+}
+\end{lstlisting}
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Abstract Factory}
+\end{center}
+
+The Abstract Factory Pattern is a creational design pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes. It is particularly useful when a system needs to be independent of the way its objects are created or when multiple families of objects are required.
+
+The Abstract Factory Pattern encapsulates a group of factories that share a common theme. Each factory in this pattern can create multiple types of objects that are designed to work together.
+
+Key characteristics of abstract factory pattern: encapsulation of object creation, families of related objects, abstract interface and decoupling.
+
+Use Cases for Abstract Factory Pattern
+
+\begin{itemize}
+\item Cross-Platform Applications: Creating UI components for different operating systems (e.g., Windows, macOS, Linux).
+
+\item Product Families: When different configurations of a product are needed, such as themes or skins.
+
+\item Dependency Management: Managing dependencies among objects in complex systems.
+\end{itemize}
+
+Structure of the Abstract Factory pattern:
+
+\begin{itemize}
+\item Abstract Factory: Defines the interface for creating abstract products.
+
+\item Concrete Factory: Implements the creation of specific products.
+
+\item Abstract Product: Declares interfaces for a set of related products.
+
+\item Concrete Product: Implements the abstract product interface.
+
+\item Client: Uses the abstract factory to create objects and does not need to know the specific implementations.
+\end{itemize}
+
+
+\textbf{Example.}
+
+\begin{lstlisting}
+// Abstract product for Button
+public interface IButton
+{
+    void Render();
+}
+
+// Abstract product for Textbox
+public interface ITextbox
+{
+    void Render();
+}
+
+// Windows-specific Button
+public class WindowsButton : IButton
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Windows Button");
+    }
+}
+
+// Mac-specific Button
+public class MacButton : IButton
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Mac Button");
+    }
+}
+
+// Windows-specific Textbox
+public class WindowsTextbox : ITextbox
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Windows Textbox");
+    }
+}
+
+// Mac-specific Textbox
+public class MacTextbox : ITextbox
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Mac Textbox");
+    }
+}
+
+// Abstract factory interface
+public interface IUIFactory
+{
+    IButton CreateButton();
+    ITextbox CreateTextbox();
+}
+
+
+// Factory for Windows UI components
+public class WindowsUIFactory : IUIFactory
+{
+    public IButton CreateButton()
+    {
+        return new WindowsButton();
+    }
+
+    public ITextbox CreateTextbox()
+    {
+        return new WindowsTextbox();
+    }
+}
+
+// Factory for Mac UI components
+public class MacUIFactory : IUIFactory
+{
+    public IButton CreateButton()
+    {
+        return new MacButton();
+    }
+
+    public ITextbox CreateTextbox()
+    {
+        return new MacTextbox();
+    }
+}
+
+
+public class Application
+{
+    private readonly IButton _button;
+    private readonly ITextbox _textbox;
+
+    public Application(IUIFactory factory)
+    {
+        _button = factory.CreateButton();
+        _textbox = factory.CreateTextbox();
+    }
+
+    public void RenderUI()
+    {
+        _button.Render();
+        _textbox.Render();
+    }
+}
+
+// Example usage
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Choose Platform (Windows/Mac): ");
+        string platform = Console.ReadLine();
+
+        IUIFactory factory;
+
+        if (platform?.ToLower() == "windows")
+        {
+            factory = new WindowsUIFactory();
+        }
+        else
+        {
+            factory = new MacUIFactory();
+        }
+
+        var app = new Application(factory);
+        app.RenderUI();
+    }
+\end{lstlisting}
+
+
+\medskip
+\begin{center}
+\textbf{Builder}
+\end{center}
+
+The Builder Pattern is a creational design pattern that provides a flexible way to construct complex objects step-by-step. Unlike other creational patterns, the Builder Pattern separates the construction process from the representation, allowing the same construction process to produce different representations of an object.
+
+This pattern is particularly useful when constructing an object requires multiple steps, configurations, or when objects are immutable.
+
+Key characteristics of the builder pattern: step-by-step construction, separation of concerns, immutability and multiple representations.
+
+Use Cases for Builder Pattern:
+
+\begin{itemize}
+\item Complex Objects: Constructing objects that have many optional or mandatory attributes.
+
+\item Immutable Objects: Building objects that cannot be modified after creation (e.g., configuration objects).
+
+\item Different Representations: Constructing objects with varying representations or formats.
+\end{itemize}
+
+Structure of the builder pattern:
+
+\begin{itemize}
+\item Builder: Defines the interface for building parts of the product.
+
+\item Concrete Builder: Implements the builder interface and constructs specific representations of the product.
+
+\item Product: Represents the complex object being built.
+
+\item Director (Optional): Encapsulates the construction steps, delegating the building process to the builder.
+
+\item Client: Uses the builder to construct the object.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+class Client
+{
+   void Main()
+   {
+       Builder builder = new ConcreteBuilder();
+       Director director = new Director(builder);
+       director.Construct();
+       Product product = builder.GetResult();
+   }
+}
+
+class Director
+{
+   Builder builder;
+
+   public Director(Builder builder)
+   {
+       this.builder = builder;
+   }
+
+   public void Construct()
+   {
+       builder.BuildPartA();
+       builder.BuildPartB();
+       builder.BuildPartC();
+   }
+}
+
+
+
+abstract class Builder
+
+{
+   public abstract void BuildPartA();
+
+   public abstract void BuildPartB();
+
+   public abstract void BuildPartC();
+
+   public abstract Product GetResult();
+}
+
+
+
+class Product
+{
+   List<object> parts = new List<object>();
+
+   public void Add(string part)
+   {
+       parts.Add(part);
+   }
+}
+
+
+
+class ConcreteBuilder : Builder
+{
+
+   Product product = new Product();
+
+   public override void BuildPartA()
+   {
+       product.Add("Part A");
+   }
+
+   public override void BuildPartB()
+   {
+       product.Add("Part B");
+   }
+
+   public override void BuildPartC()
+   {
+       product.Add("Part C");
+   }
+
+   public override Product GetResult()
+   {
+       return product;
+   }
+}
+\end{lstlisting}
+
+
+
+\medskip
+\begin{center}
+\textbf{Prototype}
+\end{center}
+
+The Prototype Pattern is a creational design pattern that allows cloning or copying existing objects instead of creating new ones from scratch. This approach is especially useful when the creation of an object is expensive or complex. By copying an existing object, the Prototype Pattern provides a fast and efficient way to duplicate objects with the same or similar properties.
+
+The pattern requires objects to provide a method for creating their own copies. This cloning mechanism can either be a shallow copy or a deep copy, depending on the desired behavior.
+
+Key characteristics of prototype pattern: object cloning, decoupling, customization and performance.
+
+Use cases:
+
+\begin{itemize}
+\item Resource-Intensive Object Creation: When creating an object from scratch is costly in terms of time or resources.
+
+\item Dynamic Object Composition: When objects need to be created at runtime with varying configurations.
+
+\item State Preservation: Cloning objects while maintaining their state or copying part of it.
+\end{itemize}
+
+Structure of the prototype pattern:
+
+\begin{itemize}
+\item Prototype: An interface or abstract class declaring a Clone() method.
+
+\item Concrete Prototype: A class implementing the Clone() method to duplicate itself.
+
+\item Client: Requests a new object by cloning an existing prototype.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+public interface ICloneablePrototype
+{
+    ICloneablePrototype Clone();
+}
+
+// Concrete Prototype: Word Document
+public class WordDocument : ICloneablePrototype
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public List<string> Authors { get; set; } = new List<string>();
+
+    // Implementing Clone method
+    public ICloneablePrototype Clone()
+    {
+        // Deep Copy
+        return new WordDocument
+        {
+            Title = this.Title,
+            Content = this.Content,
+            Authors = new List<string>(this.Authors) // Cloning the list
+        };
+    }
+
+    public override string ToString()
+    {
+        return $"WordDocument: Title = {Title}, Content = {Content}, Authors = {string.Join(", ", Authors)}";
+    }
+}
+
+// Concrete Prototype: PDF Document
+public class PdfDocument : ICloneablePrototype
+{
+    public string Title { get; set; }
+    public int Pages { get; set; }
+
+    // Implementing Clone method
+    public ICloneablePrototype Clone()
+    {
+        // Shallow Copy
+        return (PdfDocument)this.MemberwiseClone();
+    }
+
+    public override string ToString()
+    {
+        return $"PdfDocument: Title = {Title}, Pages = {Pages}";
+    }
+}
+
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Create a Word Document Prototype
+        var originalWordDoc = new WordDocument
+        {
+            Title = "Original Word Document",
+            Content = "This is the content of the original document.",
+            Authors = new List<string> { "Author1", "Author2" }
+        };
+
+        // Clone the Word Document
+        var clonedWordDoc = (WordDocument)originalWordDoc.Clone();
+        clonedWordDoc.Title = "Cloned Word Document";
+        clonedWordDoc.Authors.Add("Author3");
+
+        Console.WriteLine("Original Word Document:");
+        Console.WriteLine(originalWordDoc);
+        Console.WriteLine("\nCloned Word Document:");
+        Console.WriteLine(clonedWordDoc);
+
+        // Create a PDF Document Prototype
+        var originalPdfDoc = new PdfDocument
+        {
+            Title = "Original PDF Document",
+            Pages = 10
+        };
+
+        // Clone the PDF Document
+        var clonedPdfDoc = (PdfDocument)originalPdfDoc.Clone();
+        clonedPdfDoc.Title = "Cloned PDF Document";
+
+        Console.WriteLine("\nOriginal PDF Document:");
+        Console.WriteLine(originalPdfDoc);
+        Console.WriteLine("\nCloned PDF Document:");
+        Console.WriteLine(clonedPdfDoc);
+    }
+}
+\end{lstlisting}
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Adapter}
+\end{center}
+
+The Adapter Pattern is a structural design pattern that acts as a bridge between two incompatible interfaces. It allows objects with incompatible interfaces to work together by wrapping an interface around an existing class. The Adapter translates the interface of a class into another interface clients expect.
+
+This pattern is particularly useful in scenarios where you want to integrate an existing class into a system but cannot modify its interface. By using the Adapter, you decouple the implementation details of the existing class from the system.
+
+When to Use:
+
+\begin{itemize}
+\item When you want to use an existing class but its interface does not match the requirements.
+
+\item To create a reusable wrapper that can work with different classes implementing similar functionality.
+
+\item When integrating third-party libraries into your system.
+\end{itemize}
+
+
+Key concepts:
+
+\begin{itemize}
+\item Target Interface: Defines the domain-specific interface that the client uses.
+
+\item Adapter: A class that implements the Target interface and translates requests to the Adaptee.
+
+\item Adaptee: An existing class with an incompatible interface.
+
+\item Client: The entity that interacts with the Target interface.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+// This interface represents the desired functionality expected by the client.
+public interface IPaymentProcessor
+{
+    void ExecuteTransaction(decimal amount);
+}
+
+// This is the class with the incompatible interface.
+public class ThirdPartyPaymentService
+{
+    public void ProcessPayment(decimal paymentAmount)
+    {
+        Console.WriteLine($"Payment of {paymentAmount:C} processed using ThirdPartyPaymentService.");
+    }
+}
+
+// The adapter implements the IPaymentProcessor interface and translates requests to the ThirdPartyPaymentService.
+public class PaymentAdapter : IPaymentProcessor
+{
+    private readonly ThirdPartyPaymentService _thirdPartyPaymentService;
+
+    public PaymentAdapter(ThirdPartyPaymentService thirdPartyPaymentService)
+    {
+        _thirdPartyPaymentService = thirdPartyPaymentService;
+    }
+
+    public void ExecuteTransaction(decimal amount)
+    {
+        // Translate the method call to the Adaptee's method
+        _thirdPartyPaymentService.ProcessPayment(amount);
+    }
+}
+
+// Here’s how a client interacts with the adapter:
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Existing third-party service
+        ThirdPartyPaymentService thirdPartyService = new ThirdPartyPaymentService();
+
+        // Create an adapter to bridge the incompatibility
+        IPaymentProcessor paymentProcessor = new PaymentAdapter(thirdPartyService);
+
+        // Client interacts with the adapter, unaware of the adaptee's implementation
+        paymentProcessor.ExecuteTransaction(150.75M);
+
+        Console.ReadKey();
+    }
+}
+\end{lstlisting}
+
+
+\medskip
+\begin{center}
+\textbf{Bridge}
+\end{center}
+
+The Bridge Pattern is a structural design pattern that decouples an abstraction from its implementation, allowing the two to vary independently. This pattern is particularly useful when you want to avoid a permanent binding between an abstraction and its implementation, enabling flexibility and extensibility in your code.
+
+The Bridge Pattern involves splitting a class into two parts: Abstraction and Implementation. These parts are connected through a "bridge" and can evolve independently. This is especially helpful in scenarios where a system has multiple dimensions of variability.
+
+Key Components
+
+\begin{itemize}
+\item Abstraction: The high-level interface or abstract class that defines the core functionality. It contains a reference to the implementer.
+
+\item Refined Abstraction: A more specific implementation of the abstraction.
+
+\item Implementer: The interface that defines the implementation's low-level operations.
+
+\item Concrete Implementer: Specific implementations of the implementer interface.
+\end{itemize}
+
+When to Use the Bridge Pattern
+
+\begin{itemize}
+\item When you have multiple dimensions of variation in your system and want to avoid an explosion of classes due to inheritance.
+
+\item To decouple high-level abstractions from low-level implementations.
+
+\item To allow both the abstraction and the implementation to evolve independently.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+public interface IRenderer
+{
+    void Render(string shape);
+}
+
+public class VectorRenderer : IRenderer
+{
+    public void Render(string shape)
+    {
+        Console.WriteLine($"Drawing {shape} using Vector Renderer.");
+    }
+}
+
+public class RasterRenderer : IRenderer
+{
+    public void Render(string shape)
+    {
+        Console.WriteLine($"Drawing {shape} using Raster Renderer.");
+    }
+}
+
+public abstract class Shape
+{
+    protected IRenderer Renderer;
+
+    protected Shape(IRenderer renderer)
+    {
+        Renderer = renderer;
+    }
+
+    public abstract void Draw();
+}
+
+
+public class Circle : Shape
+{
+    private readonly string _name;
+
+    public Circle(IRenderer renderer, string name) : base(renderer)
+    {
+        _name = name;
+    }
+
+    public override void Draw()
+    {
+        Renderer.Render($"Circle: {_name}");
+    }
+}
+
+public class Square : Shape
+{
+    private readonly string _name;
+
+    public Square(IRenderer renderer, string name) : base(renderer)
+    {
+        _name = name;
+    }
+
+    public override void Draw()
+    {
+        Renderer.Render($"Square: {_name}");
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Use vector renderer for the shapes
+        IRenderer vectorRenderer = new VectorRenderer();
+        Shape circle = new Circle(vectorRenderer, "MyCircle");
+        Shape square = new Square(vectorRenderer, "MySquare");
+
+        circle.Draw(); // Drawing Circle: MyCircle using Vector Renderer.
+        square.Draw(); // Drawing Square: MySquare using Vector Renderer.
+
+        // Switch to raster renderer
+        IRenderer rasterRenderer = new RasterRenderer();
+        circle = new Circle(rasterRenderer, "MyCircle");
+        square = new Square(rasterRenderer, "MySquare");
+
+        circle.Draw(); // Drawing Circle: MyCircle using Raster Renderer.
+        square.Draw(); // Drawing Square: MySquare using Raster Renderer.
+
+        Console.ReadKey();
+    }
+}
+\end{lstlisting}
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Composite}
+\end{center}
+
+The Composite Pattern is a structural design pattern that allows you to treat individual objects and compositions of objects uniformly. This pattern is particularly useful for representing part-whole hierarchies, such as a tree structure, where objects can be composed recursively. The Composite Pattern simplifies client code by allowing it to interact with single objects and groups of objects in the same way.
+
+Key Components
+
+\begin{itemize}
+\item Component: An abstract class or interface that declares the common operations for both individual objects and compositions.
+
+\item Leaf: Represents individual objects in the hierarchy. A leaf has no children.
+
+\item Composite: Represents a group of objects (leaves or other composites). It implements the component interface and can store child components.
+
+\item Client: Interacts with objects in the composition through the component interface.
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+public interface IOrganizationComponent
+{
+    void DisplayDetails();
+}
+
+public class Employee : IOrganizationComponent
+{
+    public string Name { get; }
+    public string Position { get; }
+
+    public Employee(string name, string position)
+    {
+        Name = name;
+        Position = position;
+    }
+
+    public void DisplayDetails()
+    {
+        Console.WriteLine($"{Position}: {Name}");
+    }
+}
+
+using System.Collections.Generic;
+
+public class Department : IOrganizationComponent
+{
+    private readonly List<IOrganizationComponent> _components = new List<IOrganizationComponent>();
+    public string Name { get; }
+
+    public Department(string name)
+    {
+        Name = name;
+    }
+
+    public void Add(IOrganizationComponent component)
+    {
+        _components.Add(component);
+    }
+
+    public void Remove(IOrganizationComponent component)
+    {
+        _components.Remove(component);
+    }
+
+    public void DisplayDetails()
+    {
+        Console.WriteLine($"Department: {Name}");
+        foreach (var component in _components)
+        {
+            component.DisplayDetails();
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create individual employees
+        var emp1 = new Employee("Alice", "Developer");
+        var emp2 = new Employee("Bob", "Designer");
+        var emp3 = new Employee("Charlie", "Manager");
+
+        // Create a department and add employees to it
+        var devDepartment = new Department("Development");
+        devDepartment.Add(emp1);
+        devDepartment.Add(emp2);
+
+        // Create another department and add a sub-department and employee to it
+        var mainDepartment = new Department("Head Office");
+        mainDepartment.Add(devDepartment);
+        mainDepartment.Add(emp3);
+
+        // Display the details of the entire organization
+        mainDepartment.DisplayDetails();
+
+        Console.ReadKey();
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Decorator}
+\end{center}
+
+The Decorator Pattern is a structural design pattern that allows you to dynamically add or modify the functionality of an object at runtime without altering its structure. This pattern uses composition rather than inheritance, making it flexible and reusable.
+
+The Decorator Pattern is particularly useful when you want to add responsibilities to objects without affecting other objects of the same class. It is commonly used in scenarios where there are multiple behaviors that can be combined in various configurations.
+
+Key Components:
+
+\begin{itemize}
+\item Component: An interface or abstract class that defines the core functionality.
+
+\item Concrete Component: A class that implements the Component interface and provides the default behavior.
+    
+\item Decorator: An abstract class that implements the Component interface and holds a reference to a Component object. It delegates operations to the wrapped object.
+    
+\item Concrete Decorator: A class that extends the functionality of the Decorator.
+
+\end{itemize}
+
+\textbf{Example.} Consider a text editor where users can format text with additional features such as bold, italic, and underline. Instead of creating separate subclasses for every combination (e.g., BoldText, ItalicText, BoldItalicText), we can use the Decorator Pattern to dynamically add these features.
+
+
+\begin{lstlisting}
+// The Component:
+public interface IText
+{
+    string GetContent();
+}
+
+// The Concrete Component:
+public class PlainText : IText
+{
+    private readonly string _content;
+
+    public PlainText(string content)
+    {
+        _content = content;
+    }
+
+    public string GetContent()
+    {
+        return _content;
+    }
+}
+
+// The Decorator: 
+public abstract class TextDecorator : IText
+{
+    protected IText Text;
+
+    protected TextDecorator(IText text)
+    {
+        Text = text;
+    }
+
+    public abstract string GetContent();
+}
+
+// Decorators Implementation:
+public class BoldDecorator : TextDecorator
+{
+    public BoldDecorator(IText text) : base(text) { }
+
+    public override string GetContent()
+    {
+        return $"<b>{Text.GetContent()}</b>";
+    }
+}
+
+public class ItalicDecorator : TextDecorator
+{
+    public ItalicDecorator(IText text) : base(text) { }
+
+    public override string GetContent()
+    {
+        return $"<i>{Text.GetContent()}</i>";
+    }
+}
+
+public class UnderlineDecorator : TextDecorator
+{
+    public UnderlineDecorator(IText text) : base(text) { }
+
+    public override string GetContent()
+    {
+        return $"<u>{Text.GetContent()}</u>";
+    }
+}
+
+// Usage:
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Base text
+        IText plainText = new PlainText("Hello, World!");
+
+        // Decorate the text with bold
+        IText boldText = new BoldDecorator(plainText);
+
+        // Decorate the bold text with italic
+        IText boldItalicText = new ItalicDecorator(boldText);
+
+        // Decorate the bold-italic text with underline
+        IText fullyDecoratedText = new UnderlineDecorator(boldItalicText);
+
+        Console.WriteLine("Plain Text: " + plainText.GetContent());
+        Console.WriteLine("Bold Text: " + boldText.GetContent());
+        Console.WriteLine("Bold Italic Text: " + boldItalicText.GetContent());
+        Console.WriteLine("Fully Decorated Text: " + fullyDecoratedText.GetContent());
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Facade}
+\end{center}
+
+The Facade Pattern is a structural design pattern that provides a simplified interface to a complex subsystem. It acts as a "front-facing" interface, masking the complexity of the underlying components and making the system easier to use for clients.
+
+The Facade Pattern is particularly useful when you have a system with multiple subsystems and want to provide a unified, easy-to-use interface for clients while preserving flexibility to interact with individual subsystems when needed.
+
+Key Components:
+
+\begin{itemize}
+\item Subsystem Classes: These are the components of the system that perform various tasks. They are usually complex and require intricate interactions.
+    
+\item Facade: The class that provides a simplified interface to the subsystem. It delegates client requests to appropriate subsystems.
+    
+\item Client: The consumer of the facade. It interacts with the facade rather than directly with the subsystems.
+\end{itemize}
+
+\textbf{Example.} Imagine a home automation system with various subsystems such as lights, air conditioning, and entertainment systems. Using the Facade Pattern, you can create a unified interface to control these systems, such as a "HomeController."
+
+\begin{lstlisting}
+// Subsystem Classes:
+public class LightingSystem
+{
+    public void TurnOnLights() => Console.WriteLine("Lights are turned on.");
+    public void TurnOffLights() => Console.WriteLine("Lights are turned off.");
+}
+
+public class AirConditioningSystem
+{
+    public void SetTemperature(int temperature) =>
+        Console.WriteLine($"Air conditioning set to {temperature}°C.");
+    public void TurnOffAC() => Console.WriteLine("Air conditioning is turned off.");
+}
+
+public class EntertainmentSystem
+{
+    public void PlayMusic() => Console.WriteLine("Music is playing.");
+    public void StopMusic() => Console.WriteLine("Music is stopped.");
+}
+
+// Facade:
+public class HomeController
+{
+    private readonly LightingSystem _lightingSystem;
+    private readonly AirConditioningSystem _airConditioningSystem;
+    private readonly EntertainmentSystem _entertainmentSystem;
+
+    public HomeController()
+    {
+        _lightingSystem = new LightingSystem();
+        _airConditioningSystem = new AirConditioningSystem();
+        _entertainmentSystem = new EntertainmentSystem();
+    }
+
+    public void StartEveningMode()
+    {
+        Console.WriteLine("Starting Evening Mode...");
+        _lightingSystem.TurnOnLights();
+        _airConditioningSystem.SetTemperature(22);
+        _entertainmentSystem.PlayMusic();
+    }
+
+    public void StopEveningMode()
+    {
+        Console.WriteLine("Stopping Evening Mode...");
+        _lightingSystem.TurnOffLights();
+        _airConditioningSystem.TurnOffAC();
+        _entertainmentSystem.StopMusic();
+    }
+}
+
+// Usage:
+class Program
+{
+    static void Main(string[] args)
+    {
+        var homeController = new HomeController();
+
+        homeController.StartEveningMode();
+        Console.WriteLine();
+
+        homeController.StopEveningMode();
+
+        Console.ReadKey();
+    }
+}
+
+\end{lstlisting}
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Flyweight}
+\end{center}
+
+
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Proxy}
+\end{center}
+
+
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Chain of Responsibility}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Command}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Iterator}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Mediator}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Memento}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Observer}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{State}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Strategy}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Template Method}
+\end{center}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
+
+\medskip
+\begin{center}
+\textbf{Visitor}
+\end{center}
+
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\textbf{Example.}
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+

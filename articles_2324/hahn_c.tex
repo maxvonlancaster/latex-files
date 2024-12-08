@@ -1,0 +1,83 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=1.5cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+\begin{large}
+
+\begin{center}
+\section*{Leveraging Hahn Theorem for Infinitely-Differentiable Functions in NLP: Enhancing Fuzzy Logic Models for Complex Linguistic Phenomena}
+
+\textit{V. Melnyk, H. Melnyk \\ Yuriy Fedkovych Chernivtsi National University}
+
+\end{center}
+
+
+
+
+Natural Language Processing (NLP) tasks like the recognition of idioms, sarcasm, and nuanced sentiments present unique challenges due to their inherent ambiguity and context dependency ([8]). Traditional NLP models struggle to accurately capture these complexities, often leading to misclassification and loss of semantic depth. Recent research proposes a novel approach leveraging fuzzy logic to address these challenges by utilizing flexible and adaptive membership functions ([9]).
+
+Although fuzzy logic usually utilizes triangular and trapezoidal membership functions, their big disadvantage is that they may lack the flexibility needed for complex linguistic phenomena. To better handle complex expressions, we propose the use of hybrid membership functions that are infinitely-differentiable and take given values at given points. In order to construct such functions, we can utilize some of the results from previous research within Hahn theorem analogues.
+
+In 1917 famous austrian mathematician Hahns Hahn discovered the following: given $g:X\longrightarrow \mathbb{R}$ and $h:X\longrightarrow \mathbb{R}$ $-$ upper and lower semicontinuous functions on metric space $X$, such, that $g(x)\leq h(x)$ on $X$, then exists continuous function $f:X\longrightarrow \mathbb{R}$, with $g(x)\leq f(x)\leq h(x)$ on $X$ ([1]). It was extended in further works to paracompact and $T_{1}$ spaces ([2], [3], [4]).
+
+Pair $(g,h)$ of upper and lower semicontinuous functions $g,h:X\rightarrow \mathbb{R}$ on the topological space $X$, such, that $g(x)\leq h(x)$ on $X$ we call \textit{Hahn pair} on $X$. If $g(x)<h(x)$ on $X$, then that Hahn pair is called \textit{strict}. Function $f:X\rightarrow \mathbb{R}$, for which $g(x)\leq f(x)\leq h(x)$ on $X$ is called \textit{intermediate} for pair $(g,h)$, and if $g(x)<f(x)<h(x)$ with $g(x)<h(x)$ and $g(x)=f(x)=h(x)$ with $g(x)=h(x)$, then it is called~--- \textit{strictly intermediate} ([5]).
+
+An interesting question is the existence of an analogue of Hahn's theorem for infinitely differentiable functions. 
+
+\textbf{Theorem 1.}
+\textit{Let $X=[a_{1},b_{1}]\times...\times[a_{n},b_{n}]$ be a closed parallelepiped in $\mathbb{R}^{n}$, $(g,h)$~--- strict Hahn pair on $X$, $x_{0}\in X$ and $g(x_{0})<y_{0}<h(x_{0})$. Then exists a strictly intermediate for pair $(g,h)$ infinitely differentiable function $f:X\rightarrow \mathbb{R}$ such, that $f(x_{0})=y_{0}$.}
+
+For sarcasm detection, where the expression of sentiment may not be directly between positive and negative but is context-dependent, we can set $g(x)$ as a baseline sentiment function (e.g., 'neutral' sentiment) and $h(x)$ as an exaggerated sentiment function (e.g., 'highly negative'). Hahn's Theorem allows us to define an intermediate function $f(x)$ that accurately reflects the sentiment nuances inherent in sarcasm.
+
+
+\textbf{Theorem 2.}
+\textit{Let $X=[a_{1},b_{1}]\times...\times[a_{n},b_{n}]$ be a closed parallelepiped in $\mathbb{R}^{n}$, $(g,h)$~--- strict Hahn pair on $X$, $(x_{i})_{i=1}^{m}$~--- finite set of points in $X$, and $(y_{i})_{i=1}^{m}$ a finite set in $\mathbb{R}$, such, that $g(x_{i})<y_{i}<h(x_{i})$, $i\in N_{m}$. Then exists a strictly intermediate for pair $(g,h)$ infinitely differentiable function $f:X\rightarrow \mathbb{R}$ such, that $f(x_{i})=y_{i}$, $i\in N_{m}$.}
+
+In the recognition of idiomatic expressions, where phrases have non-literal meanings that vary contextually, this theorem ensures that the function $f$ can be adjusted to pass through specific idiomatic points while remaining smooth and flexible across the broader linguistic landscape.
+
+There is an interesting research direction in generelazing these results for the case of $X$ being a separable Hilbert space. It can be used for constructing analogues of the Gaussian fuzzy membership functions. In particular, given a set $X$ and a set of points $(x_{i})_{i=1}^{m}$ for which we know how to define the fuzzy output, and we want to generalize this function with smoothness for the whole space of values.
+
+\textbf{Theorem 3.}
+\textit{Let $X$~--- be a closed subset in $\mathbb{R}^{n}$, $(x_{i})_{i=1}^{m}$~--- finite set of points in $X$, $(y_{i})_{i=1}^{m}$ is a finite set of points in $[0,1]$. Then we can construct a smooth membership function $f:X\rightarrow [0,1]$, such, that $f(x_{i})=y_{i}$, $i\in N_{m}$.}
+
+The theorem mentioned above is particularly relevant for constructing Gaussian-like membership functions in fuzzy logic that need to be smooth and adaptive across varying expressions, such as in highly idiomatic or culturally specific language contexts.
+
+This research introduces a novel framework for extending fuzzy logic in NLP through the use of Hahn's Theorem, allowing for the creation of intermediate membership functions that bridge the gap between simple sentiment categories and the complex, context-dependent nature of human language. By integrating these advanced mathematical concepts, we enhance the ability of fuzzy logic models to capture the full spectrum of linguistic nuances, providing a more comprehensive and adaptive approach to tasks like sarcasm and idiom recognition, with potential extensions to high-dimensional feature spaces and real-time processing in dynamic NLP systems.
+
+\end{large}
+\medskip
+
+\textbf{References:}
+
+1. Hahn H. Uber halbstetige und unstetige Functionen // Sitzungsberichte \\ Akad.Wiss.Wien.Math.~---naturwiss.Kl.Abt.IIa.~--- 1917.~--- \textbf{126}.~--- S.91-110.
+
+2. Dieudonne J. Une g\'{e}n\'{e}ralisation des espaces compacts\\ // J. de Math. Pyres et Appl.~--- 1944.~--- \textbf{23}.~--- P.65-76.
+
+3. Tong H. Some characterizations of normal and perfectly normal spaces\\ // Bull.Amer.Math.Soc.~--- 1948.~--- \textbf{54}.~--- P.65.
+
+4. Katetov M. On real-valued functions in topological spaces // Fund.Math.~--- 1952.~--- \textbf{38}.~--- P.85-91.
+
+5. Мельник В. С. Рівномірні відстані до різних функціональних класів та розвиток теореми Гана про проміжну функцію : дис. канд. фіз.-мат. наук : 01.01.01. Чернівці, 2019.
+
+6. Маслюченко В. К., Мельник В. С. Побудова проміжних диференційовних функцій\\ // Укр. мат. журн. ~--- 2018. ~--- 70, № 5. ~--- С. 672-681.
+
+7. L. A. Zadeh, "Fuzzy sets," Information and control, vol. 8 (1965), pp. 338-353.
+
+8. Practical Natural Language Processing / S. Vajjala et al. O'Reilly Media,
+Inc., 2020.\\( https://www.oreilly.com/library/view/practical-natural-language/9781492054047/ )
+
+9. B. Cardone, F. Di Martino, and S. Senatore, "Improving the emotion-based
+classification by exploiting the fuzzy entropy in FCM clustering," International Journal
+of Intelligent Systems, 2021, 36(11).
+
+
+\end{document}
+

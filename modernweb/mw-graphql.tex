@@ -1,0 +1,661 @@
+
+\pagebreak
+\begin{center}
+\section*{GraphQL basics, queries and mutations. GraphQL subscriptions.}
+\end{center}
+
+\medskip
+
+GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling queries with existing data. GraphQL was developed internally by Facebook in 2012 before being publicly released in 2015.
+
+Simply put, GraphQL is a query language for APIs and a runtime for executing those queries with existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+
+\textbf{Advantages of GraphQL:}
+
+\begin{itemize}
+\item Data retrieval efficiency: GraphQL allows clients to request exactly the data they need, minimizing the chances of requesting too much or too little information. This customized approach improves performance and reduces unnecessary traffic, which ultimately leads to faster server response times.
+
+\item One Request, Multiple Resources: Unlike REST, which often requires multiple endpoints for different resources, GraphQL allows clients to retrieve related data in a single request. This reduces the infamous “N+1” problem and simplifies data aggregation.
+
+\item Flexible schema evolution: GraphQL's schema-based design allows developers to evolve the API without major changes. New fields and types can be added without impacting existing clients, promoting flexibility and adapting to changing business requirements.
+
+\item Strict typing: GraphQL provides strict schema typing by providing clear definitions of available data and operations. This eliminates ambiguity and reduces runtime errors, creating more robust code bases that can be maintained.
+\end{itemize}
+
+\textbf{Disadvantages:}
+
+\begin{itemize}
+\item Complexity in Caching: Caching in GraphQL can be more challenging due to the dynamic nature of queries. Implementing efficient caching strategies requires careful consideration and additional effort.
+
+\item Potential for Over-Fetching: While GraphQL's flexibility is an advantage, inexperienced or poorly optimized queries might still lead to over-fetching of data, impacting performance.
+\end{itemize}
+
+In GraphQL, queries and mutations are two fundamental operations that clients can use to interact with the server and retrieve or manipulate data. They serve distinct purposes and are designed to facilitate efficient and flexible communication between clients and the GraphQL server.
+
+
+\textbf{Queries}: Queries in GraphQL are used to request data from the server. They resemble a data structure that defines the shape and structure of the data the client is interested in fetching. With queries, clients can specify exactly what fields they need, allowing them to retrieve only the necessary data and avoid over-fetching.
+
+Example of the query:
+
+\begin{lstlisting}
+{
+  students {
+    name
+    group
+  }
+}
+\end{lstlisting}
+
+This query will return the list of students, listing name of the student and group for each student.
+
+If we want only name of each student, we can re-write the query in the following way:
+
+\begin{lstlisting}
+{
+  students {
+    name
+  }
+}
+\end{lstlisting}
+
+This query will return only a list of student names. Thus, we have mitigated a common problem of over-fetching when working with REST api.
+
+
+\textbf{Mutations}: Mutations in GraphQL are used to modify data on the server. They provide a way for clients to create, update, or delete data. Mutations are similar in structure to queries but are executed with the intent of making changes to the data on the server.
+
+
+\medskip
+
+\textbf{Example of GraphQL with .Net HotChocolate.}
+
+Let's create a new WebApi project in our .NET solution (or you can create a new .net solution from scratch). In it, we will install the following packages (via powershell or NuGet package manager in Visual Studio):
+
+\begin{lstlisting}
+Install-Package HotChocolate
+Install-Package HotChocolate.AspNetCore
+\end{lstlisting}
+
+Hot Chocolate is an open-source GraphQL server for the Microsoft .NET platform that is compliant with the newest GraphQL. Basically, it is a library, that will allow us to set up a server side GraphQL.
+
+In this demo we will use HotChocolate version 14.1, if you use newer version you might want to consult with the official documentation.
+
+Now, before we start implementing server-side GraphQL, we need to register GraphQL in Program.cs:
+
+\begin{lstlisting}
+app.MapGraphQL();
+\end{lstlisting}
+
+Overall, for now, your Program.cs class will look like this:
+
+\begin{lstlisting}
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapGraphQL();
+app.MapControllers();
+
+app.Run();
+\end{lstlisting}
+
+Now we will implement some entities, that would encapsulate the data, that our GraphQL application operates with, and we will also implement a mock service, that would give that data. For this demo we will not implement database connection and storage of the data, but you might do it for yourself with EntityFramework, see previous chapter.
+
+Supposedly, our application will store the data about authors and books that they wrote. We will define the following data classes in our graphql project:
+
+
+
+\begin{lstlisting}
+namespace demo_graphql.Dto;
+
+public class Author
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public DateTime BirthDate { get; set; }
+    public string Country { get; set; }
+    public string Email { get; set; }
+    public ICollection<Book> Books { get; set; }
+}
+
+\end{lstlisting}
+
+
+\begin{lstlisting}
+namespace demo_graphql.Dto;
+
+public class Book
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+
+}
+
+\end{lstlisting}
+
+After that, lets create a new AuthorService class, that would provide methods for storing and retrieving the data about authors:
+
+\begin{lstlisting}
+using demo_graphql.Dto;
+
+namespace demo_graphql.Services;
+
+public class AuthorService : IAuthorService
+{}
+\end{lstlisting}
+
+Let's mock a database storage with a simple list, that would store the authors data:
+
+
+\begin{lstlisting}
+private ICollection<Author> _storage = new List<Author>()
+    {
+        new Author() {
+            Id = 1,
+            BirthDate = DateTime.Now.AddYears(-40),
+            Name = "Aizek Asimov",
+            Country = "USA",
+            Email = "aa@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 1, Title = "Foundation and Empire", Description = "..." },
+                new Book(){ Id = 2, Title = "I, Robot", Description = "..." }
+            }
+        },
+        new Author() {
+            Id = 2,
+            BirthDate = DateTime.Now.AddYears(-50),
+            Name = "Ray Bradbury",
+            Country = "USA",
+            Email = "rb@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 3, Title = "Fahrenheit 451", Description = "..." },
+                new Book(){ Id = 4, Title = "Martian Chronicles", Description = "..." }
+            }
+        },
+        new Author() {
+            Id = 2,
+            BirthDate = DateTime.Now.AddYears(-60),
+            Name = "Stanislaw Lem",
+            Country = "Poland",
+            Email = "sl@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 5, Title = "Solaris", Description = "..." }
+            }
+        },
+    };
+\end{lstlisting}
+
+And provide methods for retrieving the data from our storage:
+
+\begin{lstlisting}
+public IEnumerable<Author> GetAuthors(int skip, int take)
+    {
+        return _storage.Skip(skip).Take(take);
+    }
+
+    public Author GetAuthor(int id)
+    {
+        var author = _storage.FirstOrDefault(x => x.Id == id);
+        if (author == null)
+        {
+            throw new System.Collections.Generic.KeyNotFoundException();
+        }
+        return author;
+    }
+
+    public Book GetBook(int id)
+    {
+        var book = _storage.SelectMany(a => a.Books)
+            .FirstOrDefault(x => x.Id == id);
+        if (book == null)
+        {
+            throw new System.Collections.Generic.KeyNotFoundException();
+        }
+        return book;
+    }
+\end{lstlisting}
+
+As well as updating that data:
+
+
+\begin{lstlisting}
+public Author AddAuthor(Author author)
+    {
+        int newId = _storage.Select(x => x.Id).Max() + 1;
+        author.Id = newId;
+        _storage.Add(author);
+        return author;
+    }
+\end{lstlisting}
+
+All together our service will now look like this:
+
+\begin{lstlisting}
+using demo_graphql.Dto;
+
+namespace demo_graphql.Services;
+
+public class AuthorService : IAuthorService
+{
+    private ICollection<Author> _storage = new List<Author>()
+    {
+        new Author() {
+            Id = 1,
+            BirthDate = DateTime.Now.AddYears(-40),
+            Name = "Aizek Asimov",
+            Country = "USA",
+            Email = "aa@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 1, Title = "Foundation and Empire", Description = "..." },
+                new Book(){ Id = 2, Title = "I, Robot", Description = "..." }
+            }
+        },
+        new Author() {
+            Id = 2,
+            BirthDate = DateTime.Now.AddYears(-50),
+            Name = "Ray Bradbury",
+            Country = "USA",
+            Email = "rb@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 3, Title = "Fahrenheit 451", Description = "..." },
+                new Book(){ Id = 4, Title = "Martian Chronicles", Description = "..." }
+            }
+        },
+        new Author() {
+            Id = 2,
+            BirthDate = DateTime.Now.AddYears(-60),
+            Name = "Stanislaw Lem",
+            Country = "Poland",
+            Email = "sl@gmail.com",
+            Books = new List<Book>()
+            {
+                new Book(){ Id = 5, Title = "Solaris", Description = "..." }
+            }
+        },
+    };
+
+    public IEnumerable<Author> GetAuthors(int skip, int take)
+    {
+        return _storage.Skip(skip).Take(take);
+    }
+
+    public Author GetAuthor(int id)
+    {
+        var author = _storage.FirstOrDefault(x => x.Id == id);
+        if (author == null)
+        {
+            throw new System.Collections.Generic.KeyNotFoundException();
+        }
+        return author;
+    }
+
+    public Book GetBook(int id)
+    {
+        var book = _storage.SelectMany(a => a.Books)
+            .FirstOrDefault(x => x.Id == id);
+        if (book == null)
+        {
+            throw new System.Collections.Generic.KeyNotFoundException();
+        }
+        return book;
+    }
+
+    public Author AddAuthor(Author author)
+    {
+        int newId = _storage.Select(x => x.Id).Max() + 1;
+        author.Id = newId;
+        _storage.Add(author);
+        return author;
+    }
+}
+
+\end{lstlisting}
+
+Lets also define interface, that would provide these methods via dependency injection:
+
+
+\begin{lstlisting}
+using demo_graphql.Dto;
+
+namespace demo_graphql.Services;
+
+public interface IAuthorService
+{
+    Author AddAuthor(Author author);
+    Author GetAuthor(int id);
+    IEnumerable<Author> GetAuthors(int skip, int take);
+    Book GetBook(int id);
+}
+
+\end{lstlisting}
+
+Now we define a class, that would encapsulate all the graphql queries, that our api service will provide:
+
+
+\begin{lstlisting}
+using demo_graphql.Dto;
+using demo_graphql.Services;
+
+namespace demo_graphql;
+
+public class Query
+{
+    public IEnumerable<Author> GetAuthors(
+        [Service] IAuthorService authorService,
+        int skip,
+        int take)
+    {
+        return authorService.GetAuthors(skip, take);
+    }
+
+    public Author GetAuthor(
+        [Service] IAuthorService authorService,
+        int id)
+    {
+        return authorService.GetAuthor(id);
+    }
+
+    public Book GetBook(
+        [Service] IAuthorService authorService,
+        int id)
+    {
+        return authorService.GetBook(id);
+    }
+}
+
+\end{lstlisting}
+
+And a class, that would provide all the possible mutations:
+
+
+\begin{lstlisting}
+using demo_graphql.Dto;
+using demo_graphql.Services;
+
+namespace demo_graphql;
+
+public class Mutation
+{
+    public Author AddAuthor(
+        [Service] IAuthorService authorService,
+        string name,
+        string email,
+        string country,
+        DateTime birthDate)
+    {
+        return authorService.AddAuthor(new Author()
+        {
+            Name = name,
+            Email = email,
+            Country = country,
+            BirthDate = birthDate
+        });
+    }
+}
+
+\end{lstlisting}
+
+After that, we have to register our services, queries and mutations, in the Program.cs class:
+
+\begin{lstlisting}
+using demo_graphql;
+using demo_graphql.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IAuthorService, AuthorService>();
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapGraphQL();
+app.MapControllers();
+
+app.Run();
+
+\end{lstlisting}
+
+Notice, that we registered our service as a singleton, so that we would always retrieve the same data throughout the runtime of the application (as we mock the database connection). We will later discuss singleton pattern.
+
+Now, let's startup the application, and type in the address line of the browser "https://localhost:port/graphql/" (switch word "port" with the port number, that your application uses locally). You will be greeted with the Nitro greeting screen.
+
+Nitro is a tool for developers, simplifying API creation, debugging, and collaboration. It enables effortless execution of GraphQL queries and mutations, with visual schema exploration.
+
+Click "Create Document" and type in the following query:
+
+\begin{lstlisting}
+query GetAuthor($id: Int!){
+  author(id: $id){
+    name
+    email
+    country
+    birthDate
+    books{
+      title
+    }
+  }
+}
+\end{lstlisting}
+
+And the variables below:
+
+\begin{lstlisting}
+{
+  "id": 1
+}
+\end{lstlisting}
+
+The response should look like this:
+
+\begin{lstlisting}
+{
+  "data": {
+    "author": {
+      "name": "Aizek Asimov",
+      "email": "aa@gmail.com",
+      "country": "USA",
+      "birthDate": "1984-11-24T17:24:44.865+02:00",
+      "books": [
+        {
+          "title": "Foundation and Empire"
+        },
+        {
+          "title": "I, Robot"
+        }
+      ]
+    }
+  }
+}
+\end{lstlisting}
+
+Suppose, you do not want to retrieve the book information for the give author, as it is too much information for your application to handle and is just redundant at the moment. Simply rewrite the query in the following way:
+
+\begin{lstlisting}
+query GetAuthor($id: Int!){
+  author(id: $id){
+    name
+    email
+    country
+    birthDate
+  }
+}
+\end{lstlisting}
+
+The result of this query execution:
+
+\begin{lstlisting}
+{
+  "data": {
+    "author": {
+      "name": "Aizek Asimov",
+      "email": "aa@gmail.com",
+      "country": "USA",
+      "birthDate": "1984-11-24T17:24:44.865+02:00"
+    }
+  }
+}
+\end{lstlisting}
+
+We can also try query GetAuthors, that we defined in Query.cs class:
+
+
+\begin{lstlisting}
+query GetAuthors($skip: Int!, $take: Int!){
+  authors(skip: $skip, take: $take){
+    name
+    email
+    country
+    birthDate
+  }
+}
+\end{lstlisting}
+
+With variables:
+
+\begin{lstlisting}
+{
+  "skip": 0,
+  "take": 10
+}
+\end{lstlisting}
+
+The result of this query execution:
+
+\begin{lstlisting}
+{
+  "data": {
+    "authors": [
+      {
+        "name": "Aizek Asimov",
+        "email": "aa@gmail.com",
+        "country": "USA",
+        "birthDate": "1984-11-24T17:24:44.865+02:00"
+      },
+      {
+        "name": "Ray Bradbury",
+        "email": "rb@gmail.com",
+        "country": "USA",
+        "birthDate": "1974-11-24T17:24:44.865+02:00"
+      },
+      {
+        "name": "Stanislaw Lem",
+        "email": "sl@gmail.com",
+        "country": "Poland",
+        "birthDate": "1964-11-24T17:24:44.865+02:00"
+      }
+    ]
+  }
+}
+\end{lstlisting}
+
+Notice, that query expects the same variables, as the method GetAuthors, defined in the Query.cs class.
+
+We can also try executing the mutation to add a new entry in the Authors list:
+
+\begin{lstlisting}
+mutation AddAuthor($name: String!, $email: String!,
+  $country: String!, $birthDate: DateTime!){
+  addAuthor(name: $name, email: $email,
+      country: $country, birthDate: $birthDate){
+    name
+    email
+    country
+    birthDate
+  }
+}
+\end{lstlisting}
+
+And variables:
+
+\begin{lstlisting}
+{
+  "name": "Carl Sagan",
+  "email": "cs@gmail.com",
+  "country" : "USA",
+  "birthDate" : "1934-11-04T00:00:00.000Z"
+}
+\end{lstlisting}
+
+After execution of this mutation, the list of authors looks like this:
+
+\begin{lstlisting}
+{
+  "data": {
+    "authors": [
+      {
+        "name": "Aizek Asimov",
+        "email": "aa@gmail.com",
+        "country": "USA",
+        "birthDate": "1984-11-24T17:24:44.865+02:00"
+      },
+      {
+        "name": "Ray Bradbury",
+        "email": "rb@gmail.com",
+        "country": "USA",
+        "birthDate": "1974-11-24T17:24:44.865+02:00"
+      },
+      {
+        "name": "Stanislaw Lem",
+        "email": "sl@gmail.com",
+        "country": "Poland",
+        "birthDate": "1964-11-24T17:24:44.865+02:00"
+      },
+      {
+        "name": "Carl Sagan",
+        "email": "cs@gmail.com",
+        "country": "USA",
+        "birthDate": "1934-11-04T00:00:00.000Z"
+      }
+    ]
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+
+\end{lstlisting}

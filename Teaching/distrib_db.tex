@@ -1,0 +1,229 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+
+\begin{center}
+\section*{Теорія розподілених баз даних.}
+\end{center}
+
+
+\bigskip
+
+\hrule
+
+\medskip
+\medskip
+\begin{enumerate}
+
+\item Реляційні бази даних. Нормалізація
+
+\item Транзакції. Принцип ACID.
+
+\item 2PC та 3PC протоколи в розподілених системах. Паттерн Saga. \\ (https://medium.com/@ys.meng/understanding-two-phase-and-three-phase-commit-protocols-in-distributed-systems-33a39bca7688)
+
+\item Використання NoSQL. CAP теорема. 
+
+\item Масштабування. Горизонтальне та вертикальне масштабування. 
+
+\item Розподілення та синхронізація, конзистентність даних. Мікросервісна архітектура. Використання Kafka.
+
+\end{enumerate}
+
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+\medskip
+\medskip
+
+\medskip
+
+\begin{center}
+\textbf{Лабораторна робота. "Створення мікросервісної системи з використанням Kafka."}
+\end{center}
+
+\begin{enumerate}
+
+\item Створіть порожній .net солюшн (через Visual Studio або комманду \textit{dotnet new sln}), в ньому створіть два проекта: ASP.NET Core Web API із назвою вашого солюшена та закінченням Producer (наприклад, якщо ваш проект має назву Products - ProductsProducer), та ASP.NET Core Web API проект із закінченням в назві Consumer.
+
+\item Інастлюйте необхідний кафка нугет пакет (\textit{Install-Package Confluent.Kafka}, або через NugetManager в пошуку Confluent.Kafka)
+    
+\item Додайте конфігурацію Kafka в appsettings.json:
+
+\begin{lstlisting}
+"Kafka":{
+    "BootstrapServers": "localhost:9092"
+  }
+  \end{lstlisting}
+
+\item Напишіть ProducerService в Producer проекті, та ConsumerService в consumer проекті. 
+
+Приклад продюсера: 
+
+\begin{lstlisting}
+using Confluent.Kafka;
+
+namespace InventoryProducer.Services
+{
+    public class ProducerService
+    {
+        private readonly IConfiguration _configuration;
+
+        private readonly IProducer<Null, string> _producer;
+
+        public ProducerService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+            var producerconfig = new ProducerConfig
+            {
+                BootstrapServers = _configuration["Kafka:BootstrapServers"]
+            };
+
+            _producer = new ProducerBuilder<Null, string>(producerconfig).Build();
+        }
+
+        public async Task ProduceAsync(string topic, string message)
+        {
+            var kafkamessage = new Message<Null, string> { Value = message, };
+
+            await _producer.ProduceAsync(topic, kafkamessage);
+        }
+    }
+}
+\end{lstlisting}
+
+
+Приклад консюмера:
+
+\begin{lstlisting}
+namespace InventoryConsumer.Services
+{
+    public class ConsumerService : BackgroundService
+    {
+        private readonly IConsumer<Ignore, string> _consumer;
+
+        private readonly ILogger<ConsumerService> _logger;
+
+        public ConsumerService(IConfiguration configuration, ILogger<ConsumerService> logger)
+        {
+            _logger = logger;
+
+            var consumerConfig = new ConsumerConfig
+            {
+                BootstrapServers = configuration["Kafka:BootstrapServers"],
+                GroupId = "InventoryConsumerGroup",
+                AutoOffsetReset = AutoOffsetReset.Earliest
+            };
+
+            _consumer = new ConsumerBuilder<Ignore, string>(consumerConfig).Build();
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            _consumer.Subscribe("InventoryUpdates");
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                ProcessKafkaMessage(stoppingToken);
+
+                Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            }
+
+            _consumer.Close();
+        }
+
+        public void ProcessKafkaMessage(CancellationToken stoppingToken)
+        {
+            try
+            {
+                var consumeResult = _consumer.Consume(stoppingToken);
+
+                var message = consumeResult.Message.Value;
+
+                _logger.LogInformation($"Received inventory update: {message}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error processing Kafka message: {ex.Message}");
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+
+Зареєструйте свої сервіси в DI:
+
+\begin{lstlisting}
+builder.Services.AddHostedService<ConsumerService>(); 
+builder.Services.AddSingleton<ProducerService>();
+\end{lstlisting}
+
+\item Напишіть контроллер на стороні продюсера, що буде приймати нові дані через REST запити, на надсилати дані в ProducerService.
+    
+\item Додайте на стороні консюмера код для збереження даних в SQL базі даних.
+
+\end{enumerate}
+
+
+\bigskip
+
+\hrule
+\bigskip
+
+
+\begin{center}
+\textbf{Список літератури }
+\end{center}
+
+\begin{enumerate}
+\item Гайна Г. Основи проектування баз даних. Навч. посібник. Київ : Кондор, 2007. 208 с.
+
+\item Ситник Н. Організація баз та сховищ даних. Київ, 2017. 148 с.
+
+\item Campbell L. Database Reliability Engineering: Designing and Operating Resilient Database Systems. O'Reilly, 2017. 294 p.
+
+\item Kleppmann M. Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. O'Reilly, 2017. 590 p.
+
+\item Newman S. Building Microservices: Designing Fine-Grained Systems. O'Reilly, 2021. 500 p.
+
+\item Gwen Shapira Todd Palino Rajini Sivaram. Kafka: The Definitive Guide. Real-Time Data and Stream Processing at Scale. 2nd ed. O'Reilly, 2021. 426 p.
+
+\end{enumerate}
+
+\end{document}
+

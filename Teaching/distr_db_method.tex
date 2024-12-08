@@ -1,0 +1,913 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+\begin{large}
+
+\pagenumbering{gobble}
+
+
+
+\begin{titlepage}
+
+\begin{center}
+Міністерство освіти і науки України \\
+Чернівецький національний університет \\
+імені Юрія Федьковича
+
+\end{center}
+
+\vspace{1cm}
+\vspace{1cm}
+\vspace{1cm}
+
+\vspace{1cm}
+\vspace{1cm}
+\vspace{1cm}
+
+\begin{center}
+{\LARGE\bf Теорія розподілених баз даних.}
+
+\vspace{1cm}
+\textbf{Методичні рекомендації та\\
+завдання для лабораторних робіт}
+
+
+
+\end{center}
+
+
+\vspace{1cm}
+\vspace*{\fill}
+
+\begin{center}
+Чернівці \\
+Чернівецький національний університет \\
+2024
+\end{center}
+
+\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{page}{2}
+
+\setcounter{tocdepth}{1}
+
+
+
+\bigskip
+
+\hrule
+
+\medskip
+\medskip
+
+
+
+
+
+
+УДК  004.7 : 075.8
+
+\vspace{1cm}
+
+Рекомендовано до друку Вченою радою факультету математики та інформатики
+Чернівецького національного університету імені Юрія Федьковича
+( протокол №     від  «    » червня 2024 року )
+
+\vspace{1cm}
+
+Укладачі:	\\
+Олександр Матвій, кандидат фізико-математичних наук, доцент кафедри математичного моделювання;\\
+Василь Мельник, кандидат фізико-математичних наук, асистент кафедри математичного моделювання;\\
+Ігор Черевко, доктор фізико-математичних наук, професор кафедри математичного моделювання.\\
+
+\vspace{1cm}
+\medskip
+
+\textbf{Теорія розробки розподілених баз даних}: методичні рекомендації та завдання для лабораторних робіт. Укл.: Олександр Матвій, Василь Мельник, Ігор Черевко – Чернівці: Чернівецький національний університет, 2024. – 72 с.
+
+\medskip
+\vspace{1cm}
+
+Методичні рекомендації містять завдання для лабораторних робіт та  теоретичні відомості, необхідні для їх виконання, з дисципліни «Теорія розробки розподілених баз даних».
+Для студентів, що здобувають освіту в галузі знань „Інформаційні технології” для спеціальності “Комп’ютерні науки” та інших спеціальностей з подібною програмою вивчення дисципліни.
+
+\vspace{1cm}
+
+УДК  004.7 : 075.8
+
+
+
+\newpage
+
+\bigskip
+
+\hrule
+
+\medskip
+\medskip
+
+\section*{Мета та завдання навчальної дисципліни.}
+
+Метою вивчення дисципліни «Розподілені бази даних» є отримання глибоких та
+систематичних знань, навиків та умінь застосування проміжного програмного
+забезпечення для проектування розподілених баз даних та знань і програмування
+прикладних систем обробки даних.
+Задачею дисципліни «Розподілені бази даних» є отримання студентами
+теоретичних основ класичної та сучасної теорії розподілених баз даних та знань, а
+також важливі практичні аспекти створення розподілених баз даних та знань.
+
+В результаті вивчення предмета студент повинен:
+
+знати:
+
+\begin{itemize}
+\item типи моделей розподілених даних, особливості їх організації, переваги і недоліки;
+
+\item етапи проектування розподілених баз даних та знань;
+
+\item основи роботи із транзакціями;
+
+\item типову організацію та основні компоненти бази даних NoSQL;
+
+\item призначення і основні функції бази даних NoSQL;
+
+
+\item організацію та типи масштабування розподілених систем;
+
+\item технологію Kafka, основи мікросервісної архітектури;
+
+\end{itemize}
+
+уміти:
+
+\begin{itemize}
+\item виконувати постановку задачі для конкретної предметної області з використанням
+сучасного проміжного програмного забезпечення розподілених баз даних та знань і
+відповідної моделі даних для програмування системи обробки даних та знань;
+
+\item здійснювати створення розподіленої бази даних, пошук та маніпулювання даними
+за допомогою мов запитів SQL та MQL;
+
+\item створювати прикладні системи обміну даними, використовуючи програмне
+забезпечення Kafka;
+
+\item забезпечити надійність систем зберігання і обробки розподілених даних.
+\end{itemize}
+
+\bigskip
+
+\hrule
+
+\medskip
+\medskip
+
+\newpage
+
+
+
+\section*{Вступ.}
+
+Сучасний світ інформаційних технологій швидко розвивається, і розробка програмного забезпечення та управління даними стають одними з найбільш затребуваних та динамічних галузей. Останні десятиліття характеризуються стрімким зростанням обсягу даних, необхідністю їх обробки в реальному часі та зростаючими вимогами до стійкості й масштабованості систем. Саме ці виклики та потреби стимулювали розвиток нових підходів у побудові систем розподілених баз даних, архітектурі систем і взаємодії між компонентами великих розподілених систем.
+
+Цей методичний посібник призначений для студентів, які бажають отримати ґрунтовні знання з реляційних і нереляційних баз даних, принципів побудови масштабованих систем, основних аспектів синхронізації та узгодження даних у розподілених середовищах. Ми розглянемо як класичні підходи, такі як нормалізація даних і транзакційні системи, так і новітні тенденції, зокрема використання NoSQL, мікросервісні архітектури та системи обміну повідомленнями, такі як Apache Kafka.
+
+Крім того, ми детально зупинимося на питаннях забезпечення стійкості та продуктивності систем, порівняємо різні типи масштабування та підходи до вирішення проблем узгодженості в розподілених системах. Особлива увага буде приділена принципам транзакційності (ACID), алгоритмам координації, таким як 2PC і 3PC, та патерну Saga, який є ключовим для мікросервісних середовищ.
+
+У посібнику будуть розглянуті як теоретичні аспекти, так і практичні приклади, що допоможуть студентам краще зрозуміти, як побудувати стійку, ефективну та масштабовану систему.
+
+
+\section{Реляційні бази даних. Нормалізація}
+
+\textit{Реляційна база даних} — це тип бази даних, яка зберігає та організовує дані у вигляді таблиць. Таблиці (або реляції) складаються з рядків (записів) і стовпців (полів). Кожна таблиця описує певну сутність (наприклад, клієнти, продукти тощо), і кожен рядок представляє окремий екземпляр цієї сутності [1], [2].
+
+Основна ідея реляційних баз даних полягає у використанні зв’язків між таблицями для організації даних без надмірного дублювання, забезпечуючи ефективне зберігання та запити до даних.
+
+\textit{Нормалізація} — це процес організації даних у базі даних з метою мінімізації надмірності та запобігання аномаліям під час операцій вставки, оновлення та видалення. Основна мета нормалізації полягає в тому, щоб зберігати дані у вигляді окремих логічних частин, забезпечуючи, щоб кожен факт зберігався тільки один раз [1].
+
+Нормалізація включає кілька послідовних етапів, які називаються нормальними формами (NF), кожен з яких додає додаткові вимоги до структури даних.
+
+\textbf{Перша нормальна форма (1NF)}:
+
+\begin{itemize}
+\item Всі поля повинні містити атомарні значення (невідомі).
+
+\item Всі записи в таблиці повинні бути унікальними
+\end{itemize}
+
+\textbf{Друга нормальна форма (2NF)}:
+
+\begin{itemize}
+\item Таблиця повинна бути в 1NF.
+
+\item Кожне неключове поле повинно залежати від усього первинного ключа, а не від його частини.
+\end{itemize}
+
+\textbf{Третя нормальна форма (3NF)}:
+
+\begin{itemize}
+\item Таблиця повинна бути в 2NF.
+
+\item Ніяке неключове поле не повинно залежати від інших неключових полів
+\end{itemize}
+
+\textbf{Переваги нормалізації}
+\begin{itemize}
+\item Зменшення надмірності — зменшення дублювання даних дозволяє економити місце для зберігання.
+
+\item Запобігання аномаліям — коректна структура бази даних знижує ризик виникнення помилок під час оновлення чи видалення даних.
+
+\item Поліпшення цілісності даних — забезпечення зв'язків між таблицями через зовнішні ключі допомагає підтримувати цілісність даних.
+\end{itemize}
+
+\textit{Денормалізація} — це навмисний процес введення певної надмірності даних з метою покращення продуктивності запитів. У деяких випадках, коли швидкість доступу до даних є пріоритетною, денормалізація може бути виправданою, наприклад, у великих системах для зменшення кількості об'єднань під час виконання запитів [1].
+
+
+\section{Транзакції. Принцип ACID.}
+
+\textit{Транзакція} в контексті баз даних — це послідовність операцій (наприклад, читання, запис, оновлення, видалення), що виконуються як єдине ціле. Основною метою транзакції є гарантія того, що всі операції будуть виконані успішно, або жодна з них не буде виконана, у разі виникнення помилки [3].
+
+Транзакції особливо важливі у системах, де дані часто змінюються одночасно кількома користувачами або процесами. Вони гарантують, що база даних залишатиметься в узгодженому стані навіть у випадках несподіваних збоїв чи переривань.
+
+\textit{Принцип ACID} описує чотири ключові властивості транзакцій у реляційних базах даних, що забезпечують їхню надійність та цілісність. ACID — це абревіатура, що означає:
+
+\begin{itemize}
+\item A — Atomicity (Атомарність) — всі операції всередині транзакції повинні бути виконані або всі, або жодна з них.
+
+\item C — Consistency (Цілісність) —  транзакція повинна переводити базу даних з одного коректного стану в інший.
+
+\item I — Isolation (Ізоляція) — транзакції, які виконуються одночасно, не впливають одна на одну.
+
+\item D — Durability (Стійкість) — після завершення транзакції її результати будуть постійно збережені, навіть у випадку збою системи.
+\end{itemize}
+
+\section{2PC та 3PC протоколи в розподілених системах. Паттерн Saga.}
+
+У розподілених системах, коли дані або операції знаходяться на різних вузлах (сервери, бази даних тощо), координація транзакцій стає складною через можливі збої в мережі або вузлах. Щоб забезпечити цілісність даних і виконання транзакцій, використовуються спеціальні протоколи, такі як \textbf{2-фазний коміт (2PC)} та \textbf{3-фазний коміт (3PC)} [3].
+
+\textbf{2-фазний коміт (Two-Phase Commit, 2PC)} — це стандартний протокол координації транзакцій у розподілених системах. Він дозволяє гарантувати атомарність транзакцій між декількома вузлами, навіть якщо один з вузлів виходить з ладу. Протокол 2PC складається з двох основних фаз:
+
+\textit{Перша фаза — Підготовка (Prepare Phase)}:
+
+Координатор (центральний вузол, який контролює транзакцію) надсилає запит до всіх підлеглих вузлів (учасників транзакції), запитуючи, чи можуть вони зафіксувати свої зміни.
+Кожен вузол виконує попередні операції (без фіксації) та відповідає координатору, чи готовий він зафіксувати зміни (відповідь "готовий" або "відмова").
+
+\textit{Друга фаза — Фіксація або Відкат (Commit or Rollback Phase)}:
+
+Якщо всі учасники відповіли, що готові, координатор надсилає команду фіксувати транзакцію (commit), і кожен вузол завершує операцію. Якщо хоча б один учасник відмовляється, координатор надсилає команду відкату (rollback) всім вузлам.
+
+3-фазний коміт (Three-Phase Commit, 3PC) — це розширення 2PC, яке вирішує деякі його проблеми, додаючи додаткову фазу для зниження вразливості до збоїв.
+
+\textbf{Протокол 3PC складається з трьох фаз:}
+
+\textit{Перша фаза — Підготовка (Can Commit)}:
+
+Координатор запитує кожного учасника, чи може той зафіксувати зміни. Якщо учасник готовий, він відповідає "так".
+
+\textit{Друга фаза — Передкоміт (Pre-Commit)}:
+
+Якщо всі учасники відповіли "так", координатор надсилає повідомлення про передкоміт, яке сигналізує всім вузлам, що вони мають підготуватися до фіксації, але не фіксувати зміни.
+
+\textit{Третя фаза — Фіксація або Відкат (Commit or Abort)}:
+
+Якщо всі учасники підтвердили, що готові, координатор надсилає команду на фіксацію. Якщо хтось не може виконати передкоміт, відбувається відкат.
+
+\textbf{Saga} — це паттерн управління довготривалими транзакціями у розподілених системах. Він забезпечує альтернативу традиційним протоколам коміту (2PC, 3PC), дозволяючи розбити транзакцію на послідовність незалежних кроків, кожен з яких може бути виконаний автономно. Якщо один з кроків не вдається, запускаються компенсуючі операції для відкату попередніх кроків.
+
+\section{Використання NoSQL. CAP теорема.}
+
+\textbf{NoSQL (Not Only SQL)} — це тип баз даних, які на відміну від традиційних реляційних баз даних (SQL), мають гнучкішу модель зберігання даних та краще підходять для роботи з великими обсягами даних, що постійно змінюються. NoSQL бази даних зазвичай використовуються у системах, де вимоги до масштабованості, продуктивності та гнучкості перевищують можливості реляційних баз даних.
+
+Переваги NoSQL:
+
+\begin{itemize}
+\item Масштабованість.
+
+\item Гнучкість у зберіганні даних.
+
+\item Висока продуктивність.
+\end{itemize}
+
+
+Недоліки NoSQL баз даних:
+
+\begin{itemize}
+\item Відсутність стандарту.
+
+\item Обмежена підтримка транзакцій.
+
+\item Складність інтеграції.
+\end{itemize}
+
+\textbf{CAP теорема} (іноді називається теоремою Брюера) є фундаментальним принципом для розуміння поведінки розподілених систем. Вона стверджує, що у будь-якій розподіленій системі неможливо одночасно досягти всіх трьох властивостей:
+
+\textit{C — Consistency} (узгодженість): Кожен запит до бази даних повертає найсвіжішу версію даних або сигналізує про помилку.
+
+\textit{A — Availability} (доступність): Кожен запит отримує відповідь (успішну або неуспішну), навіть якщо частина системи недоступна.
+
+\textit{P — Partition Tolerance} (стійкість до поділу мережі): Система продовжує працювати, навіть якщо відбувається поділ мережі між вузлами.
+Згідно з CAP теоремою, у розподілених системах можна одночасно досягти лише дві з трьох властивостей:
+
+\begin{itemize}
+\item CP (узгодженість + стійкість до поділу): Система забезпечує узгодженість даних навіть при поділі мережі, але доступність може бути тимчасово втрачена.
+
+\item AP (доступність + стійкість до поділу): Система продовжує працювати і обслуговувати запити навіть при поділі мережі, але узгодженість даних може бути порушена.
+
+\item CA (узгодженість + доступність): Система підтримує узгодженість і доступність, але не стійка до поділу мережі, тому може втратити здатність працювати при поділі.
+\end{itemize}
+
+
+
+\section{Масштабування. Горизонтальне та вертикальне масштабування.}
+
+
+\textbf{Масштабування} — це процес збільшення обчислювальних ресурсів або можливостей системи для підтримки зростаючого навантаження на систему. У сучасних ІТ-інфраструктурах масштабування є важливою складовою для забезпечення стабільної роботи додатків, веб-сайтів або сервісів, які обслуговують велику кількість користувачів або обробляють великі обсяги даних [4].
+
+Існують два основних типи масштабування: вертикальне масштабування (scale-Up) та горизонтальне масштабування (scale-Out).
+
+\textbf{Вертикальне} масштабування полягає у збільшенні ресурсів (процесор, пам’ять, сховища) одного сервера або вузла. Це дозволяє підвищити продуктивність існуючого обладнання без необхідності зміни архітектури системи.
+
+Прикладом вертикального масштабування є додавання оперативної пам’яті до сервера або заміна процесора на потужніший для обробки більшої кількості одночасних запитів.
+
+\textbf{Горизонтальне} масштабування передбачає додавання нових серверів або вузлів у кластер для збільшення продуктивності. Коли обробка перевищує можливості одного сервера, завдання розподіляються між кількома вузлами.
+
+Прикладом горизонтального масштабування є додавання нових серверів у кластер бази даних або використання балансувальників навантаження для розподілу запитів між кількома веб-серверами.
+
+
+
+\section{Розподілення та синхронізація, конзистентність даних. Мікросервісна архітектура. Використання Kafka.}
+
+У сучасних додатках часто використовуються розподілені системи, де різні компоненти або сервіси працюють на різних серверах або навіть у різних географічних локаціях. Такі системи дозволяють досягти високої масштабованості та стійкості до збоїв. Однак це також породжує складнощі у синхронізації даних, підтримці узгодженості і координації між окремими компонентами системи [5].
+
+\textbf{Типи узгодженості}
+\begin{itemize}
+\item \textit{Сильна узгодженість}: Всі вузли системи завжди бачать однаковий стан даних після виконання кожної операції. Цей підхід гарантує, що кожен запит отримає найсвіжіші дані.
+
+\item \textit{Слабка узгодженість}: Не гарантується негайна узгодженість між вузлами після операції. Проте система забезпечує, що дані згодом стануть узгодженими. Це підхід eventual consistency.
+
+\item \textit{Часткова узгодженість}: Гарантується узгодженість лише для певних груп операцій або в межах окремих частин системи, наприклад, в межах однієї транзакції.
+\end{itemize}
+
+Як зазначено в CAP теоремі, розподілені системи змушені робити вибір між узгодженістю, доступністю та стійкістю до поділу мережі.
+
+
+\textbf{Мікросервісна архітектура} — це підхід до розробки програмних систем, де додаток складається з невеликих, незалежних сервісів, кожен з яких виконує певну бізнес-логіку. Ці сервіси взаємодіють один з одним через добре визначені інтерфейси, зазвичай використовуючи HTTP або системи обміну повідомленнями.
+
+\textit{Переваги мікросервісної архітектури}
+
+\begin{itemize}
+\item Гнучкість і автономія: Кожен мікросервіс може бути розроблений, розгорнутий і масштабований незалежно від інших.
+
+\item Масштабованість: Мікросервіси можна масштабувати окремо, що дозволяє ефективніше використовувати ресурси.
+
+\item Простота оновлень: Можна оновлювати або замінювати окремі сервіси без потреби оновлення всього додатку.
+\end{itemize}
+
+\textit{Недоліки мікросервісної архітектури}
+
+\begin{itemize}
+\item Складність управління: Велика кількість мікросервісів ускладнює їхнє управління, моніторинг та забезпечення злагодженої роботи.
+
+\item Проблеми з узгодженістю даних: Через розподілення сервісів між різними базами даних складно забезпечити узгодженість між сервісами в реальному часі.
+
+\item Затримки та ненадійність мережі: Затримки у мережевій взаємодії можуть впливати на продуктивність і стабільність системи.
+\end{itemize}
+
+\textbf{Apache Kafka} — це розподілена платформа для потокової передачі даних та обміну повідомленнями, яка забезпечує високу пропускну здатність і стійкість до збоїв. Kafka дозволяє різним мікросервісам або системам ефективно обмінюватися даними в режимі реального часу, що робить її ідеальним інструментом для забезпечення взаємодії між сервісами [6].
+
+Kafka складається з:
+
+\begin{itemize}
+\item Producers (продуценти): Відправляють дані (повідомлення) у Kafka.
+
+\item Topics (теми): Місця, де повідомлення зберігаються для подальшої обробки. Дані поділяються на розділи (partitions), що забезпечує паралельну обробку повідомлень.
+
+\item Consumers (споживачі): Отримують повідомлення з тем і обробляють їх.
+
+\item Brokers (брокери): Вузли Kafka, які зберігають і обробляють повідомлення.
+\end{itemize}
+
+Приклад використання Kafka у мікросервісній архітектурі:
+
+\textit{Агрегація даних}: Один мікросервіс може публікувати події (наприклад, замовлення клієнта), а інші сервіси (наприклад, сервіс виставлення рахунків) можуть споживати ці події для подальшої обробки.
+
+\textit{Масштабованість}: Kafka дозволяє обробляти величезні потоки даних у розподіленій системі без втрати продуктивності.
+
+\textit{Переваги Kafka для розподілених систем}
+\begin{itemize}
+\item Висока пропускна здатність.
+
+\item Надійність і відмовостійкість.
+
+\item Зберігання даних: Kafka може зберігати повідомлення на диску протягом заданого часу, що дозволяє мікросервісам отримувати дані, навіть якщо вони тимчасово були недоступні.
+\end{itemize}
+
+\textit{Виклики при використанні Kafka}
+
+\begin{itemize}
+\item Узгодженість даних: Хоча Kafka дозволяє ефективно обмінюватися даними між сервісами, вона не забезпечує транзакційної узгодженості. Розробникам потрібно ретельно продумувати механізми узгодження даних у разі помилок.
+
+\item Моніторинг і відстеження: Коли система складається з безлічі компонентів, важливо відстежувати стан кожного з них, щоб уникати втрати повідомлень або затримок в обробці.
+\end{itemize}
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+\medskip
+\medskip
+
+\medskip
+
+\newpage
+
+
+\begin{center}
+\textbf{Лабораторна робота 1. "Створення сервісу з базою даних SQL."}
+\end{center}
+
+\begin{enumerate}
+\item Створіть порожній .net солюшн (через Visual Studio або комманду \textit{dotnet new sln}), в ньому створіть два проекта: ASP.NET Core Web API із назвою вашого солюшена, та ASP.NET library project проект із закінченням в назві .DAL (Data Access Layer).
+
+\item Встановіть Entity Framework 8 через наступні команди в консолі:
+
+\begin{itemize}
+\item Install-Package Microsoft.EntityFrameworkCore
+
+\item Install-Package Microsoft.EntityFrameworkCore.Design
+
+\item Install-Package Microsoft.EntityFrameworkCore.Tools
+
+\item Install-Package Microsoft.EntityFrameworkCore.SqlServer
+\end{itemize}
+
+або встановіть їх через NugetManager.
+
+\item Додайте моделі на DAL рівень:
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class Student
+{
+    public int StudentId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    // Навігаційна властивість для відношення "багато до багатьох"
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class Course
+{
+    public int CourseId { get; set; }
+    public string Title { get; set; }
+    public int Credits { get; set; }
+
+    // Навігаційна властивість для відношення "багато до багатьох"
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class StudentCourse
+{
+    public int StudentId { get; set; }
+    public Student Student { get; set; }
+
+    public int CourseId { get; set; }
+    public Course Course { get; set; }
+}
+
+\end{lstlisting}
+
+
+
+
+
+
+\item Додайте DbContext клас в DAL проект:
+
+\begin{lstlisting}
+using Microsoft.EntityFrameworkCore;
+
+
+namespace Lab.DAL
+{
+    public class LabDbContext : DbContext
+    {
+        public LabDbContext(DbContextOptions<LabDbContext> options) : base(options)
+      {
+      }
+
+      public DbSet<Student> Students { get; set; }
+      public DbSet<Course> Courses { get; set; }
+      public DbSet<StudentCourse> StudentCourses { get; set; }
+
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+          modelBuilder.Entity<StudentCourse>()
+            .HasKey(sc => new { sc.StudentId, sc.CourseId }); // Композитний ключ
+
+          modelBuilder.Entity<StudentCourse>()
+            .HasOne(sc => sc.Student)
+            .WithMany(s => s.StudentCourses)
+            .HasForeignKey(sc => sc.StudentId);
+
+          modelBuilder.Entity<StudentCourse>()
+            .HasOne(sc => sc.Course)
+            .WithMany(c => c.StudentCourses)
+            .HasForeignKey(sc => sc.CourseId);
+      }
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+
+\item Налаштування підключення до бази даних: відкрийте файл appsettings.json і додайте рядок підключення до бази даних SQL Server.
+
+\begin{lstlisting}
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+\end{lstlisting}
+
+\item В Program.cs додайте налаштування для використання DbContext:
+
+\begin{lstlisting}
+using Lab.DAL;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Додайте DbContext із налаштуваннями рядка підключення
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var app = builder.Build();
+\end{lstlisting}
+
+\item Міграції бази даних: тепер необхідно створити міграції для створення бази даних і таблиць на основі моделей. Виконайте наступні комманди:
+
+
+\begin{itemize}
+\item Add-Migration InitialCreate
+
+\item Update-Database
+\end{itemize}
+
+\item Напишіть сервіс, що заповнить вашу базу даними.
+
+\item Додайте декілька полів в існуючі таблиці. Додайте декілька нових таблиць із зв'язками. Дотримуйтесь правил нормалізації.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+\medskip
+\medskip
+
+\medskip
+
+\newpage
+
+
+\begin{center}
+\textbf{Лабораторна робота 2. "Створення сервісу з розподіленою базою даних SQL та MongoDB."}
+\end{center}
+
+\begin{enumerate}
+\item Відкрийте ваш проект з попередньої лабораторної в Visual Studio та в консолі.
+
+\item Через консоль встановіть пакет для роботи з MongoDb (\textit{Install-Package MongoDB.Driver}, або через NugetManager в пошуку MongoDB.Driver)
+
+\item Додайте наступну конфігурацію в файл appsettings.json:
+
+\begin{lstlisting}
+{
+  "MongoDBSettings": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "DatabaseName": "SchoolDb"
+  }
+}
+\end{lstlisting}
+
+\item Створіть клас для налаштувань MongoDB:
+
+\begin{lstlisting}
+namespace Lab.DAL.Settings
+{
+    public class MongoDBSettings
+    {
+        public string ConnectionString { get; set; }
+        public string DatabaseName { get; set; }
+    }
+}
+\end{lstlisting}
+
+
+\item Додайте налаштування MongoDB в DI-контейнер в Program.cs
+
+\begin{lstlisting}
+// Конфігурація MongoDB Settings
+builder.Services.Configure<MongoDBSettings>(
+    builder.Configuration.GetSection("MongoDBSettings"));
+
+// Реєстрація MongoDB-клієнта
+builder.Services.AddSingleton<IMongoClient>(s =>
+{
+    var settings = s.GetRequiredService<IOptions<MongoDBSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+\end{lstlisting}
+
+
+\item Додайте сервіс для зчитування запису даних типу Student:
+
+\begin{lstlisting}
+using MongoDB.Driver;
+using Lab.DAL;
+using Lab.DAL.Settings;
+using Microsoft.Extensions.Options;
+
+namespace Lab.Services
+{
+    public class StudentService
+    {
+        private readonly IMongoCollection<Student> _studentsCollection;
+
+        public StudentService(IOptions<MongoDBSettings> mongoDBSettings, IMongoClient mongoClient)
+        {
+            var mongoDatabase = mongoClient.GetDatabase(mongoDBSettings.Value.DatabaseName);
+            _studentsCollection = mongoDatabase.GetCollection<Student>("Students");
+        }
+
+        public async Task<List<Student>> GetAsync() =>
+            await _studentsCollection.Find(s => true).ToListAsync();
+
+        public async Task<Student> GetByIdAsync(string id) =>
+            await _studentsCollection.Find(s => s.Id == id).FirstOrDefaultAsync();
+
+        public async Task CreateAsync(Student student) =>
+            await _studentsCollection.InsertOneAsync(student);
+
+        public async Task UpdateAsync(string id, Student updatedStudent) =>
+            await _studentsCollection.ReplaceOneAsync(s => s.Id == id, updatedStudent);
+
+        public async Task RemoveAsync(string id) =>
+            await _studentsCollection.DeleteOneAsync(s => s.Id == id);
+    }
+}
+\end{lstlisting}
+
+та зареєструйте його в Program.cs:
+
+\begin{lstlisting}
+builder.Services.AddSingleton<StudentService>();
+\end{lstlisting}
+
+\item Додайте сервіс для синхронізації даних з двох баз. Використовуйте транзакції для запису, та принципи ACID.
+\end{enumerate}
+
+
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+\medskip
+\medskip
+
+\medskip
+
+\newpage
+
+\newpage
+
+\begin{center}
+\textbf{Лабораторна робота 3. "Створення мікросервісної системи з використанням Kafka."}
+\end{center}
+
+\begin{enumerate}
+
+\item Створіть порожній .net солюшн (через Visual Studio або комманду \textit{dotnet new sln}), в ньому створіть два проекта: ASP.NET Core Web API із назвою вашого солюшена та закінченням Producer (наприклад, якщо ваш проект має назву Products - ProductsProducer), та ASP.NET Core Web API проект із закінченням в назві Consumer.
+
+\item Інастлюйте необхідний кафка нугет пакет (\textit{Install-Package Confluent.Kafka}, або через NugetManager в пошуку Confluent.Kafka)
+
+\item Додайте конфігурацію Kafka в appsettings.json:
+
+\begin{lstlisting}
+"Kafka":{
+    "BootstrapServers": "localhost:9092"
+  }
+  \end{lstlisting}
+
+\item Напишіть ProducerService в Producer проекті, та ConsumerService в consumer проекті.
+
+Приклад продюсера:
+
+\begin{lstlisting}
+using Confluent.Kafka;
+
+namespace InventoryProducer.Services
+{
+    public class ProducerService
+    {
+        private readonly IConfiguration _configuration;
+
+        private readonly IProducer<Null, string> _producer;
+
+        public ProducerService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+            var producerconfig = new ProducerConfig
+            {
+                BootstrapServers = _configuration["Kafka:BootstrapServers"]
+            };
+
+            _producer = new ProducerBuilder<Null, string>(producerconfig).Build();
+        }
+
+        public async Task ProduceAsync(string topic, string message)
+        {
+            var kafkamessage = new Message<Null, string> { Value = message, };
+
+            await _producer.ProduceAsync(topic, kafkamessage);
+        }
+    }
+}
+\end{lstlisting}
+
+
+Приклад консюмера:
+
+\begin{lstlisting}
+namespace InventoryConsumer.Services
+{
+    public class ConsumerService : BackgroundService
+    {
+        private readonly IConsumer<Ignore, string> _consumer;
+
+        private readonly ILogger<ConsumerService> _logger;
+
+        public ConsumerService(IConfiguration configuration, ILogger<ConsumerService> logger)
+        {
+            _logger = logger;
+
+            var consumerConfig = new ConsumerConfig
+            {
+                BootstrapServers = configuration["Kafka:BootstrapServers"],
+                GroupId = "InventoryConsumerGroup",
+                AutoOffsetReset = AutoOffsetReset.Earliest
+            };
+
+            _consumer = new ConsumerBuilder<Ignore, string>(consumerConfig).Build();
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            _consumer.Subscribe("InventoryUpdates");
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                ProcessKafkaMessage(stoppingToken);
+
+                Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            }
+
+            _consumer.Close();
+        }
+
+        public void ProcessKafkaMessage(CancellationToken stoppingToken)
+        {
+            try
+            {
+                var consumeResult = _consumer.Consume(stoppingToken);
+
+                var message = consumeResult.Message.Value;
+
+                _logger.LogInformation($"Received inventory update: {message}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error processing Kafka message: {ex.Message}");
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+
+Зареєструйте свої сервіси в DI:
+
+\begin{lstlisting}
+builder.Services.AddHostedService<ConsumerService>();
+builder.Services.AddSingleton<ProducerService>();
+\end{lstlisting}
+
+\item Напишіть контроллер на стороні продюсера, що буде приймати нові дані через REST запити, та надсилати дані в ProducerService.
+
+\item Додайте на стороні консюмера код для збереження даних в SQL базі даних.
+
+\end{enumerate}
+
+
+\bigskip
+
+\hrule
+\bigskip
+
+
+\begin{center}
+\textbf{Список літератури }
+\end{center}
+
+\begin{enumerate}
+\item Гайна Г. Основи проектування баз даних. Навч. посібник. Київ : Кондор, 2007. 208 с.
+
+\item Ситник Н. Організація баз та сховищ даних. Київ, 2017. 148 с.
+
+\item Campbell L. Database Reliability Engineering: Designing and Operating Resilient Database Systems. O'Reilly, 2017. 294 p.
+
+\item Kleppmann M. Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. O'Reilly, 2017. 590 p.
+
+\item Newman S. Building Microservices: Designing Fine-Grained Systems. O'Reilly, 2021. 500 p.
+
+\item Gwen Shapira Todd Palino Rajini Sivaram. Kafka: The Definitive Guide. Real-Time Data and Stream Processing at Scale. 2nd ed. O'Reilly, 2021. 426 p.
+
+\end{enumerate}
+
+
+\end{large}
+
+\end{document}
+

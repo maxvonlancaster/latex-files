@@ -1,0 +1,357 @@
+\documentclass[12pt,twoside,draft,en]{bmzhart}
+%
+% The following pakages are already included:
+% amsmath,amsfonts,amsthm,amssymb,latexsym
+%
+% Theorem-like environments:
+% {theorem}     - Theorem
+% {proposition} - Proposition
+% {lemma}       - Lemma
+% {corollary}   - Corollary
+% {remark}      - Remark
+% {definition}  - Definition
+% {example}     - Example
+% {examples}    - Examples
+% and their analogues with * :
+% {theorem*}, {proposition*} etc.
+
+
+\author{Bilozerova M.O.}
+\title{Asymptotic behavior of solutions to second order differential equations with nonlinearities, that are compositions of exponential and regularly varying functios }
+
+\shorttitle{Asymptotic behavior of solutions to nonlinear differential equations}
+% for headlines
+% (only if main title too long)
+
+\enabstract{Bilozerova M.O.}%
+{Asymptotic behavior of solutions to second order differential equations with nonlinearities, that are compositions of exponential and regularly varying functions}%
+{One of the most actual problems of the modern qualitative theory of ordinary differential equations is the study of nonlinear and, especially, significantly nonlinear non-autonomous differential equations. Among the works in this area related to establishing the asymptotic properties of solutions, the largest part consists of studies of equations with power-law nonlinearities and nonlinearities asymptotically close to power-law nonlinearities, as well as with exponential nonlinearities. The premise of these studies was the study of the Emden–Fowler equation, partial cases of which are used in nuclear physics, gas dynamics, fluid mechanics, relativistic mechanics, and other fields of natural science. The existence conditions and asymptotic representations of a sufficiently wide class of solutions of substantially nonlinear second-order differential equations are found in the paper. This class of solutions was introduced in the works of V. M. Evtukhov for equations of the Emden-Fowler type of the nth order and specified for the equation of the second order. The investigated differential equations contain nonlinearities, which are compositions of exponential and correctly variable when the argument is directed to a special point of the functions. An important difference of this class of equations is the impossibility of even asymptotically representing the nonlinearity in the form of a product of functions, each of which depended either only on the unknown function or only on the derivative of the unknown function. The class of studied solutions contains properly variable solutions of such equations. In the work, asymptotic images are obtained both for the solutions of the studied class and for their first-order derivatives.}
+{nonlinearities, rapidly varying nonlinearities, nonlinear differential equations, regularly varying solutions}
+
+\uaabstract{Білозерова М.О.}%
+{Асимптотична поведінка розв'язків диференціальних рівнянь другого порядку з нелінійностями, які є композиціями експоненціальної та правильно змінних функцій.}%
+{Асимптотична поведінка розв'язків диференціальних рівнянь другого порядку з нелінійностями, які є композиціями експоненціальної та правильно змінних функцій.
+Однією з найактуальніших задач сучасної якісної теорії звичайних диференціальних рівнянь є вивчення нелінійних та, особливо, істотно нелінійних неавтономних диференціальних рівнянь . Серед робіт в цій області, що стосуються встановлення асимптотичних властивостей розв’язків, найбільшу частину складають дослідження рівнянь зі степеневими нелінійностями та нелінійностями асимптотично близькими до степеневих, а також з експоненціальними нелінійностями. Передумовою цих досліджень було вивчення рівняння Емдена–Фаулера, часткові випадки якого знаходять застосування в ядерній фізиці, газовій динаміці, механіці рідини, релятивістській механіці та інших галузях природознавства. У роботі знайдено умови існування та асимптотичні зображення достатньо широкого класу розв’язків істотно нелінійних диференціальних рівнянь другого порядку. Цей клас розв'язків був введений у роботах В. М. Євтухова для рівнянь типу Емдена-Фаулера  n-го порядку та конкретизованим для рівняння другого порядку. Досліджувані диференціальні рівняння містять нелінійності, які є  композиціями експоненціальної та правильно змінних при прямуванні аргументу до особливої точки функцій. Важливою відмінністю даного класу рівнянь є неможливість навіть асимптотично зобразити нелінійність у вигляді добутку функцій, кожна з яких залежала або тільки від невідомої функції, або тільки від похідної невідомої функції. Клас досліджуваних розв’язків містить правильно змінні розв’язки таких рівнянь. У роботі отримано асимптотичні зображення як для розв’язків досліджуваного класу, так і для їх похідних першого порядку.}
+{Нелінійності, швидко змінні нелінійності, нелінійні диференціальні рівняння, правильно змінні розв’язки}
+
+%\thanks{Information on some grant ...}
+
+\subjclass{34D05}
+% 2010 Mathematics Subject Classification
+% According to http://www.ams.org/msc/msc2010.html
+
+
+\UDC{517.925}
+% Universal Decimal Classification (УДК)
+% It will be indicated by Editorial Team
+% (for those authors, who don't understand what is it)
+
+\pyear{2023} % year
+\volume{11}   % volume
+\issue{2}    % issue
+\pageno{33}  % number of the first page
+\received{27.11.2023} % received date
+%\revised{?} % revised date
+
+\institute{Odessa I.I. Mechnikov National University, Odessa, Ukraine (Bilozerova M.O.)}
+
+\email{Marbel@ukr.net (Bilozerova M.O.)}
+
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\maketitle
+
+%%% ----------------------------------------------------------------------
+
+\section*{Introduction}
+Differential equations of the second order, containing both power and exponential nonlinearities in the right-hand side, play an important role in the development of the qualitative theory of differential equations. Such equations also have many applications in practice. This happens, for example, when studying the distribution of the electrostatic potential in the cylindrical volume of the plasma of combustion products.
+The corresponding equation can be reduced to the following
+ $$ y''=\alpha_0p(t)e^{\sigma y}|y'|^\lambda.$$
+In the works of Evtukhov V.M. and Drik N.G. (see, for example, ~\cite{Bilozerova1}) under certain conditions for the $p$ function, results were obtained about the asymptotic behavior of all correct solutions of this equation.
+Investigations of some  other equations of such a type are represented in the book ~\cite{MAR3}.
+
+The differential equation
+\begin{equation}y''=\alpha_{0}p(t)\exp(R(y,y')),\label{pe1}\end{equation}
+where $\alpha_{0}\in\{-1;1\},p:[a,\omega[\to]0,+\infty[$ $(-\infty<a<\omega \leq +\infty)$, the function $R:\Delta_{Y_0}\times\Delta_{Y_1}\to]0,+\infty[$
+is continuously differentiable, $Y_i\in\{0, \pm \infty \},$ $\Delta_{Y_i}$ is either $[y_i^0, Y_i[\footnotemark[1]$ or $]Y_i,y_i^0]$.
+Moreover,  suppose the function $R$  satisfy the condition
+\begin{equation}\lim\limits_{(y_0,y_1) \rightarrow (Y_0,Y_1)\ \atop (y_0,y_1)
+		\in\,\Delta_{Y_0}\times\Delta_{Y_1}} R(y_0,y_1)=+\infty,\quad\lim\limits_{y_i
+		\rightarrow Y_i\atop y_i \in\, \Delta_{Y_i}}
+	\frac{\displaystyle{y_iR'(y_i)}}{\displaystyle{R(y_i)}}=\gamma_i,\quad i=0,1.\label{trukoy1}
+\end{equation}
+\footnotetext[1]{As $Y_i=+\infty$($Y_i=-\infty$) assume
+	$y_i^0>0$ ($y_i^0<0$).}
+	Here the function $R$ is in some sense near to regularly varying functions, that are useful for investigations of equations of such a type. Theory of such a functions and their properties are described in the book ~\cite{Bingham}.
+
+The solution  $y$, defined on $[t_0,\omega[\subset[a,\omega[$, to the equation \eqref{pe1} is called $P_{\omega}(Y_0,Y_1,\lambda_0)$-solution, if \begin{equation}
+		y^{(i)}:[t_0,\omega[\longrightarrow \Delta_{Y_i},\quad  \lim \limits_{t \uparrow \omega}
+		y^{(i)}(t)=Y_i \ \ (i=0,1),\quad \lim \limits_{t \uparrow \omega} \frac{\displaystyle{(y'(t))^2}}{\displaystyle{y''(t)y(t)}} = \lambda_0. \label{peom12}
+	\end{equation}
+	
+The aim of the work is
+establishing the necessary and sufficient conditions of existence to the equation (\eqref{pe1}) $P_{\omega}(Y_0,Y_1,\lambda_0)$-solutions and asymptotic representation as  $t\uparrow\omega$ for such solutions and its first order derivatives in cases $\lambda_0 \in \mathbb{R}\backslash
+	\{0,1\}$.
+
+
+\section{Section with results}
+
+To present the results let introduse next subsidiary notations
+$$\pi_{\omega}(t)=\left \{ \begin
+{array}[2]{ll}
+t, & \mbox{as } \omega =+\infty, \\ \\
+t-\omega, & \mbox{as } \omega<+\infty,
+\end {array} \right. \quad \Phi_0(y)=\int\limits_{Y_0}^{y} exp(-R(\tau,y'(t^{-1}(\tau)))) d\tau,$$ where $t^{-1}(y)$ is the inverse function for $y(t)$,$$\Phi_1(y)=\int\limits_{Y_0}^{y} \frac{\Phi_0(\tau)}{\tau} d \tau, \quad  Z_1=\lim\limits_{y \rightarrow Y_0\ \atop y \in\,\Delta_{Y_0}}\Phi_1(y),$$
+
+$$ I(t)=\alpha_0(\lambda_0-1)\int\limits_{B^{0}_{\omega}}^{t} \pi_{\omega}(\tau)p(\tau) d\tau,  \quad  B^{0}_{\omega}= \left \{ \begin {array}[2]{ll}
+a, & \mbox{as } \int\limits_a^{\omega}
+\pi_{\omega}(\tau)p(\tau) d\tau=+\infty, \\ \\
+\omega, & \mbox{as } \int\limits_a^{\omega}
+\pi_{\omega}(\tau)p(\tau) d\tau<+\infty,
+\end {array} \right.
+$$
+
+$$I_{1}(t)=\int\limits_{B^{1}_{\omega}}^{t} \frac{\lambda_{0} I(\tau)}{(\lambda_{0}-1)\pi _{\omega}(\tau)}d\tau,\quad
+B^{1}_{\omega}= \left \{ \begin {array}[2]{ll}
+a, & \mbox{as } \int\limits_a^{\omega}
+\frac{\lambda_{0} I(\tau)}{(\lambda_{0}-1)\pi _{\omega}(\tau)}d\tau=+\infty, \\ \\
+\omega, & \mbox{as} \int\limits_a^{\omega}
+\frac{\lambda_{0} |I(\tau)|}{(\lambda_{0}-1)\pi _{\omega}(\tau)}d\tau
+\ <+\infty.
+\end {array} \right.$$
+
+\begin{remark}
+It follows from conditions \eqref{trukoy1}, that  $$\lim\limits_{y \rightarrow Y_0\ \atop y
+	\in\,\Delta_{Y_0}}\frac{\Phi_0''(y)\cdot\Phi_0(y)}{(\Phi'_0(y))^2}=1,  \ \ \ \ \  \ \ \lim\limits_{y \rightarrow Y_0\ \atop y
+	\in\,\Delta_{Y_0}}\frac{\Phi_1''(y)\cdot\Phi_1(y)}{(\Phi'_1(y))^2}=1.$$
+\end{remark}
+
+\begin{theorem}\label{theorem1}
+Let $\gamma_0\lambda_0+\gamma_1\in R\setminus\{0,\lambda_0\}$. Then the conditions  \begin{equation} \pi_{\omega} (t) y^0_{1}y^0_{0}\lambda_{0}(\lambda_{0}-1)>0; \ \ \  \pi_{\omega} (t) y^0_{1}\alpha_{0}(\lambda_{0}-1)>0  \quad \mbox{  }  t\in[a;\omega[,\label{p0} \end{equation}
+\begin{equation}y_{1}^0\cdot\lim\limits_{t \uparrow \omega} |\pi_{\omega} (t)|^{\frac{1}{\lambda_{0}-1}} \  =Y_{1},\quad \lim\limits_{t \uparrow \omega}I_1(t)=Z_1,\quad \lim\limits_{t \uparrow \omega}\frac{\displaystyle{\pi_{\omega}(t)\left(\frac {\displaystyle{I_1(t)}}{\displaystyle
+				{I'_1(t)}}\right)'}}{\displaystyle{\frac {\displaystyle{I_1(t)}}{\displaystyle
+				{I'_1(t)}}}}=\frac{\lambda_0\gamma_0+\gamma_1+1}{\lambda_0-1}, \label{p3}\end{equation}
+\begin{equation}
+	\lim\limits_{t \uparrow \omega}\frac{I_1''(t)I_1(t)}{(I'_1(t))^2}=1,\quad \lim\limits_{t \uparrow \omega} \frac{I_1'(t)\pi_{\omega}(t)}{\Phi_1'\left(\Phi_1^{-1}(I_1(t))\right)\Phi_1^{-1}(I_1(t))}=\frac{\lambda_0}{\lambda_0-1}, \ \ \lim\limits_{t \uparrow \omega}\frac{\pi_{\omega}(t)I_1''(t)}{I'_1(t)}=\infty.\label{p4}\end{equation}
+	are necessary and sufficient for the existence of $P_{\omega}(Y_0,Y_1,\lambda_0)$-solutions to the equation $(\eqref{pe1})$  in cases $\lambda_0 \in \mathbb{R}\backslash \{0,1 \}$.
+Moreover, for every such solution the next asymptotic representations take place as  $t\uparrow\omega$
+\begin{equation}\Phi_1(y(t))=
+	 I_1(t)[1+o(1)],\quad\frac{y'(t)\Phi_1'(y(t))}{\Phi_1(y(t))}=\frac{I_1'(t)}{I_1(t)}[1+o(1)].\label{kot1}\end{equation}
+\end{theorem}
+\begin{proof}
+Let  $y:[t_0,\omega[ \to \Delta_{Y_0}$
+be the $P_{\omega}(Y_0,Y_1,\lambda_0)$-solution of the equation \eqref{pe1},
+  where $\lambda_0 \in  \mathbb{R}\backslash \{0,1 \}$.
+ Then using properties of such solutions, proved by V.M. Evtukhov (look for example ~\cite{EX2}, we have
+\begin{equation}
+ \frac{y^{(i+1)}(t)}{y^{(i)}(t)} =\label{ppp2}
+\frac{\lambda_0^i} {( \lambda_0-1) \pi_{\omega}
+(t)}[1+o(1)]\quad\mbox{as}\quad t\uparrow\omega \ (i=0,1).
+\end{equation} From this representations we get \eqref{p0} and first of conditions \eqref{p3}.
+
+
+
+
+It follows from \eqref{pe1} and \eqref{ppp2}  that as $t \uparrow \omega$
+
+\begin{equation}\begin{array}{c} \frac{\displaystyle{y'(t)}}{\displaystyle{R(y,y'(t^{-1}(y)))}}= \alpha_0(\lambda_0-1)\pi_{\omega}(t)p(t) [1+o(1)].\end{array}\label{ppp11}\end{equation}
+Using  (\ref{ppp11}) we have  \begin{equation}\Phi_0(y(t))=I(t)[1+o(1)]\ \mbox{ as }\  t \uparrow \omega\label{pp1231}\end{equation}
+in case
+$\int\limits_{B^0_{\omega}}^{\omega}|\pi_{\omega}(\tau)p(\tau) |\, d\tau=+\infty.$ If
+$\int\limits_{B^0_{\omega}}^{\omega}|\pi_{\omega}(\tau)p(\tau) |\, d\tau<+\infty,$
+we get either
+\eqref{pp1231} or
+\begin{equation}\lim\limits_{t\uparrow\omega}\label{dop1}\Phi_0(y(t))=c\neq0.
+\end{equation}
+Let us show, that \eqref{dop1} can not be true.
+Using conditions \eqref{trukoy1}  and representation of the function $\Phi_0$ we get
+$$\lim\limits_{t\uparrow\omega} \Phi_0(y(t)) \in \{0;+\infty\},$$
+that is the contradiction to \eqref{dop1}. Then \eqref{pp1231} is valid in all cases.
+
+
+ By division of \eqref{ppp11} onto \eqref{pp1231} using \eqref{ppp2} we get
+ \begin{equation}\frac{\pi_\omega(t) y'(t)}{y(t)}\cdot\frac{y(t)\Phi_0'(y(t))}{\Phi_0(y(t))}=\frac{\pi_\omega(t)I'(t)}{I(t)}[1+o(1)] \ \mbox{ as }\ t \uparrow \omega\label{exsddff12}.\end{equation}
+It follows from conditions \eqref{trukoy1} that the function $\Phi_0(y)$ is rapidly varying as  $y \rightarrow Y_0 \ ( Y_0\in \Delta_{Y_0})$. Then  \begin{equation}\lim\limits_{t\uparrow\omega}\frac{\pi_\omega(t)I'(t)}{I(t)}=\infty \label{exsddfddddf12},\end{equation}
+and we get third of conditions \eqref{p4}.
+
+Using \eqref{pp1231} and \eqref{ppp2} we get
+\begin{equation}\frac{y'(t)\Phi_0(y(t))}{y(t)} = \frac{\lambda_{0} I(t)}{(\lambda_{0}-1)\pi _{\omega}(t)}[1+o(1)] \mbox{ as }t\uparrow\omega.\label{ppp14}\end{equation}
+If
+$\int\limits_a^{\omega}\left|\frac{ I(\tau)}{\pi _{\omega}(\tau)}\right|\, d\tau=+\infty$, then
+\begin{equation}\Phi_1(y(t)) = I_1(t)[1+o(1)]\ \mbox{ as }\  t \uparrow \omega. \label{ppp14231}\end{equation}
+ In case $\int\limits_a^{\omega}\left|\frac{ I(\tau)}{\pi _{\omega}(\tau)}\right|\, d\tau<+\infty$ we get, that \eqref{ppp14231} is also valid by analogy with the proof of \eqref{pp1231}.
+
+So is valid first of the representations \eqref{kot1} and the first of the conditions \eqref{p3}.
+ Dividing \eqref{ppp14} onto \eqref{ppp14231}we get second of representations \eqref{kot1}.
+
+
+
+Let us rewrite  \eqref{kot1} in the next form $$\frac{\pi_\omega(t) y'(t)}{y(t)}\cdot\frac{y(t)\Phi_1'(y(t))}{\Phi_1(y(t))}=\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}[1+o(1)]\ \mbox{ as }\  t \uparrow \omega. $$
+Using (\ref{ppp2}) we get from this representation \begin{equation}\frac{\lambda_0}{\lambda_0-1}\cdot\frac{y(t)\Phi_1'(y(t))}{\Phi_1(y(t))}=\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}[1+o(1)]\ \mbox{ as }\  t \uparrow \omega. \label{exsss12}\end{equation}
+By conditions \eqref{trukoy1} and remark 2 we have, that the function $\Phi_1(y)$ is rapidly varying as   $y \rightarrow Y_0 \ ( Y_0\in \Delta_{Y_0})$.  Then using \eqref{exsss12} we obtain
+\begin{equation}\lim\limits_{t\uparrow\omega}\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}=\infty \label{ef12}.\end{equation}
+By \eqref{exsddfddddf12}, \eqref{exsddff12}and \eqref{exsss12} we have
+\begin{equation}\lim\limits_{t\uparrow\omega}\frac{I_1''(t)I_1(t)}{(I_1'(t))^2}=
+\lim\limits_{t\uparrow\omega}\frac{\displaystyle{\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}}}
+{\displaystyle{\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}}}=  \lim\limits_{t\uparrow\omega}\frac{\displaystyle{\frac{y(t)
+\Phi'_0(y(t))}{\Phi_0(y(t))}}}{\displaystyle{\frac{y(t)\Phi'_1(y(t))}{\Phi_1(y(t))}}}= \lim\limits_{y \rightarrow Y_0\ \atop y
+\in\,\Delta_{Y_0}}\frac{\Phi_1''(y)\cdot\Phi_1(y)}{(\Phi'_1(y))^2}=1\label{exsddfdgd12}.\end{equation}
+So, first of the conditions \eqref{p4} is valid.
+
+ Let us notice,that the function $ \Phi_1^{-1}(y)$ is slowly varying as $y \rightarrow Z_0$, as an inverse function as $y \rightarrow Y_0 \ ( Y_0\in \Delta_{Y_0})$  to the function  $ \Phi_1$.
+Using this fact and \eqref{ppp14231} we get as $t\uparrow\omega$ $$y(t)= \Phi_1^{-1}(I_1(t))[1+o(1)].$$ Second of  conditions \eqref{p3} follows from this representation.
+
+ Let us notice,that the next limit relations are valid:
+$$ \lim\limits_{z\rightarrow Z_0}\frac{\displaystyle{\Phi''(\Phi_1^{-1}(z))z}}{\displaystyle{(\Phi'(\Phi_1^{-1}(z)))^2}}=\lim\limits_{y\rightarrow Y_0 }\frac{\displaystyle{\Phi_1''(\Phi_1^{-1}(\Phi_1(y)))\Phi_1(y)}}{\displaystyle{\left(\Phi_1'(\Phi_1^{-1}(\Phi_1(y)))\right)^2}} = \lim\limits_{y\rightarrow Y_0 }\frac{\displaystyle{\Phi_1''(y)\Phi_1(y)}}{\displaystyle{\left(\Phi_1'(y)\right)^2}}=1.$$
+It follows from this, that
+$$\lim\limits_{z\rightarrow Z_0}\frac{z\cdot\left(\frac{\displaystyle{\Phi'_1(\Phi_1^{-1}(z))}}
+{\displaystyle{\Phi_1(\Phi_1^{-1}(z))}}\right)'}{\frac{\displaystyle{\Phi'_1(\Phi_1^{-1}(z))}}
+{\displaystyle{\Phi_1(\Phi_1^{-1}(z))}}}=
+\lim\limits_{y\rightarrow Z_0}\frac{\displaystyle{\Phi''_1(\Phi_1^{-1}(z))z}}{\displaystyle{(\Phi'_1(\Phi_1^{-1}(z)))^2}}-1=0.$$
+Then the function $\frac{\displaystyle{\Phi'_1(\Phi_1^{-1})}}
+{\displaystyle{\Phi_1(\Phi_1^{-1})}}$ is slowly varying as the argument tends to  $Z_0$. Then we can rewrite  \eqref{exsss12}in the form
+$$ \frac{\lambda_0}{\lambda_0-1}\cdot \Phi_1^{-1}(I_1(t))\frac{\Phi_1'\left(\Phi_1^{-1}(I_1(t))\right)}{I_1(t)}=\frac{\pi_\omega(t)I_1'(t)}{I_1(t)}[1+o(1)]\ \mbox{ as }\  t \uparrow \omega.$$ Second of conditions \eqref{p4} follows from this representation.
+Necessity is proved.
+
+
+{\it Sufficiency.} Let the conditions  \eqref{p0} ---
+\eqref{p4} are satisfied.
+
+  Let us transform the equation \eqref{pe1} using next formulas
+\begin{equation}
+\left\{\begin{array}{ll}
+\Phi_1(y(t)) = I_1(t)
+[1+v_1(x)],\\\\ \frac{\displaystyle{y'(t)\Phi_1'(y(t))}}{\displaystyle{\Phi_1(y(t))}}
+ =  \frac {\displaystyle{I_1'(t)}}{\displaystyle\label{yam21}
+{I_1(t)}} [1+v_2(x)] ,\end{array} \right. \end{equation} where
+\begin{equation}
+ x =\label{yam22}  \beta \ln
+|I_1(t)|, \quad \beta =\left\{\begin{array}{ll}1,& \mbox{ if } \lim\limits_{t\uparrow\omega}I_1(t)=\infty,\\\\
+-1,& \mbox{ if} \lim\limits_{t\uparrow\omega}I_1(t)=0.\end{array}\right. \end{equation}
+
+Then we get the system
+\begin{equation}
+    \begin{matrix}\left\{
+    \begin{matrix}
+v'_1= \beta \left[ v_2+v_1v_2 \right],  \\ \label{yam2217}
+v'_2=\beta G(t(x)) \cdot [1+v_2]  \Biggl[\frac{\displaystyle{N(t(x),v_1)}}{\displaystyle{(1+v_1)(1+v_2)}} +K(t(x),v_1)(1+v_1)(1+v_2) + Q(t(x))
+\Biggr] .
+ \end{matrix} \right.   \end{matrix}\end{equation}
+ Here
+$$G(t)=\frac{I_1(t)}{\pi_{\omega}(t)I_1'(t)},\quad Q(t)=\frac{\displaystyle{\pi_{\omega}(t)\left(\frac {\displaystyle{I_1(t)}}{\displaystyle
+{I'_1(t)}}\right)'}}{\displaystyle{\frac {\displaystyle{I_1(t)}}{\displaystyle
+{I'_1(t)}}}},$$
+$$N(t,v_1)=\frac{\pi_{\omega}(t)I'(t)\Phi_0\left(Y(t,v_1)\right)}{\displaystyle
+{\lambda_0I(t)Y(t,v_1)\Phi_0'\left(Y(t,v_1)\right))}}, \ \ \ \ \ \  Y(t,v_1)=\Phi_1^{-1}(I_1(t)[1+v_1]), $$
+$$K(t,v_1)=\frac{\pi_{\omega}(t)I_1'(t)}{\displaystyle
+	{Y(t,v_1)\Phi_1'\left(Y(t,v_1)\right))}}\cdot \frac{\displaystyle{Y(t,v_1)\Psi'\left(Y(t,v_1)\right)}}{\displaystyle{\Psi\left(Y(t,v_1)\right)}},\quad \Psi(y)= \frac {\displaystyle{\Phi_1'(y)}}{\displaystyle
+	{\Phi_1(y)}}. $$
+
+
+
+
+Let us consider the system
+\eqref{yam2217}  on the set
+$$
+ \Omega=[x_0,+\infty[\times D, \quad\mbox{where}\quad  x_0=\beta \ln
+|\pi_{\omega} (t_0) |,\  D= \left\{ (v_1,v_2): |v_i| \leq
+\frac{1}{2},\ i=1,2 \right\} .
+$$
+
+ Let us rewrite the system \eqref{yam2217} in the form
+\begin{equation}\left \{  \begin{array}{l}
+v'_1= \beta \left[ v_2+v_1v_2 \right], \\ \\
+v'_2= \beta G(t(x)) \left[\label{2sistema}
+Av_{1}+Av_{2}+R_{1}(x,v_{1},v_{2})+R_{2}(x,v_{1},v_{2}) \right] ,
+\end{array} \right.  \end{equation}
+where
+$$A=\frac{\lambda_0\gamma_0+\gamma_1-\lambda_0-1}{\lambda_0-1},$$
+
+$$
+R_1(x,v_1,z_2)=N(t,v_1)\left(\frac{1}{1+v_1}-1+v_1\right)+K(t,v_1)(1+v_1)v_2^2,$$
+
+$$
+R_2(x,v_1,z_2)=(1-v_1)\left(N(t,v_1)-\frac{1}{\lambda_0-1}\right)+(1+v_1)(1+2v_2)\left(K(t,v_1)-\frac{\gamma_0\lambda_0+\gamma_1-\lambda_0}{\lambda_0-1}\right)+$$
+$$+Q(t)+\frac{\gamma_0\lambda_0+\gamma_1-\lambda_0+1}{\lambda_0-1}.$$
+
+It follows from conditions \eqref{p0} ---
+\eqref{p4}, that
+ \begin{equation}\lim \limits_{x\rightarrow +\infty}R_{1}(x,z_1,z_2) \ \ \ \mbox{= 0 uniformly by}\quad v_1, v_2 : \ (v_1,v_2)\in D,\label{sises2}\end{equation}
+\begin{equation} \lim \limits_{|v_1|+|v_2| \to 0}
+\frac{\displaystyle{R_{2}(x,v_1,v_2)}}{\displaystyle{|v_1|+|v_2|}}=0
+\quad\mbox{uniformly by}\quad x\in [x_0,+\infty[.\label{sises1}\end{equation}
+
+
+
+It is obvious, that the system  \eqref{2sistema} has zero eigenvalue.
+
+
+
+
+Let us use the transformation of the system \eqref{2sistema}:
+\begin{equation}\left \{  \begin{array}{l}
+v_1= w_1, \\ \\
+v_2= \sqrt{|G(t(x))|}w_2 \label{21sistema}
+ .
+\end{array} \right.  \end{equation}
+Then we get the system
+\begin{equation}\left \{  \begin{array}{l}
+w'_1= \beta \sqrt{|G(t(x))|} \left[ w_2+V_1(x;w_1;w_{2}) \right], \\ \\
+w'_2=\beta \sqrt{|G(t(x))|} \left[ \label{7777sistema}
+C_{21}w_{1}
++V_{2}(x,w_{1},w_{2})+V_{3}(x,w_{1},w_{2})
+\right],\end{array} \right.  \end{equation}
+where
+$$C_{21}=|A|, \quad V_1(x;w_1;w_{2})=w_1 w_2,$$
+$$V_{2}(x,w_{1},w_{2})=\sqrt{|G(t(x))|}sign A (A-\widetilde{N}(x)\sqrt{|G(t(x))|})w_{2}+$$$$+
+R_{2}(x,w_{1},\sqrt{|G(t(x))|}w_{2}),$$
+$$V_3(x;w_1;w_{2})=R_{1}(x,w_{1},\sqrt{|G(t(x))|}w_{2}) sign A, $$
+ $$\widetilde{N}(x)=\frac{\displaystyle{sign A G'(t(x))I_1(t(x))}}{\displaystyle{2 G(t(x))^2 I_1'(t(x))}}.$$
+
+Here by \eqref{sises2} and \eqref{sises1}
+ $$ \lim \limits_{|w_1|+|w_2| \to 0}
+\frac{\displaystyle{V_{i}(x,w_1,w_2)}}{\displaystyle{|w_1|+|w_2|}}=0,  \ \ i=1,2
+\quad\mbox{uniformly by}\quad x\in [x_0,+\infty[,$$
+ $$\lim \limits_{x\rightarrow +\infty}V_{3}(x,w_1,w_2) \ \ \ \mbox{= 0 uniformly by}\quad w_1, w_2 : \ (w_1,w_2)\in D.$$
+
+Let us notice, that the characteristicequation of the matrix $$\left(
+                                              \begin{array}{cc}
+                                                0 & \beta \\ \beta C_{21}  & 0 \\
+                                              \end{array}
+                                            \right)  $$
+                                        has the next form
+$$ \mu^2- |A|=0.$$
+This equation has no roots with zero real part.
+
+Using the representation $G(t(x))=\frac{\displaystyle{I_1(t(x))}}{\displaystyle{\pi_\omega(t(x))I_1'(t(x))}} $ we get
+
+$ \int\limits_{x_0}^\infty G(t(x))dx= \int\limits_{x_0}^\infty \frac{\displaystyle{I(t(x))}}{\displaystyle{\pi_\omega(t(x))I'(t(x))}}dx = \int\limits_{t(x_0)}^\infty \frac{\displaystyle{I(t)}}{\displaystyle{\pi_\omega(t)I_1'(t)}}\frac{\displaystyle{I'(t)}}{\displaystyle{I(t)}}dt=\ln\Big|\pi_\omega(t)\Big|_{d_1}^\omega \rightarrow\infty$ \\ as $t\rightarrow\omega .$
+So, we have, that $\int\limits_{x_0}^\infty\sqrt{ |G(t(x))|}dx\rightarrow\infty$.
+
+
+Therefore, all conditions of the theorem 2.2 from ~\cite{EX} are satisfied for the system \eqref{7777sistema}. By this theorem the system \eqref{7777sistema}
+has a oneparametric family of solutions
+$\{z_i\}_{i=1}^2:[x_1,+\infty[\longrightarrow \mathbb{R}^2 \
+(x_1\ge x_0)$, that tend to zero as $x\to +\infty$.   By \eqref{yam22} and \eqref{yam21} there exist solutions $y$
+to the equation \eqref{pe1}, that admit as $t\uparrow\omega$
+asymptotic representations \eqref{kot1}.
+Such a solutions are $P_{\omega}(Y_0,Y_1,\lambda_0)$-slutions.
+Theorem is proved.
+\end{proof}
+
+
+
+\begin{thebibliography}{999}
+\bibitem{Bilozerova1}Evtukhov V.M., Drik N.G. \emph{Asimptotic behavior of solutions of a second order nonlinear differention equation} Georgean mathematical journal 1996, Volume 3(2)
+    \bibitem{MAR3}  Maric  V. Regular Variation and differential equations. Springer (Lecture notes in mathematics, 1726), 2000
+    \bibitem{Bingham} Bingham N.H., Goldie C.M., Teugels J.L. Regular variation. Encyclo\-pedia of mathematics and its applications. Cambridge university press, Cambridge,1987.
+        \bibitem{EX2}Evtukhov V., Chernikova A. Asymptotic Behavior of the Solutions of Ordinary Second-Order  Differential Equations  with Rapidly Varying Nonlinearityes, Ukrainian Mathematical Journal.(Springer), 2018,  Volume 69, Translated from Ukrains'kyi Mathematychnyi Zhurnal, 2017.
+
+\bibitem{EX} Evtukhov V.M., Samoilenko A.M. Conditions of existence of disappearing in the critical point solutions to rear nonautomouous systems of quasilinear differential equations, Ukrainian mathematical journal, 2010. (In Russian)
+
+
+\end{thebibliography}
+
+\end{document}

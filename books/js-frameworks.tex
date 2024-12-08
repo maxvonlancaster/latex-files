@@ -1,0 +1,583 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=2cm,right=1.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\large\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+
+\begin{large}
+
+\begin{center}
+\section*{Java Script Frameworks.}
+\end{center}
+
+\medskip
+
+\section*{Introduction to JavaScript}
+
+JavaScript is one of the most widely used programming languages today, powering interactive and dynamic elements on websites, web applications, and even mobile and desktop applications. Initially developed by Netscape in 1995 as a simple scripting language, JavaScript has grown into a powerful, versatile, and essential language for modern web development. Unlike other programming languages, JavaScript can run on both the client (in the browser) and server side (thanks to Node.js), making it a go-to choice for full-stack development.
+
+\textbf{The Role of JavaScript in Web Development}
+
+JavaScript is often described as the “language of the web” because it’s supported by all major browsers, enabling developers to add functionality and interactivity to web pages. HTML and CSS lay out the structure and design of a webpage, while JavaScript brings the page to life by enabling dynamic behaviors such as animations, form validation, and data manipulation. JavaScript’s impact on the user experience is profound—it allows developers to create responsive, engaging websites that can interact with users in real-time without reloading the page.
+
+\textbf{Core Features of JavaScript}
+
+\textit{Dynamic Typing:} 
+JavaScript is dynamically typed, meaning variable types are determined at runtime. This flexibility speeds up development, although it requires careful management to avoid unexpected results.
+
+\textit{Event-Driven Programming: }
+JavaScript is particularly suited for handling events, such as button clicks, mouse movements, and keyboard inputs, making it ideal for interactive applications. This event-driven model is the backbone of JavaScript’s responsive design capabilities.
+
+\textit{Asynchronous Programming: }
+With the introduction of features like callbacks, Promises, and async/await, JavaScript makes it easy to manage asynchronous operations. This is essential for web applications that need to handle API calls or load data from external sources without blocking the user interface.
+
+\textit{Prototype-Based Object Orientation: }
+JavaScript is an object-oriented language but doesn’t use traditional class-based inheritance. Instead, it uses prototypes, which allow objects to inherit properties and methods from other objects. This makes JavaScript flexible, though it can differ from traditional OOP languages.
+
+\textit{Cross-Platform Compatibility: }
+JavaScript can run on any platform or device that supports a browser, making it an incredibly versatile language for building web applications that work across different environments.
+
+\textbf{Key JavaScript Technologies}
+
+JavaScript’s popularity has led to a wide range of frameworks, libraries, and tools that make it easier to develop modern applications. Some key technologies include:
+
+\textit{Node.js:} A runtime environment that allows JavaScript to run on the server side. Node.js enables full-stack JavaScript development and is often paired with frameworks like Express.js to create server-side applications.
+
+\textit{React:} A front-end library developed by Facebook that allows developers to create reusable, component-based user interfaces. React is part of the MERN stack (MongoDB, Express.js, React, Node.js), which is popular for building full-stack applications.
+
+\textit{Angular and Vue.js:} Other popular front-end frameworks that provide a structured way to build single-page applications with dynamic, reactive user interfaces.
+
+\textit{TypeScript:} A superset of JavaScript that adds static typing, making code more predictable and reducing runtime errors. TypeScript is widely used with larger JavaScript codebases, especially in frameworks like Angular.
+
+\textbf{JavaScript’s Evolution and Modern Features}
+
+JavaScript has evolved rapidly through the ECMAScript standard. The ECMAScript 6 (ES6) update, released in 2015, introduced several key features that modernized the language and improved developer productivity, including:
+
+\textit{Arrow Functions:} A shorthand for defining functions, arrow functions also preserve the this context, making them particularly useful for event handling and callbacks.
+
+\textit{let and const:} New ways to declare variables with block scope (let) and constant values (const), making code more predictable and reducing the risk of unintended variable reassignments.
+
+\textit{Classes:} Though JavaScript is prototype-based, ES6 introduced a class syntax that allows developers to write object-oriented code in a way that resembles traditional OOP languages.
+
+\textit{Destructuring:} This allows for simpler extraction of values from arrays or objects, making code more readable and reducing boilerplate.
+
+\textit{Modules:} JavaScript now supports import and export statements, making it easier to organize code across multiple files and encouraging modular design.
+
+\textbf{JavaScript’s Expanding Role Beyond the Browser}
+
+JavaScript has grown beyond the browser, thanks to tools like Node.js, which enables server-side JavaScript. Today, JavaScript can be found in a variety of domains, including:
+
+\textit{Web Servers:} Node.js allows JavaScript to be used on the server side, powering web servers and APIs with efficiency and high concurrency.
+
+\textit{Mobile Development:} Frameworks like React Native allow JavaScript to be used to create cross-platform mobile applications, making it possible to use a single codebase for both iOS and Android.
+
+\textit{Desktop Applications:} Electron enables developers to build desktop applications using JavaScript, HTML, and CSS. Applications like Visual Studio Code and Slack are built on Electron.
+
+\textit{Game Development:} JavaScript libraries such as Phaser and Babylon.js are used to create 2D and 3D games, with WebGL support for more complex graphics.
+
+\textbf{Why JavaScript is Essential for Developers}
+
+JavaScript’s versatility, extensive community support, and constant evolution make it an essential language for web developers. With tools, libraries, and frameworks constantly emerging, JavaScript remains highly relevant and future-proof. It allows developers to build a wide range of applications from interactive websites to server-side APIs, mobile apps, and even desktop software.
+
+
+
+\pagebreak
+
+\section*{Javascript ES6.}
+
+\textbf{ECMAScript 6 (ES6)}, also known as \textbf{ECMAScript 2015}, marked a major update to the JavaScript language, introducing several powerful features that have since become essential in modern JavaScript development. ES6 introduced \verb"let" and const for block-scoped variable declarations, which improved variable handling over the traditional \verb"var". It also brought arrow functions, offering a shorter syntax for function expressions and preserving this context, which simplifies working with callbacks and closures. ES6 added classes and modules, bringing an object-oriented approach and modular code organization to JavaScript. Other significant features include template literals for enhanced string handling, destructuring for unpacking values from arrays or objects, and Promises for managing asynchronous operations. These updates made JavaScript more readable, maintainable, and powerful, and they continue to shape JavaScript coding practices today.
+
+Here are some examples of new functionality with ES6:
+
+\medskip
+
+\textbf{JavaScript let}
+
+The let keyword allows you to declare a variable with block scope.
+
+\begin{lstlisting}
+var x = 10;
+// Here x is 10
+{
+  let x = 2;
+  // Here x is 2
+}
+// Here x is 10
+\end{lstlisting}
+
+
+\textbf{JavaScript const}
+
+The const keyword allows you to declare a constant (a JavaScript variable with a constant value).
+
+Constants are similar to let variables, except that the value cannot be changed.
+
+\begin{lstlisting}
+var x = 10;
+// Here x is 10
+{
+  const x = 2;
+  // Here x is 2
+}
+// Here x is 10
+\end{lstlisting}
+
+
+
+
+\textbf{Arrow Functions}
+
+Arrow functions allows a short syntax for writing function expressions.
+
+You don't need the function keyword, the return keyword, and the curly brackets.
+
+\begin{lstlisting}
+// ES5
+var x = function(x, y) {
+   return x * y;
+}
+
+// ES6
+const x = (x, y) => x * y;
+\end{lstlisting}
+
+Arrow functions do not have their own this. They are not well suited for defining object methods.
+
+Arrow functions are not hoisted. They must be defined before they are used.
+
+Using const is safer than using var, because a function expression is always a constant value.
+
+You can only omit the return keyword and the curly brackets if the function is a single statement. Because of this, it might be a good habit to always keep them:
+
+\begin{lstlisting}
+const x = (x, y) => { return x * y };
+\end{lstlisting}
+
+
+
+
+\textbf{The Spread (...) Operator}
+
+The ... operator expands an iterable (like an array) into more elements:
+
+\begin{lstlisting}
+const q1 = ["Jan", "Feb", "Mar"];
+const q2 = ["Apr", "May", "Jun"];
+const q3 = ["Jul", "Aug", "Sep"];
+const q4 = ["Oct", "Nov", "May"];
+
+const year = [...q1, ...q2, ...q3, ...q4];
+\end{lstlisting}
+
+
+
+
+
+\textbf{The For/Of Loop}
+
+The JavaScript for/of statement loops through the values of an iterable objects.
+
+for/of lets you loop over data structures that are iterable such as Arrays, Strings, Maps, NodeLists, and more.
+
+\begin{lstlisting}
+const cars = ["BMW", "Volvo", "Mini"];
+let text = "";
+
+for (let x of cars) {
+  text += x + " ";
+}
+\end{lstlisting}
+
+
+
+
+
+\textbf{JavaScript Maps}
+
+You can create a JavaScript Map by: Passing an Array to new Map();
+Create a Map and use Map.set().
+
+The get() method gets the value of a key in a Map.
+
+\begin{lstlisting}
+// Create a Map
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+fruits.set("lemons", 600);
+
+fruits.get("apples");    // Returns 500
+\end{lstlisting}
+
+
+
+
+
+\textbf{JavaScript Sets}
+
+You can create a JavaScript Set by: Passing an Array to new Set(); Create a new Set and use add() to add values. If you add equal elements, only the first will be saved.
+
+The forEach() method invokes a function for each Set element.
+
+The values() method returns an Iterator object containing all the values in a Set. For a Set, typeof returns object.
+
+\begin{lstlisting}
+const letters = new Set(["a","b","c"]);
+
+letters.add("d");
+letters.add("e");
+
+\end{lstlisting}
+
+
+
+
+
+
+\textbf{JavaScript Classes}
+
+JavaScript Classes are templates for JavaScript Objects.
+
+Use the keyword class to create a class.
+
+Always add a method named constructor():
+
+\begin{lstlisting}
+class Car {
+  constructor(name, year) {
+    this.name = name;
+    this.year = year;
+  }
+}
+
+const myCar1 = new Car("Ford", 2014);
+const myCar2 = new Car("Audi", 2019);
+\end{lstlisting}
+
+
+
+
+
+
+\textbf{JavaScript Promises}
+
+A Promise is a JavaScript object that links "Producing Code" and "Consuming Code".
+
+"Producing Code" can take some time and "Consuming Code" must wait for the result.
+
+\begin{lstlisting}
+const myPromise = new Promise(function(myResolve, myReject) {
+  setTimeout(function() { myResolve("I love You !!"); }, 3000);
+});
+
+myPromise.then(function(value) {
+  document.getElementById("demo").innerHTML = value;
+});
+\end{lstlisting}
+
+
+
+
+
+
+
+\textbf{The Symbol Type}
+
+A JavaScript Symbol is a primitive datatype just like Number, String, or Boolean.
+
+It represents a unique "hidden" identifier that no other code can accidentally access.
+
+For instance, if different coders want to add a person.id property to a person object belonging to a third-party code, they could mix each others values.
+
+\begin{lstlisting}
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+
+let id = Symbol('id');
+person[id] = 140353;
+// Now person[id] = 140353
+// but person.id is still undefined
+\end{lstlisting}
+
+
+
+
+
+
+
+\textbf{Default Parameter Values}
+
+ES6 allows function parameters to have default values.
+
+\begin{lstlisting}
+function myFunction(x, y = 10) {
+  // y is 10 if not passed or undefined
+  return x + y;
+}
+myFunction(5); // will return 15
+\end{lstlisting}
+
+
+
+
+
+
+
+\textbf{Function Rest Parameter}
+
+The rest parameter (...) allows a function to treat an indefinite number of arguments as an array:
+
+\begin{lstlisting}
+function sum(...args) {
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
+}
+
+let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
+\end{lstlisting}
+
+
+
+
+
+\textbf{String methods.}
+
+The includes() method returns true if a string contains a specified value, otherwise false:
+
+\begin{lstlisting}
+let text = "Hello world, welcome to the universe.";
+text.includes("world")    // Returns true
+\end{lstlisting}
+
+The startsWith() method returns true if a string begins with a specified value, otherwise false:
+
+\begin{lstlisting}
+let text = "Hello world, welcome to the universe.";
+text.startsWith("Hello")   // Returns true
+\end{lstlisting}
+
+The endsWith() method returns true if a string ends with a specified value, otherwise false:
+
+\begin{lstlisting}
+var text = "John Doe";
+text.endsWith("Doe")    // Returns true
+\end{lstlisting}
+
+
+
+
+
+\textbf{Array methods}
+
+The Array.from() method returns an Array object from any object with a length property or any iterable object.
+
+\begin{lstlisting}
+Array.from("ABCDEFG")   // Returns [A,B,C,D,E,F,G]
+\end{lstlisting}
+
+
+The keys() method returns an Array Iterator object with the keys of an array.
+
+\begin{lstlisting}
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+const keys = fruits.keys();
+
+let text = "";
+for (let x of keys) {
+  text += x + "<br>";
+}
+\end{lstlisting}
+
+
+The find() method returns the value of the first array element that passes a test function.
+
+\begin{lstlisting}
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.find(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+\end{lstlisting}
+
+The findIndex() method returns the index of the first array element that passes a test function.
+
+\begin{lstlisting}
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.findIndex(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+\end{lstlisting}
+
+
+
+
+
+\textbf{New Math Methods}
+
+ES6 added the following methods to the Math object:
+
+Math.trunc(x) returns the integer part of x;
+
+Math.sign(x) returns if x is negative, null or positive;
+
+Math.cbrt(x) returns the cube root of x;
+
+Math.log2(x) returns the base 2 logarithm of x;
+
+Math.log10(x) returns the base 10 logarithm of x.
+
+
+\medskip
+
+\textbf{New Number Methods}
+
+The Number.isInteger() method returns true if the argument is an integer.
+
+A safe integer is an integer that can be exactly represented as a double precision number.
+
+The Number.isSafeInteger() method returns true if the argument is a safe integer.
+
+\begin{lstlisting}
+Number.isSafeInteger(10);    // returns true
+Number.isSafeInteger(12345678901234567890);  // returns false
+\end{lstlisting}
+
+
+\textbf{New Global Methods}
+
+The global isFinite() method returns false if the argument is Infinity or NaN.
+
+Otherwise it returns true.
+
+\begin{lstlisting}
+isFinite(10/0);       // returns false
+isFinite(10/1);       // returns true
+\end{lstlisting}
+
+The global isNaN() method returns true if the argument is NaN. Otherwise it returns false:
+
+
+\begin{lstlisting}
+isNaN("Hello");       // returns true
+\end{lstlisting}
+
+
+
+
+\input js1.tex
+
+\input js2.tex
+
+
+
+\input js3.tex
+
+\input js4.tex
+
+\input js5.tex
+
+
+
+
+
+
+\pagebreak
+\begin{center}
+\section*{Ideas for student group projects for extra credit.}
+\end{center}
+
+\begin{enumerate}
+
+\item Study Buddy: An app that allows students to connect with each other for studying and sharing resources. It could include features like study groups, file sharing, and chat functionality.
+
+\item Task Tracker: A simple app for managing and tracking tasks and assignments. Students can create to-do lists, set reminders, and mark tasks as completed.
+
+\item Time Management Tool: An app that assists in managing productivity time effectively. It could include features like setting work schedules, creating reminders, and tracking time spent on different tasks.
+
+\item Budget Planner: An app that helps users track their expenses, set budgets, and manage their finances. It could include features like expense categorization, monthly summaries, and notifications for overspending.
+
+\item College Marketplace: A platform for students to buy and sell items within their college community. It could include categories for textbooks, furniture, electronics, and other student necessities.
+
+\item College Event Calendar: A centralized platform for students to discover and keep track of events happening on campus, such as workshops, seminars, and social gatherings. It could include event details, RSVP functionality, and reminders.
+
+\item Grade Calculator: An app that helps students calculate their grades based on different assignments, exams, and weightings. It could also provide insights into how different scores would impact their overall grades.
+
+\item Virtual Lab Assistant: An interactive app that simulates laboratory experiments for science and engineering students. It allows them to perform virtual experiments, collect data, and analyze results.
+
+\item Flashcard Generator: An app that allows students to create digital flashcards for studying different subjects. It could include features like importing images, organizing flashcards into decks, and tracking progress.
+
+\item Internship/Job Board: A platform that aggregates internship and job opportunities specifically targeted at students. It provides a centralized hub for students to find and apply for relevant positions based on their interests and qualifications.
+
+\item Book Exchange Platform: A web app that enables users to trade or lend books with other students in their neighborhood. It could include features like book listings, search filters, and messaging capabilities.
+
+\item Student Feedback System: An app that enables students to provide feedback on courses, professors, and other aspects of their educational experience. It could include anonymous feedback options, rating systems, and comment sections.
+
+\item Virtual Career Fair: An app that brings together employers and students in a virtual setting. It allows companies to showcase job/internship opportunities, conduct interviews, and provide resources for career development.
+
+\item Mental Health Support: An app focused on promoting mental health and well-being. It could include features like guided meditation, mood tracking, stress management techniques, and access to mental health resources.
+
+\item Group Project Manager: An app designed to facilitate group projects by helping students assign tasks, set deadlines, and collaborate effectively. It could include features like file sharing, task tracking, and communication tools.
+
+\item Personalized Book Recommendation: Description: Build a book recommendation app that suggests personalized book lists based on the user's reading preferences, ratings, and genres of interest.
+
+\item Food Waste Reduction: Description: Develop an app to reduce food waste by connecting users with nearby restaurants, cafes, or grocery stores offering surplus food at discounted prices before it goes to waste.
+
+\item Dream Journal with AI Analysis: Description: Create a dream journal app where users can record their dreams. The app uses natural language processing and AI to analyze dream patterns and meanings.
+
+\item Music Collaboration Platform: Description: Develop a platform for musicians and artists to collaborate on music projects virtually, allowing them to record, mix, and produce music together.
+
+\item Local Community Exchange Platform: Description: Create a platform where members of a local community can offer and exchange goods, services, and skills with each other, fostering a sense of community and collaboration.
+
+\item Language Learning Game with AI: Description: Build an interactive language learning game that uses AI to adapt to each user's language proficiency and provide personalized lessons and challenges.
+
+\item Real-Time Collaborative Code Editor: Description: Develop a collaborative code editor ' that allows multiple users to work on the same codebase simultaneously, promoting real-time collaboration among developers.
+
+\end{enumerate}
+
+
+
+\end{large}
+\end{document}
+

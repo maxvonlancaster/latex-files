@@ -1,0 +1,531 @@
+
+\pagebreak
+\begin{center}
+\section*{REST.}
+\end{center}
+
+\medskip
+
+A REST API is a set of rules and conventions for building and interacting with web services. It follows the principles of Representational State Transfer (REST), a lightweight architecture that uses standard web protocols such as HTTP. REST APIs are designed to enable communication between clients (like a web browser or mobile app) and servers in a stateless, resource-based manner.
+
+The REST API is built on several key principles that make it an efficient and flexible tool for data exchange.
+
+\begin{itemize}
+\item Stateless: Why every HTTP request happens in complete isolation?
+The REST API works in stateless mode, which means that each HTTP request sent to the server contains all the necessary data for its processing. The server does not store information about previous requests from the client. This makes the system more reliable and scalable.
+
+\item Client-Server: client and server autonomy and their interaction.
+The REST API strictly separates the client and server parts of the application. This means that they can develop independently of each other. The client can be a web browser, a mobile application, or any other client application, and the server can be written in any programming language.
+
+\item Uniform Interface: four interfaces to achieve uniformity
+The REST API relies on four main interfaces: resources, HTTP methods (GET, POST, PUT, DELETE), resource representations (how data is presented to the client), and links between resources. This creates uniformity in the way the client and server interact.
+
+\item Cacheable: How caching improves application performance
+The REST API supports caching, which means that the client can temporarily store data to reduce server load and improve performance.
+
+\item Layered System: advantages of a layered system of architecture
+REST API servers can be organized in layers, which makes them more flexible and scalable. Each layer performs specific functions and can be added or removed without changing the client code.
+
+\item Code on Demand: An optional restriction that allows you to download client code
+Take a free English Back-end Test
+This principle is optional and allows the server to send executable code to the client. This is rarely used and requires additional security measures.
+\end{itemize}
+
+In general, rest api principles provide efficient and flexible interaction between the client and the server, as well as standardization, reliability and stability of the system.
+
+
+\medskip
+\medskip
+
+\begin{center}
+\textbf{Example REST application with .Net and React.}
+\end{center}
+
+
+\medskip
+
+Let's create an example REST Api application with .Net on back-end. For example, our REST Api project will provide CRUD operations for lists of students and courses they visit in university.
+
+Add new Asp .NET Core Web API project to your solution (in our case, we named the project 'demo-rest'). Also, add new class library project for database access to your solution (we named it 'demo-rest.dal', where 'dal' stands for data access layer) and add a class library project for business logic (we named it 'demo-rest.bll', where 'bll' stands for business logic layer). Do not forget to reference dal project from web api and bll projects, and reference bll project from web api project (you can do it in Visual Studio by right clicking on the project solution explorer and choosing "Add project reference" option).
+
+Then, we should install Entity Framework 8 to our dal project. We can do it via NuGet manager in Visual Studio or via powershell. In particular, for our needs we are going to install the following NuGet libraries:
+
+\begin{itemize}
+\item Install-Package Microsoft.EntityFrameworkCore
+
+\item Install-Package Microsoft.EntityFrameworkCore.Design
+
+\item Install-Package Microsoft.EntityFrameworkCore.Tools
+
+\item Install-Package Microsoft.EntityFrameworkCore.SqlServer
+\end{itemize}
+
+Entity Framework (EF) is an open-source object-relational mapper (ORM) for .NET applications. It simplifies the interaction between .NET applications and relational databases by providing a high-level abstraction over database operations. EF is a part of the .NET ecosystem and is widely used for data access in ASP.NET applications.
+
+Entity Framework is particularly useful for building data-driven .NET applications quickly while adhering to modern development best practices.
+
+In this demo we will use EntityFrameworkCore version 9.0, if you use newer version you might want to consult with the official documentation, especially, if you run into any unexpected errors.
+
+Before adding database access services to our application, we are going to need to add connection string to our database to application.
+
+A connection string is a string of text used by an application to establish a connection to a database. It contains the necessary information, such as the database type, location, and credentials, for connecting to the desired database system. Connection strings act as a bridge between the application and the database, specifying how the application should communicate with the database server.
+
+We add connection string by modifying our appsetting.json file (in Web Api project) in the following way:
+
+\begin{lstlisting}
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=DemoDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+\end{lstlisting}
+
+The field "DefaultConnection" contains an example of the connection string, that references local database.
+
+Now, we add models (entities) to our data access project, that would represent entries in our database. Class Student will incapsulate information about a particular student (in this case, his name and date of birth), class Course - information about a particular course in the curriculum (name and description of the course), class StudentCourse will store information about which students signed up to which courses - it is an intermediate or association table linking the two tables together.
+
+\begin{lstlisting}
+using System.ComponentModel.DataAnnotations;
+
+namespace demo_rest.dal.Entities;
+
+public class Student
+{
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public DateTime BirthDate { get; set; }
+
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}
+using System.ComponentModel.DataAnnotations;
+
+namespace demo_rest.dal.Entities;
+
+public class Course
+{
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}
+namespace demo_rest.dal.Entities;
+
+public class StudentCourse
+{
+    public int StudentId { get; set; }
+    public Student Student { get; set; }
+
+    public int CourseId { get; set; }
+    public Course Course { get; set; }
+}
+
+\end{lstlisting}
+
+The attribute \lstinline{[Key]} represents field, that is a primary key in the database. The line \lstinline{public ICollection<StudentCourse> StudentCourses} represents navigational property, that allows us to access related row in the table, that is linked via primary key.
+
+After that, we must add DbContext to our application. In Entity Framework, the DbContext class is the central point for interacting with the database. It acts as a bridge between your application and the database, managing database operations and providing functionality for querying and saving data. Example DbContext in our demo project:
+
+\begin{lstlisting}
+using demo_rest.dal.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace demo_rest.dal;
+
+public class DemoDbContext : DbContext
+{
+    public DemoDbContext(DbContextOptions options) : base(options)
+    {
+    }
+
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<StudentCourse> StudentCourses { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<StudentCourse>()
+          .HasKey(sc => new { sc.StudentId, sc.CourseId });
+
+        modelBuilder.Entity<StudentCourse>()
+          .HasOne(sc => sc.Student)
+          .WithMany(s => s.StudentCourses)
+          .HasForeignKey(sc => sc.StudentId);
+
+        modelBuilder.Entity<StudentCourse>()
+          .HasOne(sc => sc.Course)
+          .WithMany(c => c.StudentCourses)
+          .HasForeignKey(sc => sc.CourseId);
+    }
+}
+\end{lstlisting}
+
+The line \lstinline{modelBuilder.Entity<StudentCourse>().HasKey(...} configures the table StudentCourses to have a composite key, that would consist of fields StudentId and CourseId. The method \lstinline{.HasForeignKey(...} configures foreign key relations.
+
+Now we can use this dbContext to interact with the database. For example, if we want to retrieve an information about a particular student, given that we have id of his entry in the database entry, we can do it using method \lstinline{FirstOrDefaultAsync}, and pass that id via a delegate, for example:
+
+\begin{lstlisting}
+public async Task<Student?> GetStudentAsync(int id)
+{
+    return await _demoDbContext.Students
+        .FirstOrDefaultAsync(s => s.Id == id);
+}
+\end{lstlisting}
+
+That method will return a student entry from the database with a given id, or Null, if there is not entry with that id in the database.
+
+After that, we can create a service, that would retrieve entity information on request, as well as provide functionality to adds, modify and delete records in our database. Here is example from demo application:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.dal;
+using demo_rest.dal.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace demo_rest.bll.Services;
+
+public class StudentService : IStudentService
+{
+    private DemoDbContext _demoDbContext;
+
+    public StudentService(DemoDbContext demoDbContext)
+    {
+        _demoDbContext = demoDbContext;
+    }
+
+    public async Task<Student?> GetStudentAsync(int id)
+    {
+        return await _demoDbContext.Students
+            .FirstOrDefaultAsync(s => s.Id == id);
+    }
+
+    public async Task<IEnumerable<Student>> GetStudentsAsync(int skip, int take)
+    {
+        return await _demoDbContext.Students
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+
+    public async Task<Student> AddStudentAsync(Student student)
+    {
+        var studentAdded = await _demoDbContext.AddAsync(student);
+        await _demoDbContext.SaveChangesAsync();
+        return studentAdded.Entity;
+    }
+
+    public async Task<Student> UpdateStudentAsync(Student student)
+    {
+        var studentModified = _demoDbContext.Update(student);
+        await _demoDbContext.SaveChangesAsync();
+        return studentModified.Entity;
+    }
+
+    public async Task DeleteStudentAsync(int id)
+    {
+        var student = await _demoDbContext.Students
+            .FirstOrDefaultAsync(s => s.Id == id);
+        if (student == null)
+        {
+            throw new KeyNotFoundException();
+        }
+        _demoDbContext.Remove(student);
+        await _demoDbContext.SaveChangesAsync();
+    }
+}
+
+\end{lstlisting}
+
+We also declare interface, that would contain all of these methods, and provide access to them for other services via dependency injection:
+
+\begin{lstlisting}
+using demo_rest.dal.Entities;
+
+namespace demo_rest.bll.Interfaces;
+
+public interface IStudentService
+{
+    Task<Student> AddStudentAsync(Student student);
+    Task DeleteStudentAsync(int id);
+    Task<Student?> GetStudentAsync(int id);
+    Task<IEnumerable<Student>> GetStudentsAsync(int skip, int take);
+    Task<Student> UpdateStudentAsync(Student student);
+}
+
+\end{lstlisting}
+
+For the purposes of separation of responsibility, we can add a data transfer object or DTO to our Web Api project:
+
+\begin{lstlisting}
+namespace demo_rest.Models;
+
+public class StudentDto
+{
+    public string Name { get; set; }
+    public DateTime BirthDate { get; set; }
+}
+
+\end{lstlisting}
+
+After that, we add a controller to Web API project, that would provide the data to API upon requests.
+
+In the context of ASP.NET Web API, a controller is a class that handles incoming HTTP requests, processes them, and returns HTTP responses to the client. Controllers are at the core of the Model-View-Controller (MVC) architectural pattern, where they act as intermediaries between the model (data and business logic) and the view (response sent to the client).
+
+Example of the controller:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.dal.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace demo_rest.Controllers;
+
+[Route("[controller]/[action]")]
+[ApiController]
+public class StudentController : ControllerBase
+{
+    private IStudentService _studentService;
+
+    public StudentController(IStudentService studentService)
+    {
+        _studentService = studentService;
+    }
+
+    [HttpGet(Name = "GetStudent")]
+    public async Task<Student> GetStudent(int id)
+    {
+        var student = await _studentService.GetStudentAsync(id);
+        if (student == null)
+        {
+            throw new KeyNotFoundException();
+        }
+        return student;
+    }
+
+    [HttpGet(Name = "GetStudents")]
+    public async Task<IEnumerable<Student>> GetStudents(
+        int skip, int take)
+    {
+        return await _studentService.GetStudentsAsync(skip, take);
+    }
+
+    [HttpPost(Name = "UpdateStudent")]
+    public async Task<Student> UpdateStudent(Student student)
+    {
+        return await _studentService.UpdateStudentAsync(student);
+    }
+
+    [HttpPost(Name = "AddStudent")]
+    public async Task<Student> AddStudent(StudentDto studentDto)
+    {
+        var student = new Student()
+        {
+            Name = studentDto.Name,
+            BirthDate = studentDto.BirthDate
+        };
+        return await _studentService.AddStudentAsync(student);
+
+
+    [HttpPost(Name = "DeleteStudent")]
+    public async Task DeleteStudent(int id)
+    {
+        await _studentService.DeleteStudentAsync(id);
+    }
+}
+
+\end{lstlisting}
+
+Now we have to register our services in Program.cs class of Web API project via dependency injection.
+
+Dependency Injection (DI) is a design pattern and technique used in .NET to achieve Inversion of Control (IoC). 
+It enables the creation and management of object dependencies by delegating this responsibility to an external framework or container, 
+rather than directly instantiating those dependencies within a class. This promotes loose coupling, testability, and maintainability 
+in applications.
+
+An example dependency injection in .Net can be implemented in the following way:
+
+\begin{lstlisting}
+    builder.Services.AddTransient<IService, Service>();
+\end{lstlisting}
+
+Where IService is the abstract inteface, and Service is a concrete implementation of that interface.
+
+
+Dependency injection example for the types, that we have defined above:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.bll.Services;
+using demo_rest.dal;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DemoDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddTransient<IStudentService, StudentService>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+\end{lstlisting}
+
+Before we startup our application, we have to create our database via migration. 
+
+In Entity Framework, a migration is a feature that enables you to manage and apply incremental changes to your database schema while keeping it in sync with your application's data model. Migrations are particularly useful in scenarios where the data model evolves over time as the application grows or requirements change.
+
+But first, do not forget to create the database before running the update-database command. In our case, the name of the database is DemoDb - you can see it as part of the connection string.
+
+\begin{itemize}
+\item Add-Migration InitialCreate
+
+\item Update-Database
+\end{itemize}
+
+Before running the migration, we can check out the migration class, generated by entity framework:
+
+\begin{lstlisting}
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace demo_rest.dal.Migrations
+{
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentCourses",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentCourses", x => new { x.StudentId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_StudentCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentCourses_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentCourses_CourseId",
+                table: "StudentCourses",
+                column: "CourseId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "StudentCourses");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Students");
+        }
+    }
+}
+\end{lstlisting}
+
+Now, when we start our project in Visual Studio, we can use CRUD operations using Swagger. Swagger is a set of open-source tools for 
+designing, building, documenting, and consuming RESTful APIs. In the .NET ecosystem, Swagger is implemented using Swashbuckle, a popular 
+library that integrates seamlessly with ASP.NET Core to generate interactive API documentation. Swagger is built on the OpenAPI Specification 
+(OAS), a standard format for API definitions.
+
+In .NET 8, new Web API projects that you intialize via Visual Studio, have Swagger built in, so you should be greeted with a landing page in your browser, that lists all the endpoints, that you have described in StudentController.cs.
+
+You can now try adding new entries in your application, retrieving, modifying and deleting them.
+
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+

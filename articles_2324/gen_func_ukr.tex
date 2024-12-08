@@ -24,14 +24,14 @@
 % {theorem*}, {proposition*} etc.
 
 
-\author{Lazoryk A.B., Melnyk H.V., Melnyk V.S.}
+\author{Lazoryk A.B., Melnyk V.S.}
 \title{Application of generative functions to the problems of maximum chess arrangements of n figures.}
 
-\shorttitle{Generative functions in the problems of maximum chess arrangements.}
+\shorttitle{Твірні функції та задача про $n$ шахматних фігур.}
 % for headlines
 % (only if main title too long)
 
-\enabstract{Lazoryk A.B., Melnyk H.V., Melnyk V.S.}%
+\enabstract{Lazoryk A.B., Melnyk V.S.}%
 {Application of generative functions to the problems of maximum chess arrangements of n figures.}%
 {A generating function is a formal structure that is closely related to a numerical sequence, but allows us to manipulate the sequence as a single entity, with the goal of understanding it better. Roughly speaking, generating functions transform problems about sequences into problems about
 functions. They provide a systematic way to encode sequences of numbers or other combinatorial objects, allowing for elegant solutions to complex problems across diverse mathematical domains.
@@ -81,16 +81,16 @@ In this article, we will approach a range of problems, involving placing $n$ che
 
 %%% ----------------------------------------------------------------------
 
-\section*{Generating functions.}
+\section*{Твірні функції.}
 
-Given sequence $\{a_{n}\}\in \mathbb{R}$ the generative function for it is defined as: $f(x)=\sum\limits_{n=0}^{\infty}a_{n}x^{n}.$ Generative functions provide a great way to operate over sequences, solve recurrent series, understand different enumeration problems etc. \cite{k2}
+Для послідовності $\{a_{n}\}\in \mathbb{R}$ твірна функція визначається як: $f(x)=\sum\limits_{n=0}^{\infty}a_{ n}x^{n}.$ Твірні функції забезпечують чудовий спосіб оперувати послідовностями, розв’язувати рекурентні ряди, розуміти різні проблеми енумерації тощо. \cite{k2}
 
-Lets take a look at a simple example of a famous Euler's problem, and how it can be solved using generating functions.
+Давайте розглянемо простий приклад відомої задачі Ейлера та розглянемо, як її можна розв’язати за допомогою твірних функцій.
 
-\begin{example} Which weights can be weighted using given weights $1$, $2$, $2^{2}$,..., $2^{n}$, ... and in how many ways?
+\begin{example} Які ваги можна зважити за допомогою заданих ваг $1$, $2$, $2^{2}$,..., $2^{n}$, ... і якими способами?
 \end{example}
 
-Consider the function $f(x) = (1+x)(1+x^{2})(1+x^{4})...=\prod\limits_{n=0}^{\infty}(1+x^{2^{n}}) = 1+a_{1}x+a_{2}x^{2}+... .$ Here, the $a_{n}$ is exactly the amount of different ways one can add numbers $1,2,2^{2},2^{3},...,2^{k},...$ in order to get $n$. Now we can calculate these $a_{n}$, by first calculating the function $f(x)$. For that, lets multiply it by $(1-x)$: $$(1-x)f(x) = (1-x)\prod\limits_{n=0}^{\infty}(1+x^{2^{n}}) = (1-x^{2})\prod\limits_{n=1}^{\infty}(1+x^{2^{n}}) = (1-x^{4})\prod\limits_{n=2}^{\infty}(1+x^{2^{n}}) = ... = 1$$ By dividing by $(1-x)$: $$f(x) = \frac{1}{1-x} = \sum\limits_{n=0}^{\infty}x^{n}$$ So we have, that $a_{n}=1$ for every $n\in \mathbb{N}\cup\{0\}$. That implies, that there is always exactly one way to weight the $n$ using weights $2^{k}$, $k\in \mathbb{N}\cup\{0\}$.
+Розглянемо функцію $f(x) = (1+x)(1+x^{2})(1+x^{4})...=\prod\limits_{n=0}^{\infty}(1+x^{2^{n}}) = 1+a_{1}x+a_{2}x^{2}+... .$ Here, the $a_{n}$ is exactly the amount of different ways one can add numbers $1,2,2^{2},2^{3},...,2^{k},...$ in order to get $n$. Now we can calculate these $a_{n}$, by first calculating the function $f(x)$. For that, lets multiply it by $(1-x)$: $$(1-x)f(x) = (1-x)\prod\limits_{n=0}^{\infty}(1+x^{2^{n}}) = (1-x^{2})\prod\limits_{n=1}^{\infty}(1+x^{2^{n}}) = (1-x^{4})\prod\limits_{n=2}^{\infty}(1+x^{2^{n}}) = ... = 1$$ By dividing by $(1-x)$: $$f(x) = \frac{1}{1-x} = \sum\limits_{n=0}^{\infty}x^{n}$$ So we have, that $a_{n}=1$ for every $n\in \mathbb{N}\cup\{0\}$. That implies, that there is always exactly one way to weight the $n$ using weights $2^{k}$, $k\in \mathbb{N}\cup\{0\}$.
 
 
 Generative functions can be used to solve the recurrent series. Take, for example, famous Fibonacci sequence:

@@ -1,0 +1,408 @@
+
+\pagebreak
+\begin{center}
+\section*{Unit and integration testing. Tools for unit testing web applications.}
+\end{center}
+
+\medskip
+
+Unit testing is a process in programming that allows you to check the correctness of individual modules of the source code of the program.
+
+The idea is to write tests for each non-trivial function or method. This allows you to quickly check whether the next code change has led to regression, that is, to the appearance of errors in already tested areas of the program, and also facilitates the detection and elimination of such errors.
+
+Key Features of Unit Tests:
+
+\begin{itemize}
+\item Isolation: Tests are executed independently of other parts of the system.
+
+\item Automation: Tests can be run automatically as part of the development process.
+
+\item Repeatability: Once written, unit tests can be run as many times as needed to verify code changes.
+
+\item Fast Feedback: Unit tests are usually quick to execute, providing immediate feedback on code correctness.
+\end{itemize}
+
+Writing unit tests encourages developers to think through edge cases and potential errors, resulting in more robust code. Also, unit tests help identify and fix bugs early in the development process when they are easier and less costly to address. With a solid suite of unit tests, developers can confidently refactor or enhance code without the risk of introducing regressions.
+
+Unit tests serve as a form of living documentation, demonstrating how specific functions or methods are expected to behave. Besides these advantages, by catching issues early, unit tests reduce the time and cost associated with debugging and fixing defects in later stages of development. By making unit testing an integral part of the development lifecycle, teams can build more reliable and maintainable software systems.
+
+\medskip
+
+\begin{center}
+\textbf{Unit tests implementation in .NET}
+\end{center}
+
+Create new project on your solution via Visual Studio, choosing NUnit Test Project out of the available options.
+
+NUnit is a popular open-source unit testing framework for .NET applications. It provides a rich set of features to write and execute unit tests, making it easier for developers to ensure the correctness and reliability of their code. With NUnit, developers can create test cases, organize them into test suites, and automate the process of verifying application behavior.
+
+After new test project is loaded into your solution, you should add reference to the project you want to cover with unit tests to your NUnit tests project.
+
+Suppose, we want to cover with unit tests the following service, that was defined in one of the previous chapters:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.dal;
+using demo_rest.dal.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace demo_rest.bll.Services;
+
+public class StudentService : IStudentService
+{
+    private DemoDbContext _demoDbContext;
+
+    public StudentService(DemoDbContext demoDbContext)
+    {
+        _demoDbContext = demoDbContext;
+    }
+
+    public async Task<Student?> GetStudentAsync(int id)
+    {
+        return await _demoDbContext.Students
+            .FirstOrDefaultAsync(s => s.Id == id);
+    }
+
+    public async Task<IEnumerable<Student>> GetStudentsAsync(int skip, int take)
+    {
+        return await _demoDbContext.Students
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+
+    public async Task<Student> AddStudentAsync(Student student)
+    {
+        var studentAdded = await _demoDbContext.AddAsync(student);
+        await _demoDbContext.SaveChangesAsync();
+        return studentAdded.Entity;
+    }
+
+    public async Task<Student> UpdateStudentAsync(Student student)
+    {
+        var studentModified = _demoDbContext.Update(student);
+        await _demoDbContext.SaveChangesAsync();
+        return studentModified.Entity;
+    }
+
+    public async Task DeleteStudentAsync(int id)
+    {
+        var student = await _demoDbContext.Students
+            .FirstOrDefaultAsync(s => s.Id == id);
+        if (student == null)
+        {
+            throw new KeyNotFoundException();
+        }
+        _demoDbContext.Remove(student);
+        await _demoDbContext.SaveChangesAsync();
+    }
+}
+\end{lstlisting}
+
+This service uses DemoDbContext for retrieval of data from the database, and provides functionality for adding, updating, retrieving and deleting entity, encapsulating student data.
+
+Let's define the following service, that would contain all the test cases for this service, and name it StudentServiceShould.cs:
+
+\begin{lstlisting}
+namespace demo_tests.Services;
+
+public class StudentServiceShould
+{
+    [SetUp]
+    public void Setup()
+    {
+    }
+
+    [Test]
+    public void Test1()
+    {
+        Assert.Pass();
+    }
+}
+
+\end{lstlisting}
+
+For now, we do not have any tests defined, but this structure already provides some key concepts, that you might want to familiarize yourself with. First of all, attribute \lstinline{[SetUp]} defines a method, that sets up all the necessary tools for unit tests, and it runs automatically before test execution every time, you run the tests. Attribute \lstinline{[Test]} defines a specific test case.
+
+Before adding tests, we are going to install the package Microsoft.EntityFrameworkCore.InMemory to the application, that we are covering with unit tests. It will allow us to use in-memory database for unit tests, instead of using real database. An in-memory database is a purpose-built database that relies primarily on internal memory for data storage.
+
+After we added this NuGet package, we can now set up our database in tests in the following way:
+
+\begin{lstlisting}
+using demo_rest.dal;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
+namespace demo_tests.Services;
+
+public class StudentServiceShould
+{
+    private DemoDbContext _demoDbContext;
+
+    [SetUp]
+    public void Setup()
+    {
+        CreateDemoDbContextContext();
+    }
+
+    private void CreateDemoDbContextContext()
+    {
+        var dbContextOptions = new DbContextOptionsBuilder<DemoDbContext>()
+            .UseInMemoryDatabase("EventsTestDB", b => b.EnableNullChecks(false))
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+
+        _demoDbContext = new DemoDbContext(
+            dbContextOptions
+        );
+
+        _demoDbContext.Database.EnsureDeleted();
+        _demoDbContext.Database.EnsureCreated();
+    }
+
+    [Test]
+    public void Test1()
+    {
+        Assert.Pass();
+    }
+}
+
+\end{lstlisting}
+
+We can now also define method for adding entries to our Students table for test purposes:
+
+\begin{lstlisting}
+private async Task AddStudent(Student student)
+{
+    await _demoDbContext.AddAsync(student);
+    await _demoDbContext.SaveChangesAsync();
+}
+\end{lstlisting}
+
+In order for unit testing method GetStudentsAsync, we should first add student entry to the database, and then verify that we retrieve exactly one student entry from the database with this method, using the Assert.That NUnit method:
+
+\begin{lstlisting}
+[Test]
+public async Task GetStudentsAsync_Should_Return()
+{
+    await AddStudent(new Student()
+    {
+        Name = "Jack",
+        BirthDate = DateTime.Now.AddYears(-19)
+    });
+    var students = await _studentService.GetStudentsAsync(0, 10);
+    Assert.That(students.Count(), Is.EqualTo(1));
+}
+\end{lstlisting}
+
+Similarly, we can verify, that updating student with new name via UpdateStudentAsync method works as expected:
+
+\begin{lstlisting}
+[Test]
+public async Task UpdateStudentAsync_Should_Return()
+{
+    await AddStudent(new Student()
+    {
+        Name = "Jack",
+        BirthDate = DateTime.Now.AddYears(-19)
+    });
+    var newName = "John Smith";
+    var student = _demoDbContext.Students.First();
+    student.Name = newName;
+    var studentUpdated = await _studentService.UpdateStudentAsync(student);
+
+    Assert.That(studentUpdated.Name, Is.EqualTo(newName));
+}
+\end{lstlisting}
+
+In the same way, we can verify, that method AddStudentAsync adds student to the database, and returns newly added entries id:
+
+\begin{lstlisting}
+[Test]
+public async Task AddStudentAsync_Should_Return()
+{
+    var student = new Student()
+    {
+        Name = "Jack",
+        BirthDate = DateTime.Now.AddYears(-19)
+    };
+    var studentAdded = await _studentService.AddStudentAsync(student);
+    Assert.NotNull(studentAdded.Id);
+}
+\end{lstlisting}
+
+Test case for the method GetStudentAsync looks like that:
+
+\begin{lstlisting}
+[Test]
+public async Task GetStudentAsync_Should_Return()
+{
+    var studentName = "Jack";
+    await AddStudent(new Student()
+    {
+        Name = studentName,
+        BirthDate = DateTime.Now.AddYears(-19)
+    });
+    var studentId = _demoDbContext.Students.First().Id;
+    var student = await _studentService.GetStudentAsync(studentId);
+    Assert.NotNull(student);
+    Assert.That(student.Name, Is.EqualTo(studentName));
+}
+\end{lstlisting}
+
+Method DeleteStudentAsync does not return any data, so we just verify that it gets executed without throwing any exceptions:
+
+\begin{lstlisting}
+[Test]
+public async Task DeleteStudentAsync_Should_Return()
+{
+    await AddStudent(new Student()
+    {
+        Name = "Name",
+        BirthDate = DateTime.Now.AddYears(-19)
+    });
+    var student = _demoDbContext.Students.First();
+    Assert.DoesNotThrowAsync(async () =>
+        await _studentService.DeleteStudentAsync(student.Id), "");
+}
+\end{lstlisting}
+
+It is also important, that our method throws exceptions when we expect it to. We can verify, for example, that method DeleteStudentAsync throws KeyNotFound exception, when we try do delete the entry, that does not exist in the database:
+
+\begin{lstlisting}
+[Test]
+public void DeleteStudentAsync_Should_Throw()
+{
+    var students = _demoDbContext.Students.ToList();
+    _demoDbContext.Students.RemoveRange(students);
+    Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+        await _studentService.DeleteStudentAsync(100), "");
+}
+\end{lstlisting}
+
+All together, our test bundle looks like this:
+
+\begin{lstlisting}
+using demo_rest.bll.Services;
+using demo_rest.dal;
+using demo_rest.dal.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
+namespace demo_tests.Services;
+
+public class StudentServiceShould
+{
+    private DemoDbContext _demoDbContext;
+    private StudentService _studentService;
+
+    [SetUp]
+    public void Setup()
+    {
+        CreateDemoDbContextContext();
+        _studentService = new StudentService(_demoDbContext);
+    }
+
+    private void CreateDemoDbContextContext()
+    {
+        var dbContextOptions = new DbContextOptionsBuilder<DemoDbContext>()
+            .UseInMemoryDatabase("DemoTestDB", b => b.EnableNullChecks(false))
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+
+        _demoDbContext = new DemoDbContext(
+            dbContextOptions
+        );
+
+        _demoDbContext.Database.EnsureDeleted();
+        _demoDbContext.Database.EnsureCreated();
+    }
+
+    [Test]
+    public async Task GetStudentsAsync_Should_Return()
+    {
+        await AddStudent(new Student()
+        {
+            Name = "Jack",
+            BirthDate = DateTime.Now.AddYears(-19)
+        });
+        var students = await _studentService.GetStudentsAsync(0, 10);
+        Assert.That(students.Count(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public async Task UpdateStudentAsync_Should_Return()
+    {
+        await AddStudent(new Student()
+        {
+            Name = "Jack",
+            BirthDate = DateTime.Now.AddYears(-19)
+        });
+        var newName = "John Smith";
+        var student = _demoDbContext.Students.First();
+        student.Name = newName;
+        var studentUpdated = await _studentService.UpdateStudentAsync(student);
+
+        Assert.That(studentUpdated.Name, Is.EqualTo(newName));
+    }
+
+    [Test]
+    public async Task AddStudentAsync_Should_Return()
+    {
+        var student = new Student()
+        {
+            Name = "Jack",
+            BirthDate = DateTime.Now.AddYears(-19)
+        };
+        var studentAdded = await _studentService.AddStudentAsync(student);
+        Assert.NotNull(studentAdded.Id);
+    }
+
+    [Test]
+    public async Task GetStudentAsync_Should_Return()
+    {
+        var studentName = "Jack";
+        await AddStudent(new Student()
+        {
+            Name = studentName,
+            BirthDate = DateTime.Now.AddYears(-19)
+        });
+        var studentId = _demoDbContext.Students.First().Id;
+        var student = await _studentService.GetStudentAsync(studentId);
+        Assert.NotNull(student);
+        Assert.That(student.Name, Is.EqualTo(studentName));
+    }
+
+    [Test]
+    public async Task DeleteStudentAsync_Should_Return()
+    {
+        await AddStudent(new Student()
+        {
+            Name = "Name",
+            BirthDate = DateTime.Now.AddYears(-19)
+        });
+        var student = _demoDbContext.Students.First();
+        Assert.DoesNotThrowAsync(async () =>
+            await _studentService.DeleteStudentAsync(student.Id), "");
+    }
+
+    [Test]
+    public void DeleteStudentAsync_Should_Throw()
+    {
+        var students = _demoDbContext.Students.ToList();
+        _demoDbContext.Students.RemoveRange(students);
+        Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+            await _studentService.DeleteStudentAsync(100), "");
+    }
+
+    private async Task AddStudent(Student student)
+    {
+        await _demoDbContext.AddAsync(student);
+        await _demoDbContext.SaveChangesAsync();
+    }
+}
+
+\end{lstlisting}
+
+After you have completed creating this test collection, you can run them to verify, that your code works as expected. For that, in Visual Studio, go to View -> after that, click on Test Explorer. There, you will see the list of test cases, that you have created. Right click on them and choose option Run. If tests are executed without fail and the results of their execution is as expected by test case, you will see the test highlighted in green, else - in red.
+

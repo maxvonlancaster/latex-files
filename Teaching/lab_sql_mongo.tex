@@ -1,0 +1,356 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+\begin{large}
+
+\begin{center}
+\textbf{Лабораторна робота: "Створення сервісу з розподіленою базою даних SQL та MongoDB."}
+\end{center}
+
+
+\begin{enumerate}
+\item Створіть порожній .net солюшн (через Visual Studio або комманду \textit{dotnet new sln}), в ньому створіть два проекта: ASP.NET Core Web API із назвою вашого солюшена, та ASP.NET library project проект із закінченням в назві .DAL (Data Access Layer).
+
+\item Встановіть Entity Framework 8 через наступні команди в консолі:
+
+\begin{itemize}
+\item Install-Package Microsoft.EntityFrameworkCore
+
+\item Install-Package Microsoft.EntityFrameworkCore.Design
+
+\item Install-Package Microsoft.EntityFrameworkCore.Tools
+
+\item Install-Package Microsoft.EntityFrameworkCore.SqlServer
+\end{itemize}
+
+або встановіть їх через NugetManager.
+
+\item Додайте моделі на DAL рівень:
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class Student
+{
+    public int StudentId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    // Навігаційна властивість для відношення "багато до багатьох"
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class Course
+{
+    public int CourseId { get; set; }
+    public string Title { get; set; }
+    public int Credits { get; set; }
+
+    // Навігаційна властивість для відношення "багато до багатьох"
+    public ICollection<StudentCourse> StudentCourses { get; set; }
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}
+
+namespace Lab.DAL;
+
+public class StudentCourse
+{
+    public int StudentId { get; set; }
+    public Student Student { get; set; }
+
+    public int CourseId { get; set; }
+    public Course Course { get; set; }
+}
+
+\end{lstlisting}
+
+
+
+
+
+
+\item Додайте DbContext клас в DAL проект:
+
+\begin{lstlisting}
+using Microsoft.EntityFrameworkCore;
+
+
+namespace Lab.DAL
+{
+    public class LabDbContext : DbContext
+    {
+        public LabDbContext(DbContextOptions<LabDbContext> options) : base(options)
+      {
+      }
+
+      public DbSet<Student> Students { get; set; }
+      public DbSet<Course> Courses { get; set; }
+      public DbSet<StudentCourse> StudentCourses { get; set; }
+
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+          modelBuilder.Entity<StudentCourse>()
+            .HasKey(sc => new { sc.StudentId, sc.CourseId }); // Композитний ключ
+
+          modelBuilder.Entity<StudentCourse>()
+            .HasOne(sc => sc.Student)
+            .WithMany(s => s.StudentCourses)
+            .HasForeignKey(sc => sc.StudentId);
+
+          modelBuilder.Entity<StudentCourse>()
+            .HasOne(sc => sc.Course)
+            .WithMany(c => c.StudentCourses)
+            .HasForeignKey(sc => sc.CourseId);
+      }
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+
+\item Налаштування підключення до бази даних: відкрийте файл appsettings.json і додайте рядок підключення до бази даних SQL Server.
+
+\begin{lstlisting}
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+\end{lstlisting}
+
+\item В Program.cs додайте налаштування для використання DbContext:
+
+\begin{lstlisting}
+using Lab.DAL;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Додайте DbContext із налаштуваннями рядка підключення
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var app = builder.Build();
+\end{lstlisting}
+
+\item Міграції бази даних: тепер необхідно створити міграції для створення бази даних і таблиць на основі моделей. Виконайте наступні комманди:
+
+
+\begin{itemize}
+\item Add-Migration InitialCreate
+
+\item Update-Database
+\end{itemize}
+
+\item Напишіть сервіс, що заповнить вашу базу даними.
+
+\item Додайте декілька полів в існуючі таблиці. Додайте декілька нових таблиць із зв'язками. Дотримуйтесь правил нормалізації.
+    
+    
+
+\item Через консоль встановіть пакет для роботи з MongoDb (\textit{Install-Package MongoDB.Driver}, або через NugetManager в пошуку MongoDB.Driver)
+
+\item Додайте наступну конфігурацію в файл appsettings.json:
+
+\begin{lstlisting}
+{
+  "MongoDBSettings": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "DatabaseName": "SchoolDb"
+  }
+}
+\end{lstlisting}
+
+\item Створіть клас для налаштувань MongoDB:
+
+\begin{lstlisting}
+namespace Lab.DAL.Settings
+{
+    public class MongoDBSettings
+    {
+        public string ConnectionString { get; set; }
+        public string DatabaseName { get; set; }
+    }
+}
+\end{lstlisting}
+
+
+\item Додайте налаштування MongoDB в DI-контейнер в Program.cs
+
+\begin{lstlisting}
+// Конфігурація MongoDB Settings
+builder.Services.Configure<MongoDBSettings>(
+    builder.Configuration.GetSection("MongoDBSettings"));
+
+// Реєстрація MongoDB-клієнта
+builder.Services.AddSingleton<IMongoClient>(s =>
+{
+    var settings = s.GetRequiredService<IOptions<MongoDBSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+\end{lstlisting}
+
+
+\item Додайте сервіс для зчитування запису даних типу Student:
+
+\begin{lstlisting}
+using MongoDB.Driver;
+using Lab.DAL;
+using Lab.DAL.Settings;
+using Microsoft.Extensions.Options;
+
+namespace Lab.Services
+{
+    public class StudentService
+    {
+        private readonly IMongoCollection<Student> _studentsCollection;
+
+        public StudentService(IOptions<MongoDBSettings> mongoDBSettings, IMongoClient mongoClient)
+        {
+            var mongoDatabase = mongoClient.GetDatabase(mongoDBSettings.Value.DatabaseName);
+            _studentsCollection = mongoDatabase.GetCollection<Student>("Students");
+        }
+
+        public async Task<List<Student>> GetAsync() =>
+            await _studentsCollection.Find(s => true).ToListAsync();
+
+        public async Task<Student> GetByIdAsync(string id) =>
+            await _studentsCollection.Find(s => s.Id == id).FirstOrDefaultAsync();
+
+        public async Task CreateAsync(Student student) =>
+            await _studentsCollection.InsertOneAsync(student);
+
+        public async Task UpdateAsync(string id, Student updatedStudent) =>
+            await _studentsCollection.ReplaceOneAsync(s => s.Id == id, updatedStudent);
+
+        public async Task RemoveAsync(string id) =>
+            await _studentsCollection.DeleteOneAsync(s => s.Id == id);
+    }
+}
+\end{lstlisting}
+
+та зареєструйте його в Program.cs:
+
+\begin{lstlisting}
+builder.Services.AddSingleton<StudentService>();
+\end{lstlisting}
+
+\item Додайте сервіс для синхронізації даних з двох баз. Використовуйте транзакції для запису, та принципи ACID.
+    
+\begin{lstlisting}
+public class UpdateService : IHostedService
+{
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+
+    public UpdateService(IServiceScopeFactory serviceScopeFactory)
+    {
+        _serviceScopeFactory = serviceScopeFactory;
+    }
+
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        await using (var scope = _serviceScopeFactory.CreateAsyncScope())
+        using (var mongoService = scope.ServiceProvider.GetRequiredService<IMongoService>())
+        using (var dbContext = scope.ServiceProvider.GetRequiredService<DemoContext>())
+        using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+        {
+            try
+            {
+                var students = dbContext.Students.ToList();
+                foreach (var student in students)
+                {
+                    var studentDto = new StudentDto()
+                    {
+                        Name = student.Name,
+                        Birth = student.Birth
+                    };
+                    studentDto.Id = studentDto.Name + studentDto.Birth.ToLongDateString();
+
+                    await mongoService.CreateAsync(studentDto);
+                }
+
+                transaction.Complete();
+            }
+            catch(Exception ex)
+            {
+                transaction.Dispose();
+                throw;
+            }
+        }
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
+
+}
+\end{lstlisting}
+
+та зареєструйте його в Program.cs:
+
+\begin{lstlisting}
+builder.Services.AddHostedService<UpdateService>();
+\end{lstlisting}
+
+
+\end{enumerate}
+
+
+
+
+\end{large}
+
+\end{document}

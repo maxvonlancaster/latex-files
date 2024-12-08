@@ -1,0 +1,82 @@
+
+\pagebreak
+\begin{center}
+\textbf{Authentication, Authorization, JWT and OAuth2.0 .}
+\end{center}
+
+\medskip
+
+\textbf{Authentication and authorization} are two critical components of application security. Together, they ensure that only the right users can access specific resources or functionalities within a system, protecting sensitive data and maintaining system integrity.
+
+Authentication is the process of verifying the identity of a user or entity. It ensures that the individual attempting to access a system is who they claim to be.
+
+Authorization is the process of determining what actions or resources an authenticated user is allowed to access. It controls the permissions and privileges granted to a user or entity.
+
+Modern applications use a variety of tools and techniques to implement authentication and authorization securely:
+
+\begin{itemize}
+\item Session-Based Authentication: The server creates a session for the user upon login and stores it in memory. A session ID is sent to the client as a cookie.
+    
+\item Token-Based Authentication: After login, the server generates a token (e.g., JWT) that the client includes in each request for authentication.
+    
+\item Authorization can be implemented via middleware, Access Control Lists (ACLs) or API gateways.
+\end{itemize}
+
+
+\textbf{JSON Web Tokens}, commonly known as JWTs, are a compact and secure way of transmitting information between parties as a JSON object. This technology has become particularly popular in modern web applications due to its simplicity and robustness in enabling secure, stateless authentication and authorization.
+
+What is JWT?
+JWT is an open standard (RFC 7519) that defines a way to securely transmit information as a JSON object. The token itself is self-contained, meaning it holds all the information needed for authentication, which can be verified without querying a database. This capability makes JWT highly scalable, as it reduces the server's reliance on session storage.
+
+
+A JWT consists of three parts, separated by dots (.):
+
+\begin{itemize}
+\item Header: Contains metadata about the token, including the type of token (JWT) and the hashing algorithm used (e.g., HMAC SHA256 or RSA).
+
+\item Payload: Holds the claims, which are statements about the user or other data. Claims can be predefined, such as sub (subject) and exp (expiration), or custom, like role or email.
+
+\item Signature: Created by encoding the header and payload using a secret key or a private key, depending on the algorithm.
+\end{itemize}
+
+An example JWT might look like this:
+
+\begin{lstlisting}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+\end{lstlisting}
+
+Decoded, it would look like this:
+
+
+\begin{lstlisting}
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+}
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+
+your-256-bit-secret
+)
+\end{lstlisting}
+
+\textbf{OAuth 2.0}, short for Open Authorization 2.0, is a protocol that enables third-party applications to gain limited access to a user's resources without sharing their username and password. It provides an efficient way to implement secure delegated access, focusing on authorization rather than authentication.
+
+
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+
+
+
+
