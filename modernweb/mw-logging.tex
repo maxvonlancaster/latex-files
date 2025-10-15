@@ -1,14 +1,189 @@
 
 \pagebreak
-\begin{center}
-\section*{Logging.}
-\end{center}
+\chapter{Logging.}
+
 
 \medskip
 
 
-\textbf{Implementation.}
+Logging is an important component for the development and maintenance of the software applications.
+It serves as the backbone for monitoring, diagnosing, and understanding application behavior in both development and production environments.
 
+Logging is first of all important for debugging and diagnostics: logs provide insights into the execution flow and state of an application.
+When an issue arises, logs act as breadcrumbs to help developers trace the root cause without needing to replicate the problem.
+
+Logs are also important for performance monitoring, as by logging key metrics, such as response times and resource usage, developers can
+identify performance bottlenecks and optimize application behavior.
+
+Logs can detect and alert on suspicious activity, such as unauthorized access or anomalous behavior, contributing to the overall security of
+the application.
+
+Log levels categorize messages by their importance and urgency. Most systems use standard levels, such as:
+
+\begin{itemize}
+\item TRACE: Detailed information, typically of interest only during development or debugging.
+
+\item DEBUG: Diagnostic information for debugging. Useful in non-production environments.
+
+\item INFO: General informational messages about the application’s normal operations.
+
+\item WARN: Indications of potential issues or non-critical problems that might need attention.
+
+\item ERROR: Errors that prevent a specific operation from completing but do not crash the application.
+
+\item FATAL: Severe errors that lead to application crashes or critical failures.
+\end{itemize}
+
+There are several best practices for introducing logging to your application.
+
+First of all, we should awoid over-logging.
+Logging everything can clutter log files and make it difficult to find useful information. Log only what’s necessary and at the appropriate level.
+
+We should also consider contextual logging, meaning, that we should include relevant context in logs, such as user IDs, request IDs, or session IDs.
+This makes logs more actionable and easier to correlate. But, we should never log sensitive information,
+such as passwords or personal identifiable information (PII), unless properly masked or encrypted.
+
+We should also regularly verify that log messages are meaningful, actionable, and formatted correctly.
+
+
+After you have set up the logging in your application, good practice is to set up alerts, special monitoring tools to trigger alerts for crucial log
+events, such as fatal errors or security violations.
+
+In .net application logging can be implemented using either built-in tools, or NuGet packages, such as Serilog, NLog or log4net.
+
+\medskip
+
+
+\textbf{Implementation.} ASP.NET Core comes with a built-in logging framework (Microsoft.Extensions.Logging) that can log to console, debug, eventSource and third-party providers (Serilog, NLog, Application Insights, etc.)
+
+When you create a new Web API project, logging is already configured in \verb"Program.cs":
+
+\begin{lstlisting}
+var builder = WebApplication.CreateBuilder(args);
+
+// Add logging
+builder.Logging.ClearProviders(); // optional: clear default providers
+builder.Logging.AddConsole();     // log to console
+builder.Logging.AddDebug();       // log to debug window
+
+var app = builder.Build();
+\end{lstlisting}
+
+In order to add logging to the controller or service, you can inject \verb"ILogger<T>", where T is the service:
+
+
+\begin{lstlisting}
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly ILogger<ProductsController> _logger;
+
+    public ProductsController(ILogger<ProductsController> logger)
+    {
+        _logger = logger;
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetProduct(int id)
+    {
+        _logger.LogInformation("Fetching product with ID {ProductId}", id);
+
+        if (id <= 0)
+        {
+            _logger.LogWarning("Invalid product id: {ProductId}", id);
+            return BadRequest("Invalid ID");
+        }
+
+        try
+        {
+            // Simulate fetching product
+            var product = new { Id = id, Name = "Test Product" };
+            return Ok(product);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching product {ProductId}", id);
+            return StatusCode(500, "Internal server error");
+        }
+    }
+}
+
+\end{lstlisting}
+
+
+The built-in log levels can be used in the following way:
+
+\begin{lstlisting}
+_logger.LogTrace("Trace log");
+_logger.LogDebug("Debug log");
+_logger.LogInformation("Info log");
+_logger.LogWarning("Warning log");
+_logger.LogError("Error log");
+_logger.LogCritical("Critical log");
+\end{lstlisting}
+
+You can control what gets logged without changing code, in the \verb"appsettings.json" file:
+
+\begin{lstlisting}
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "MyAppNamespace": "Debug"
+    }
+  }
+}
+
+\end{lstlisting}
+
+
+For advanced logging (structured logs, file sinks, Seq, ElasticSearch), many teams use Serilog.
+
+Install packages:
+
+\begin{lstlisting}
+dotnet add package Serilog.AspNetCore
+dotnet add package Serilog.Sinks.Console
+dotnet add package Serilog.Sinks.File
+
+\end{lstlisting}
+
+Configure in Program.cs:
+
+\begin{lstlisting}
+using Serilog;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Setup Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration) // read from appsettings.json
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+var app = builder.Build();
+
+\end{lstlisting}
+
+And in appsettings.json:
+
+
+\begin{lstlisting}
+"Serilog": {
+  "MinimumLevel": "Information",
+  "WriteTo": [
+    { "Name": "Console" },
+    { "Name": "File", "Args": { "path": "logs/webapi-.log", "rollingInterval": "Day" } }
+  ]
+}
+
+\end{lstlisting}
 
 
 

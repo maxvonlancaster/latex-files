@@ -1,0 +1,120 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\large\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+\begin{large}
+
+\pagenumbering{gobble}
+
+
+\begin{center}
+\section*{Використання Docker для web-девелопменту.}
+\end{center}
+
+\bigskip
+
+Docker — це платформа з відкритим кодом, яка дозволяє розробникам автоматизувати створення, розгортання та запуск додатків у контейнерах.
+
+Контейнер — це легковагова, ізольована середа, яка містить все необхідне для запуску додатку: код, бібліотеки, залежності, налаштування, середовище виконання. Це робить додатки портативними, відтворюваними і незалежними від середовища, у якому вони виконуються.
+
+\textbf{Основні характеристики}:
+\begin{itemize}
+\item Ізоляція: Кожен контейнер працює незалежно від інших. Це дозволяє уникнути конфліктів залежностей або середовища.
+
+\item Легковаговість: Контейнери запускаються набагато швидше, ніж віртуальні машини, і споживають менше ресурсів.
+
+\item Портативність: Один і той самий контейнер можна запустити на будь-якій машині, де встановлено Docker — незалежно від операційної системи.
+
+\item Автоматизація: З використанням Docker можна легко автоматизувати процеси розгортання, тестування, CI/CD (continuous integration / continuous deployment).
+\end{itemize}
+
+Основним інструментом є Dockerfile — це файл, у якому описано інструкції, як створити образ (image) контейнера. Образ (image) — це шаблон контейнера. Він містить все необхідне для запуску програми. Контейнер (container) — це запущений екземпляр образу, що працює ізольовано.
+
+\bigskip
+
+\begin{enumerate}
+\item Скачайте .exe інсталяційний файл Docker із https://www.docker.com/products/docker-desktop/ та встановіть його. Після встановлення запустіть Docker Desktop із пускового меню. Коли Docker запуститься, перевірте інсталяцію через PowerShell: \verb"docker --version"
+
+    Зауваження: Якщо PowerShell команда не працює, варто додати локацію Docker в вашій каталоговій системі в Path змінну в Environment Variables.
+
+
+\item Створіть файли style.css, index.html та script.js, наповніть ваш сайт матеріалом по бажанню. Наприклад, це може бути одне із завдань лабораторної 1.
+
+\item Створіть Dockerfile: назвіть ваш новий файл в тій самій папці \textit{Dockerfile} (без розширення). В цьому файлі внесіть наступне:
+
+\begin{lstlisting}
+# Використання Nginx для роботи із статичними файлами
+FROM nginx:alpine
+
+# Копіювання статичних файлів в публічну папку
+COPY . /usr/share/nginx/html
+
+# Порт для доступу (цей пункт не є обов'язковим)
+EXPOSE 80
+
+\end{lstlisting}
+
+Таким чином, структура вашого проекту тепер має виглядати наступим чином:
+
+\begin{lstlisting}
+my-site
+|-- index.html
+|-- styles.css
+|-- script.js
+L-- Dockerfile
+\end{lstlisting}
+
+
+\item Збілдайте та запустіть ваш контейнер з допомогою наступних команд:
+
+\begin{lstlisting}
+docker build -t my-site .
+docker run -d -p 8080:80 my-site
+\end{lstlisting}
+
+Після цього, перейдіть на localhost:8080, щоб побачити свій сайт, запущений локально.
+
+Зауваження: запустіть знову або перезапустіть Docker Desktop якщо отримуєте помилку \verb"error during connect: This error may indicate that the docker daemon is not running"
+
+Переконайтеся також, що Docker використовує Linux контейнери перед тим, як виконувати завдання з цього пункту, клікнувши правою клавішею на значок Docker на панелі інструментів. Якщо використовуються Windows контейнери, можна це змінити вибравши "Switch to Linux containers"
+
+\item Запушайте ваш проект на github репозиторій.
+
+\item Зайдіть на https://render.com та створіть новий аккаунт. Виберіть “New Web Service” та додайте ваш github репозиторій. Виберіть Docker із списку запропонованих сервісів та запустіть деплой. Через деякий час ви отримаєте лінку на ваш задеплоєний контейнер.
+\end{enumerate}
+
+
+\end{large}
+
+\end{document}
+

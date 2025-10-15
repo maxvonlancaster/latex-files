@@ -1,7 +1,244 @@
 
 \pagebreak
-\begin{center}
-\textbf{XSS, CSRF, CORS, security and OWASP top 10.}
-\end{center}
+
+\chapter{XSS, CSRF, CORS, security and OWASP top 10.}
+
 
 \medskip
+
+Security is a fundamental pillar of web development. Every application that is deployed online becomes a potential target for malicious actors. Data breaches, unauthorized access, and compromised systems can result not only in financial losses but also in the erosion of user trust, which is often far more difficult to repair. This is why developers, architects, and organizations must treat security as an integral part of their development process rather than something to add once the system is already in place.
+
+One of the most common web vulnerabilities is Cross-Site Scripting, or XSS. This occurs when attackers are able to inject malicious scripts into otherwise trusted websites. These scripts can run in the browser of unsuspecting users and can steal session tokens, manipulate the DOM, or redirect users to harmful websites. The root of the problem often lies in insufficient sanitization or encoding of user input. Although modern frameworks provide better protection mechanisms, the risk of XSS still exists whenever data flows from user input directly into the page without proper handling.
+
+Closely related to XSS is another significant vulnerability known as Cross-Site Request Forgery, or CSRF. Unlike XSS, which relies on injecting malicious content, CSRF manipulates authenticated users into performing unintended actions on a web application. For example, a logged-in user could be tricked into clicking a malicious link or loading a hidden form that triggers a money transfer or changes account details. The attack works because the browser automatically attaches authentication cookies, and without proper validation, the server assumes the request is legitimate. Preventing CSRF often requires the use of anti-forgery tokens, SameSite cookies, and explicit verification mechanisms to ensure that the request truly originates from the intended user interaction.
+
+Another concept that frequently appears in discussions of web security is Cross-Origin Resource Sharing, or CORS. By default, browsers enforce a same-origin policy, meaning that scripts running on one domain cannot access resources from another domain. While this policy is essential for preventing data leaks, modern applications often require communication across different services, domains, or APIs. CORS was introduced as a controlled way to relax the same-origin policy, allowing trusted domains to share resources. Misconfiguration of CORS, however, can be extremely dangerous. If a server allows requests from any origin without restrictions, it essentially opens the door to malicious sites extracting sensitive data from unsuspecting users.
+
+To understand these risks in a broader context, developers often turn to the OWASP Top 10, a regularly updated list of the most critical web application security risks. The OWASP Top 10 acts as a guide to the most common and impactful vulnerabilities, including injection flaws, broken authentication, insecure design, sensitive data exposure, and insufficient logging and monitoring. Each item on the list is not only a technical challenge but also a reminder of the need for secure thinking in the development lifecycle. Security is never just about fixing individual vulnerabilities but about building a culture where threats are anticipated, risks are evaluated, and defenses are designed from the ground up.
+
+The importance of security in web development becomes even clearer when one considers the consequences of neglecting it. Beyond financial damages and regulatory penalties, insecure applications can compromise personal data such as medical information, banking details, or private communications. This not only violates legal and ethical responsibilities but also causes long-lasting reputational harm. By applying security best practices, staying updated with the OWASP Top 10, and being aware of threats such as XSS, CSRF, and misconfigured CORS, developers create safer applications that protect both businesses and their users.
+
+\begin{itemize}
+\item A01:2021-Broken Access Control moves up from the fifth position; 94\% of applications were tested for some form of broken access control. The 34 Common Weakness Enumerations (CWEs) mapped to Broken Access Control had more occurrences in applications than any other category.
+
+\item A02:2021-Cryptographic Failures shifts up one position to \#2, previously known as Sensitive Data Exposure,
+which was broad symptom rather than a root cause. The renewed focus here is on failures related to
+cryptography which often leads to sensitive data exposure or system compromise.
+
+\item A03:2021-Injection slides down to the third position. 94\% of the applications were tested for some form of injection, and the 33 CWEs mapped into this category have the second most occurrences in applications. Cross-sit Scripting is now part of this category in this edition.
+
+\item A04:2021-Insecure Design is a new cate
+gory for 2021, with a focus on risks related to design flaws. If we genuinely want to “move left” as an industry, it calls for more use of threat modeling,
+secure design patterns and principles, and reference architectures.
+
+\item A05:2021-Security Misconfiguration moves up from \#6 in the previous edition; 90\% of applications were tested for some form of misconfiguration. With more shifts into highly configurable software, it’s not surprising to see this category move up. The former category for XML External Entities (XXE) is now part of this category.
+
+\item A06:2021-Vulnerable and Outdated Components was previously titled Using Components with Known Vulnerabilities and is \#2 in the Top 10 community survey, but also had enough data to make the Top 10 via data analysis. This category moves up from \#9 in 2017 and is a known issue that we struggle to test and assess risk. It is the only category not to have any Common Vulnerability and Exposures (CVEs) mapped to the included CWEs, so a default exploit and impact weights of 5.0 are factored into their scores.
+
+\item A07:2021-Identification and Authentication Failures was previously Broken Authentication and is sliding down from the second position, and now includes CWEs that are more related to identification failures. This category is still an integral part of the Top 10, but the increased availability of standardized frameworks seems to be helping.
+
+\item A08:2021-Software and Data Integrity Failures is a new category for 2021, focusing on making assumptions related to software updates, critical data, and CI/CD pipelines without verifying integrity. One of the highest weighted impacts from Common Vulnerability and Exposures/Common Vulnerability Scoring System (CVE/CVSS) data mapped to the 10 CWEs in this category. Insecure Deserialization from 2017 is now a part of this larger category.
+
+\item A09:2021-Security Logging and Monitoring Failures was previously Insufficient Logging \& Monitoring and is added from the industry survey (\#3), moving up from \#10 previously. This category is expanded to include more types of failures, is challenging to test for, and isn’t well represented in the CVE/CVSS data. However, failures in this category can directly impact visibility, incident alerting, and forensics.
+
+\item A10:2021-Server-Side Request Forgery is added from the Top 10 community survey (\#1). The data shows a relatively low incidence rate with above average testing coverage, along with above-average ratings for Exploit and Impact potential. This category represents the scenario where the security community members are telling us this is important, even though it’s not illustrated in the data at this time.
+
+\end{itemize}
+
+\medskip
+
+\textbf{Example of XSS handling in .net}
+
+In a .NET Web API, you don’t usually have direct HTML rendering (like in MVC views or Razor Pages), but XSS can still creep in if your API sends unsafe data that is later rendered in a browser (e.g., in a React/Angular UI or directly in HTML).
+
+The key principle is: sanitize or encode any untrusted input before returning or displaying it.
+
+Here’s a simple example of unsafe code:
+
+\begin{lstlisting}
+// Model
+public class CommentDto
+{
+    public string Author { get; set; }
+    public string Message { get; set; }
+}
+
+// Controller
+[ApiController]
+[Route("api/[controller]")]
+public class CommentsController : ControllerBase
+{
+    private static readonly List<CommentDto> _comments = new();
+
+    [HttpPost]
+    public IActionResult PostComment([FromBody] CommentDto comment)
+    {
+        _comments.Add(comment);
+        return Ok(comment); // returns raw user input, can contain <script>
+    }
+
+    [HttpGet]
+    public IActionResult GetComments()
+    {
+        return Ok(_comments);
+    }
+}
+
+
+// Malicious user post:
+{
+  "author": "Hacker",
+  "message": "<script>alert('XSS!')</script>"
+}
+
+
+\end{lstlisting}
+
+And your frontend renders it directly, you’ll get a popup script execution — classic XSS.
+
+We sanitize or encode the content before returning it:
+
+\begin{lstlisting}
+using System.Web;
+
+[ApiController]
+[Route("api/[controller]")]
+public class CommentsController : ControllerBase
+{
+    private static readonly List<CommentDto> _comments = new();
+
+    [HttpPost]
+    public IActionResult PostComment([FromBody] CommentDto comment)
+    {
+        // Encode before storing/returning
+        var safeComment = new CommentDto
+        {
+            Author = HttpUtility.HtmlEncode(comment.Author),
+            Message = HttpUtility.HtmlEncode(comment.Message)
+        };
+
+        _comments.Add(safeComment);
+        return Ok(safeComment);
+    }
+
+    [HttpGet]
+    public IActionResult GetComments()
+    {
+        return Ok(_comments);
+    }
+}
+
+\end{lstlisting}
+
+In this case, for the malicious input the API will return:
+
+\begin{lstlisting}
+{
+  "author": "Hacker",
+  "message": "&lt;script&gt;alert('XSS!')&lt;/script&gt;"
+}
+
+\end{lstlisting}
+
+
+\textbf{Example of CSRF handling in .net}
+
+Unlike XSS, CSRF is not about injecting malicious scripts, but about tricking a victim’s browser into making an authenticated request to your API without their consent. For example: if your Web API has an endpoint /api/account/transfer and the victim is logged in, a malicious site could cause their browser to unknowingly send a request to that endpoint.
+
+Suppose you have a controller like this:
+
+\begin{lstlisting}
+[ApiController]
+[Route("api/[controller]")]
+public class AccountController : ControllerBase
+{
+    [HttpPost("transfer")]
+    public IActionResult Transfer([FromBody] TransferRequest request)
+    {
+        // Imagine this transfers money between accounts
+        return Ok(new { status = "success", amount = request.Amount });
+    }
+}
+
+public class TransferRequest
+{
+    public string ToAccount { get; set; }
+    public decimal Amount { get; set; }
+}
+
+\end{lstlisting}
+
+If your app uses cookie-based authentication (common with Identity or Azure AD B2C), then the browser will automatically send cookies with this request — even if it originates from a malicious site. That’s the CSRF attack.
+
+If you’re using ASP.NET Core with cookie auth, you can require an anti-forgery token with every request that modifies data.
+
+\begin{lstlisting}
+// Program.cs:
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+});
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "X-CSRF-TOKEN"; // we’ll expect this header
+});
+
+
+// Controller
+[HttpPost("transfer")]
+[ValidateAntiForgeryToken]
+public IActionResult Transfer([FromBody] TransferRequest request)
+{
+    return Ok(new { status = "success", amount = request.Amount });
+}
+
+
+\end{lstlisting}
+
+On the frontend:
+
+\begin{lstlisting}
+fetch("/api/account/transfer", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "X-CSRF-TOKEN": tokenFromServer // usually injected into page
+  },
+  body: JSON.stringify({ toAccount: "12345", amount: 100 })
+});
+
+\end{lstlisting}
+
+\textbf{Example of CORS handling in .net}
+
+By default, browsers enforce the same-origin policy. A frontend running at https://app.example.com can freely call APIs hosted on the same origin (https://app.example.com/api/...). But if it tries to call an API at https://api.otherdomain.com, the browser will block the request unless the API explicitly allows it.
+
+This is where CORS comes in — it’s the server telling the browser: “Yes, I trust requests from this origin. You may allow them.” Without proper CORS handling your legitimate frontend might not be able to reach your API, and if configured too loosely, your API could be open to abuse from untrusted origins.
+
+Example of CORS Setup in .NET Web API, in Program.cs:
+
+\begin{lstlisting}
+var builder = WebApplication.CreateBuilder(args);
+
+// Define named CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendApp", policy =>
+    {
+        policy.WithOrigins("https://my-frontend.com") // allow only this origin
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddControllers();
+var app = builder.Build();
+
+// Apply CORS middleware
+app.UseCors("AllowFrontendApp");
+
+app.MapControllers();
+app.Run();
+
+\end{lstlisting}

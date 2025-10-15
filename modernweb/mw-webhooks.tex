@@ -1,7 +1,118 @@
 
 \pagebreak
-\begin{center}
-\textbf{WebSockets and WebHooks. Integration with WebSocket servers.}
-\end{center}
+
+\chapter{WebSockets and WebHooks. Integration with WebSocket servers.}
+
 
 \medskip
+
+
+\textbf{WebSockets} are a communication protocol that provides full-duplex, persistent connections between a client (such as a browser or mobile app) and a server. Unlike traditional HTTP, which follows a request-response model, WebSockets allow two-way communication over a single, long-lived connection. Once established, the connection remains open, enabling continuous communication. Because it eliminates the overhead of opening and closing connections for each request, WebSockets are ideal for real-time use cases. Both client and server can send messages at any time without waiting for the other to initiate.
+
+Common Use Cases for WebSockets include: live chat and messaging applications, dashboards, collaborative tools, IoT device monitoring.
+
+
+\textbf{WebHooks} are a mechanism for servers to notify other systems when certain events occur. Instead of continuously polling an API to check for updates, a WebHook pushes data automatically by sending an HTTP POST request to a predefined URL.
+
+Common Use Cases for WebHooks are: payment gateways (notify a merchant’s system when a transaction is completed), CI/CD pipelines (trigger automated builds and deployments when code is pushed to a repository), CRM and marketing platforms (sync customer data when new leads are created) and notifications (send alerts to third-party apps when important events occur).
+
+
+Modern applications often need both real-time communication (WebSockets) and event-driven integration (WebHooks)
+
+WebSockets and WebHooks are complementary technologies that bring real-time interaction and event-driven automation to web applications. WebSockets enable ongoing two-way conversations between clients and servers, while WebHooks empower systems to notify one another when specific events occur. Together, they form the backbone of modern, interactive, and integrated web ecosystems.
+
+By adopting both, developers can build applications that not only respond to user actions instantly but also seamlessly integrate with the broader digital world—meeting the expectations of today’s real-time internet.
+
+SignalR is an open-source library for ASP.NET that simplifies adding real-time web functionality to applications. It allows for server-side code to push content to connected clients instantly, enabling features like live updates, chat applications, and dashboards. SignalR handles the complexities of connection management and messaging, allowing developers to focus on building real-time features rather than low-level communication protocols.
+
+SignalR uses WebSockets as the preferred transport when available, but it also supports older transports like Server-Sent Events and long polling for older browsers.
+
+\medskip
+
+\textbf{Example of websocket in .net web api.}
+
+In \verb"Program.cs":
+
+\begin{lstlisting}
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddSignalR(); // Add SignalR service
+
+var app = builder.Build();
+
+app.MapControllers();
+app.MapHub<ChatHub>("/chatHub"); // Map SignalR hub endpoint
+
+app.Run();
+\end{lstlisting}
+
+Create a Hub: a Hub is where you define server-side methods clients can call, and vice versa.
+
+\begin{lstlisting}
+using Microsoft.AspNetCore.SignalR;
+
+namespace WebSocketDemo.Hubs
+{
+    public class ChatHub : Hub
+    {
+        public async Task SendMessage(string user, string message)
+        {
+            // Broadcast message to all connected clients
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+    }
+}
+\end{lstlisting}
+
+JavaScript Client (HTML Page). You’ll need the SignalR JS client library. Add via CDN:
+
+
+\begin{lstlisting}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SignalR Chat Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+</head>
+<body>
+  <h1>SignalR Chat</h1>
+
+  <input type="text" id="userInput" placeholder="Your name..." />
+  <input type="text" id="messageInput" placeholder="Type a message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <ul id="messages"></ul>
+
+  <script>
+    // Create connection
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:5000/chatHub") // Match server endpoint
+        .build();
+
+    // Receive message from server
+    connection.on("ReceiveMessage", (user, message) => {
+      const li = document.createElement("li");
+      li.textContent = `${user}: ${message}`;
+      document.getElementById("messages").appendChild(li);
+    });
+
+    // Start connection
+    connection.start().then(() => {
+      console.log("Connected to SignalR hub");
+    }).catch(err => console.error(err));
+
+    // Send message
+    function sendMessage() {
+      const user = document.getElementById("userInput").value;
+      const message = document.getElementById("messageInput").value;
+      connection.invoke("SendMessage", user, message)
+          .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
+
+\end{lstlisting}
+
+Start your .NET Web API app. After that, open the HTML page in two different browser tabs. Enter a username + message, and click Send. Both tabs will see the broadcasted message instantly.

@@ -1,0 +1,142 @@
+
+\pagebreak
+
+\chapter{CQRS pattern in web-development.}
+
+
+\medskip
+
+Modern web applications often face increasing complexity as they grow in scale, functionality, and number of users. A critical challenge for developers is maintaining clarity between how an application reads data and how it modifies data. A traditional architecture often handles both operations within the same models and services, which can lead to inefficiencies, poor scalability, and unnecessary coupling. This is where the Command and Query Responsibility Segregation (CQRS) pattern becomes significant.
+
+At its core, CQRS is based on a simple but powerful idea: the operations that read data (queries) and the operations that change data (commands) should be separated into different models or components. This separation is not only a matter of code organization but also a deliberate design decision that can impact scalability, performance, and maintainability.
+
+The motivation behind CQRS comes from the different requirements of reading and writing data. Queries usually need to be fast and efficient, often optimized for reporting or user-facing dashboards. They may require denormalized views of the data that can be retrieved with minimal joins or transformations. Commands, on the other hand, are concerned with ensuring business rules are enforced consistently when data is modified. They typically involve validation, transactional consistency, and domain logic. By segregating these responsibilities, each side of the system can be designed and optimized independently.
+
+One of the key benefits of CQRS is scalability. Applications with a large number of users often have an imbalance between reads and writes, where queries vastly outnumber commands. By splitting the two responsibilities, developers can scale query handling independently of command processing. For example, caching layers, read replicas, or even entirely different database technologies can be introduced for queries without affecting the integrity of command operations.
+
+Another important advantage is clearer domain modeling. Commands express intentions that modify the system’s state, such as "create a new order" or "update customer details." Queries express information needs, such as "list all pending orders" or "retrieve a customer profile." This separation reflects real-world thinking and allows developers to design business logic in a way that is more aligned with the domain language and user scenarios.
+
+CQRS also lays the foundation for more advanced patterns, particularly event sourcing. When combined, these approaches enable full traceability of system changes, audit capabilities, and the possibility to reconstruct the system state at any point in time. This is particularly valuable in domains where accountability, compliance, or historical analysis is essential.
+
+Despite its advantages, CQRS is not always necessary. For smaller systems with straightforward requirements, separating commands and queries may introduce unnecessary complexity. It is best applied when the system has complex business rules, large-scale read and write operations, or requirements for independent optimization of queries and commands. In these cases, the clarity, scalability, and maintainability offered by CQRS outweigh the added architectural overhead.
+
+In conclusion, CQRS is a pattern that embodies a separation of concerns at the architectural level. It helps developers design systems where queries and commands are handled independently, leading to greater flexibility and scalability. When used in appropriate contexts, it becomes a powerful tool in the modern web developer’s toolkit, enabling applications to evolve gracefully as their complexity and usage grow. 
+
+
+\medskip
+
+\textbf{Example of application.}
+
+Let’s extend the previous chapter with a practical example in .NET Web API where we apply CQRS to an application that handles students. We’ll keep it structured and realistic, but clear enough for everybody to follow.
+
+In a traditional architecture, we might have a StudentController with methods like GetStudents, GetStudentById, AddStudent, and UpdateStudent, all calling a single StudentService or StudentRepository. While this works for small applications, it can quickly become messy when the application grows. Queries and commands are mixed, and optimizations for reading can interfere with rules for writing.
+
+Using CQRS, we separate these two concerns.
+
+\textit{Commands (Write Operations)}
+
+Commands represent intentions to change the system’s state. In our student management system, commands might include: add a new student, update student information and delete a student
+
+Each command is represented by a dedicated object (DTO) and handled by a corresponding command handler. For example:
+
+\begin{lstlisting}
+// Command
+public class AddStudentCommand
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public string Faculty { get; set; }
+}
+
+// Command Handler
+public class AddStudentHandler
+{
+    private readonly ApplicationDbContext _context;
+
+    public AddStudentHandler(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task Handle(AddStudentCommand command)
+    {
+        var student = new Student
+        {
+            Name = command.Name,
+            Age = command.Age,
+            Faculty = command.Faculty
+        };
+
+        _context.Students.Add(student);
+        await _context.SaveChangesAsync();
+    }
+}
+
+\end{lstlisting}
+
+
+Queries are read-only requests for information. They do not change the system. In our example, queries might include: get a list of all students, get a student by ID and search students by faculty.
+
+Each query has its own DTO and query handler. For example:
+
+\begin{lstlisting}
+// Query
+public class GetStudentByIdQuery
+{
+    public int Id { get; set; }
+}
+
+// Query Handler
+public class GetStudentByIdHandler
+{
+    private readonly ApplicationDbContext _context;
+
+    public GetStudentByIdHandler(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<Student?> Handle(GetStudentByIdQuery query)
+    {
+        return await _context.Students.FindAsync(query.Id);
+    }
+}
+
+\end{lstlisting}
+
+
+
+The StudentController delegates commands and queries to the appropriate handlers instead of doing the work itself.
+
+\begin{lstlisting}
+[ApiController]
+[Route("api/[controller]")]
+public class StudentController : ControllerBase
+{
+    private readonly AddStudentHandler _addHandler;
+    private readonly GetStudentByIdHandler _getByIdHandler;
+
+    public StudentController(AddStudentHandler addHandler, GetStudentByIdHandler getByIdHandler)
+    {
+        _addHandler = addHandler;
+        _getByIdHandler = getByIdHandler;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddStudent(AddStudentCommand command)
+    {
+        await _addHandler.Handle(command);
+        return Ok("Student added successfully");
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetStudent(int id)
+    {
+        var student = await _getByIdHandler.Handle(new GetStudentByIdQuery { Id = id });
+        if (student == null) return NotFound();
+        return Ok(student);
+    }
+}
+
+\end{lstlisting}
+

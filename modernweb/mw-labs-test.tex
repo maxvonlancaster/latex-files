@@ -1,0 +1,688 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english, ukrainian, russian]{babel}
+\usepackage[left=2cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\large\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+
+\begin{large}
+
+\begin{center}
+\section*{Laboratory assignment 1: REST API.}
+\end{center}
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+
+\medskip\medskip\medskip
+
+\begin{enumerate}
+\item Install Node.js and npm from https://nodejs.org/en/download. Install Netlify globally with \verb"npm install -g netlify-cli".
+
+\item
+
+\begin{itemize}
+\item Choose one of the topics for personal or group assignment.
+
+\item Generate repository based on a github classroom link provided to you. You will see a new repository generated - copy it locally with \\ \verb"git clone repo-link.git".
+
+\item Examine files in the repository. Take a look at default endpoint "hello" in \\ \verb"functions/hello.js".
+
+\item After running \verb"netlify dev" and going to \\ http://localhost:8888/.netlify/functions/hello you can see it being executed.
+\end{itemize}
+
+\item Your task is now to build a simple REST API with the following endpoints:
+
+\begin{itemize}
+\item \verb"GET /items" – List all items
+
+\item \verb"POST /items" – Add a new item
+
+\item \verb"GET /items/{id}" – Get details of a specific item
+
+\item \verb"PUT /items/{id}" – Update item info
+
+\item \verb"DELETE /items/{id}" – Remove an item
+\end{itemize}
+
+Here instead of items you might use a more descriptive word specific for your task (for example, for budget planner app~--- \verb"budgets").
+
+You can add query parameters to the endpoints (pagination, sorting, filtering, etc.)
+
+\item Create a simple frontend (html+css+js /React /Vue.js) that interacts with the REST API endpoints.
+
+Example of fetching data from API endpoint:
+
+\begin{lstlisting}
+async function getData() {
+  const url = "https://your-app-domain//items";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    update(json); // update your front-end with data from back-end here
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+\end{lstlisting}
+
+Using different request method (for example POST)
+
+\begin{lstlisting}
+const response = await fetch("https://your-app-domain//items", {
+  method: "POST",
+  // ...
+});
+\end{lstlisting}
+
+
+
+
+\item Connect your application to the database. You might use mongod.db for these purposes (prefered for this assignment).
+
+\begin{itemize}
+\item Login to https://cloud.mongodb.com/ and create a cluster.
+
+\item Generate a connection string for that cluster. Store it securely in \verb".env" file in your project. Do not forget to add \verb".env" to \verb".gitignore".
+\end{itemize}
+
+Example of how to connect to mongodb from your application, using connection string (you can name this file \verb"db.js"):
+
+\begin{lstlisting}
+const { MongoClient } = require("mongodb");
+
+const client = new MongoClient(process.env.MONGO_URI);
+let collectionName = "interview-questions";
+let db;
+
+async function connectDB() {
+  if (!db) {
+    await client.connect();
+    db = client.db(process.env.DB_NAME);
+  }
+  return db.collection(collectionName);
+}
+
+module.exports = connectDB;
+\end{lstlisting}
+
+Example of how to set connection string in \verb".env" file:
+
+\begin{lstlisting}
+MONGO_URI=mongodb+srv://your-user-name:mongo-passowrd@cluster-name/?retryWrites=true&w=majority&appName=Cluster0
+\end{lstlisting}
+
+Example of simple GET endpoint, that fetches data from mongodb and returns it to client:
+
+\begin{lstlisting}
+const connectDB = require("./db");
+
+exports.handler = async (event) => {
+  try {
+    const collection = await connectDB();
+    const { topic, sortField, sortOrder = "asc", skip, take } = event.queryStringParameters;
+
+    const query = topic ? { topic: new RegExp(topic, "i") } : {};
+    const sort = sortField ? { [sortField]: sortOrder === "desc" ? -1 : 1 } : {};
+
+    const skipValue = Number.isInteger(parseInt(skip)) ? parseInt(skip) : 0;
+    const takeValue = Number.isInteger(parseInt(take)) ? parseInt(take) : 20;
+
+    const questions = await collection
+      .find(query)
+      .sort(sort)
+      .skip(skipValue)
+      .limit(takeValue)
+      .toArray();
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",  // Allow all origins (change to specific domain later)
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type" // This part allows your to omit CORS checks. There will be tasks related to CORS later
+      },
+      body: JSON.stringify(questions) };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }) };
+  }
+};
+\end{lstlisting}
+
+\item Think of more elaborate error handling. Add different types of interconnected data (child-parent items, etc.).
+
+\item Push code to reposiroty (you can use separate branch for this). Deploy your application to netlify.
+
+\begin{itemize}
+\item Login to https://app.netlify.com/ and choose "Add new site" option
+
+\item Link your github project. Specify environment variables (connection string same as in .env file). Specify "Build command" as \verb"npm install", "Publish directory" as \verb"functions", "Functions directory" also \verb"functions".
+
+\item Deploy application and follow the link, when it is ready. Check, if everything works correctly. Do not forget to add "/.netlify/functions/" to address line if you have not specified otherwise.
+\end{itemize}
+
+
+\item Deploy frontend part of your application. In case of html+css+js stack you can use github pages.
+
+\item Document your application in readme.md file. List contributors, how to run application locally, main idea of your app, etc.
+
+\item Submit link to PR or commit and a link to your deploy as a result of your assignment work.
+
+\end{enumerate}
+
+
+
+
+
+\newpage
+\begin{center}
+\section*{Laboratory assignment 2: GraphQL.}
+\end{center}
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+
+\medskip\medskip\medskip
+
+GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling queries with existing data. GraphQL was developed internally by Facebook in 2012 before being publicly released in 2015.
+
+Simply put, GraphQL is a query language for APIs and a runtime for executing those queries with existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+Implementing GraphQL endpoint to your backend application:
+
+\begin{enumerate}
+\item Install all the neccessary packages:\\ \verb"npm install serverless-http apollo-server-lambda graphql"
+
+
+
+\item Implement schema for query and mutation. Example of \verb"graphql.js" file:
+
+\begin{lstlisting}
+const { ApolloServer, gql } = require("apollo-server-express");
+const express = require("express");
+const serverless = require("serverless-http");
+const connectDB = require("./db");
+const { ObjectId } = require("mongodb");
+
+const typeDefs = gql`
+  type Item {
+    _id: ID!
+    fieldOne: String!
+    fieldTwo: Int!
+  }
+
+  type Query {
+    items(skip: Int, take: Int, sortField: String, sortOrder: String): [Item]
+    item(id: ID!): Item
+  }
+
+  type Mutation {
+    createItem(fieldOne: String!, fieldTwo: Int!): Item
+    updateItem(id: ID!, fieldOne: String!, fieldTwo: Int!): Item
+    deleteItem(id: ID!): Boolean
+  }
+`;
+
+\end{lstlisting}
+
+Change field names to fields you have implemented for your custom data types.
+
+
+
+\item Implement query and mutation resolvers in the same file. Example:
+
+\begin{lstlisting}
+const resolvers = {
+    Query: {
+        items: async (_, {filter, skip = 0, take = 10, sortField = "fieldOne", sortOrder = "asc" }) => {
+            const collection = await connectDB();
+            const query = filter ? { fieldToFilter: new RegExp(filter, "i") } : {};
+            const sort = sortField ? { [sortField]: sortOrder === "desc" ? -1 : 1 } : {};
+
+            return await collection
+              .find(query)
+              .sort(sort)
+              .skip(skip)
+              .limit(take)
+              .toArray();
+        },
+
+        item: async (_, { id }) => {
+            const collection = await connectDB();
+            return await collection.findOne({ _id: new ObjectId(id) });
+        },
+    },
+
+    Mutation: {
+        createItem: async (_, { fieldOne, fieldTwo }, { event }) => {
+
+            const collection = await connectDB();
+            const result = await collection.insertOne({ fieldOne, fieldTwo });
+            return { id: result.insertedId, fieldOne, fieldTwo };
+        },
+
+        updateItem: async (_, { id, fieldOne, fieldTwo }, { event }) => {
+
+            const collection = await connectDB();
+            const updateFields = {};
+
+            if (fieldOne) updateFields.fieldOne = fieldOne;
+            if (fieldTwo) updateFields.fieldTwo = fieldTwo;
+
+            await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateFields });
+            return { id, ...updateFields };
+        },
+
+        deleteItem: async (_, { id }, { event }) => {
+
+            const collection = await connectDB();
+            const result = await collection.deleteOne({ _id: new ObjectId(id) });
+            return result.deletedCount > 0;
+        },
+    },
+};
+\end{lstlisting}
+
+\item Export the function:
+
+\begin{lstlisting}
+const app = express();
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ event }) => ({ event }), // pass request event to resolvers
+});
+
+// Start Apollo Server asynchronously
+async function startApolloServer() {
+    await server.start();
+    server.applyMiddleware({ app });
+}
+
+startApolloServer(); // Initialize Apollo Server
+
+// Export handler immediately after initializing the server
+exports.handler = serverless(app);
+\end{lstlisting}
+
+
+\item Edit .toml file to introduce redirection:
+
+\begin{lstlisting}
+[build]
+functions = "functions"
+
+[[redirects]]
+  from = "/graphql"
+  to = "/.netlify/functions/graphql"
+  status = 200
+\end{lstlisting}
+
+
+
+\item Push these changes to your git repository.
+
+
+\item Try querying and mutations against your deployment. Example query:
+
+\begin{lstlisting}
+query {
+  items(filter: "test", skip: 0, take: 5) {
+    _id
+    fieldOne
+    fieldTwo
+  }
+}
+\end{lstlisting}
+
+
+
+\item Introduce query and mutation to your ui. You can use Apollo package if you use React, or just via plane POST requests of the format:
+
+\begin{lstlisting}
+const url = 'https://your-netlify-site.netlify.app/.netlify/functions/graphql';
+
+const query = `
+  query GetItems($filter: String) {
+    items(filter: $filter) {
+      _id
+    fieldOne
+    fieldTwo
+    }
+  }
+`;
+
+const variables = {
+  filter: 'test', // Replace with the desired value or leave null for all values
+};
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    query,
+    variables,
+  }),
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Response data:', data);
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+\end{lstlisting}
+
+\end{enumerate}
+
+
+
+
+
+
+\newpage
+\begin{center}
+\section*{Laboratory assignment 3: Authentication with JWT. Security.}
+\end{center}
+
+\medskip
+
+\textbf{JWT (JSON Web Token)} is a compact and secure way of transmitting information between parties as a JSON object. It is commonly used for authentication and authorization in web applications. A JWT consists of three parts: header, payload, and signature, ensuring data integrity and verification. Since JWTs are stateless, they allow authentication without needing to store session data on the server.
+
+Implementing JWT-based authentication in your netlify backend:
+
+\medskip\medskip\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+
+\medskip\medskip\medskip
+
+\begin{enumerate}
+\item Install neccessary npm package: 
+
+\verb"npm install jsonwebtoken"
+
+The jsonwebtoken npm package is a popular library for working with JWTs in Node.js. It provides a set of methods for creating, signing, and verifying JWTs.
+
+After installing the package via console, verify that it has been added to \verb"node_modules" folder, and in packages.json file.
+
+\item Implement login.js, endpoint that would handle authorization of the user with a given username and password:
+
+\begin{lstlisting}
+const jwt = require("jsonwebtoken");
+
+exports.handler = async (event) => {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // change to your frontend domain
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: "",
+    };
+  }
+
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  const { username, password } = JSON.parse(event.body);
+
+  if (username !== process.env.USERNAME || password !== process.env.PASSWORD) {
+    return { statusCode: 401, body: JSON.stringify({ error: "Invalid credentials" }) };
+  }
+
+  const secretKey = process.env.JWT_SECRET;
+  const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
+
+  return {
+    statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",  // change to your frontend domain
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type"
+        },
+    body: JSON.stringify({ token }),
+  };
+};
+\end{lstlisting}
+
+Do not also forget to set these username, password and key in .env file:
+
+\begin{lstlisting}
+USERNAME=hello-user
+PASSWORD=password1234
+JWT_SECRET=secret-key
+\end{lstlisting}
+
+
+\item Implement authorization check on sensitive endpoints, for example, any updates to data:
+
+\begin{lstlisting}
+const jwt = require("jsonwebtoken");
+
+exports.handler = async (event) => {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // change to frontend domain in future
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: "",
+    };
+  }
+
+  const token = event.headers.authorization?.split(" ")[1];
+  const secretKey = process.env.JWT_SECRET;
+
+  if (!token) {
+    return { statusCode: 401, body: JSON.stringify({ error: "Unauthorized: No token provided" }) };
+  }
+
+  try {
+    jwt.verify(token, secretKey);
+  } catch (error) {
+    return { statusCode: 403, body: JSON.stringify({ error: "Forbidden: Invalid token" }) };
+  }
+
+  // further operations for authorized user
+
+
+}
+\end{lstlisting}
+
+
+
+
+\item Implement registration for new users, generation of tokens for users (not based on env variables, but on actual credentials, provided). Do not forget about password hashing.
+
+\item Example on how to use login endpoint:
+
+\begin{lstlisting}
+async function requestBackend(){
+    let payload = {
+        username: "username",
+        password: "password"
+    }
+
+    let response = await fetch('https://your-domain/.netlify/functions/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if(!response.ok){
+        console.error(response);
+    }
+
+    let data = await response.json();
+    token = data.token;
+    role = data.role;
+    console.log(`role: ${role}`);
+
+    if(role === "admin"){
+        await addItem();
+    }
+}
+\end{lstlisting}
+
+
+
+\item Bonus task: find security vulnerabilities in other students projects. If found any, please mark them, and rise as an open issue in the students github repository. Accurately describe the issue, and possible fixes for it. Open a pull request with your own fix for the issue.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\newpage
+\begin{center}
+\section*{Laboratory assignment 4: WebSockets and WebHooks. Unit and Integration testing.}
+\end{center}
+
+\medskip
+
+\hrule height 1pt
+\vskip 3pt \hrule
+
+\medskip\medskip\medskip
+
+\begin{enumerate}
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+
+\item
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+
+\begin{lstlisting}
+
+\end{lstlisting}
+
+\end{enumerate}
+
+
+\end{large}
+\end{document}
+

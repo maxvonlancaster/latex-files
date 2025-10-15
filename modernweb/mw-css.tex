@@ -5,3 +5,53 @@
 \end{center}
 
 \medskip
+
+CSS preprocessors like LESS and SASS extend the capabilities of standard CSS by introducing features like variables, nesting, mixins, and functions. These enhancements make stylesheets more maintainable, modular, and dynamic, reducing code duplication and improving efficiency.
+
+\textbf{LESS}
+ÿ
+LESS (Leaner Style Sheets) is a CSS preprocessor that extends standard CSS with additional features. LESS compiles into regular CSS, allowing developers to write cleaner and more manageable styles.
+
+LESS stores reusable variables, structures rules hierachically, and performs calculations directly in CSS.
+
+Example of LESS:
+
+\begin{lstlisting}
+@primary-color: #3498db;
+@font-size: 16px;
+
+.container {
+  color: @primary-color;
+  font-size: @font-size;
+  padding: 10px;
+
+  .button {
+    background-color: darken(@primary-color, 10%);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+}
+\end{lstlisting}
+
+
+\textbf{SASS}
+
+SASS (Syntactically Awesome Stylesheets) is another popular CSS preprocessor that adds powerful features for writing modular and scalable styles. SASS has two syntax styles: \textit{SCSS} (Sassy CSS) – Uses standard CSS syntax with added features, and \textit{Indented Syntax} – Uses indentation instead of brackets and semicolons.
+
+SASS also stores variables, splits files into multiple files. Also it uses mixins: reusable code snipets.
+
+\begin{lstlisting}
+$primary-color: #e74c3c;
+$padding: 10px;
+
+.container {
+  color: $primary-color;
+  padding: $padding;
+
+  .button {
+    background-color: darken($primary-color, 10%);
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+}
+\end{lstlisting}

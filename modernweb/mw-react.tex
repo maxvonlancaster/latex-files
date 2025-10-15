@@ -1,7 +1,450 @@
 
 \pagebreak
-\begin{center}
-\textbf{React basics.}
-\end{center}
+
+\chapter{React basics.}
+
 
 \medskip
+
+React.js is a powerful JavaScript library for building user interfaces. It allows developers to create dynamic and responsive web applications efficiently. One of its key features is its declarative and component-based architecture, which makes UI development more structured and manageable.
+
+React was developed by Jordan Walke, a software engineer at Facebook, and was first released in 2013. It was created to improve Facebook's complex UI development by introducing a more efficient way to manage updates and rendering. Over time, React gained widespread adoption due to its performance benefits and reusability of components.
+
+React development is streamlined with automatic reload and hot reloading features. When changes are made to the code, they are instantly reflected in the browser without needing a full page refresh. This significantly speeds up the development process and improves the developer experience.
+
+React facilitates the development of Single Page Applications (SPA). Unlike traditional multi-page applications, an SPA loads a single HTML file and dynamically updates the content as needed without requiring a page reload. This results in faster navigation and a more seamless user experience.
+
+It is important to understand difference between React and React Native. Whereas React is used for building web applications, React Native is a framework used primarily for mobile apps. React runs in browsers, React Native on Native UI components on iOS and Android.
+
+There were several major versions of React:
+
+\begin{itemize}
+\item React 16 (2017): Introduced the Fiber reconciliation engine for better performance.
+
+\item React 17 (2020): Improved gradual upgrades without breaking changes.
+
+\item React 18 (2022): Added features like Concurrent Rendering and Suspense for better performance.
+
+\item Latest Version: React continues to evolve with new features and optimizations.
+\end{itemize}
+
+\medskip
+
+\textbf{Example simple React application}
+
+\medskip
+
+Let's use create-react-app tool to create a new react app:
+
+\begin{lstlisting}
+npx create-react-app new-app
+\end{lstlisting}
+
+After that:
+
+\begin{lstlisting}
+cd new-app
+\end{lstlisting}
+
+And:
+
+\begin{lstlisting}
+npm start
+\end{lstlisting}
+
+React development is streamlined with automatic reload and hot reloading features. When changes are made to the code, they are instantly reflected in the browser without needing a full page refresh. This significantly speeds up the development process and improves the developer experience.
+
+Lets build single page app, that returns single html file. Take a look at a generated repository.
+The index.js file serves as the entry point of a React application. It is responsible for importing necessary modules and rendering the root component into the DOM.
+The ReactDOM.render() function (or its modern equivalent, createRoot) is executed to render the main App component inside a specific DOM element, usually an element with the id root in index.html.
+
+The App.js file contains the main application component. In React, components are written as JavaScript functions that return JSX. JSX (JavaScript XML) allows developers to write HTML-like code within JavaScript, making UI development more intuitive.
+
+
+Let's rewrite the App.js component:
+
+\begin{lstlisting}
+import './App.css';
+import React from 'react';
+
+function App() {
+  return (
+    <div className='container'>
+      <h2>Student list </h2>
+      <ul className='stud-list'>
+        <li>Ivanov</li>
+        <li>Petrov</li>
+        <li>Frolov</li>
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+\end{lstlisting}
+
+Note: we can set styles in App.css, for example, class container.
+As the word class is reserved in JS, instead of class of the element we write className.
+
+Add the following in App.css file:
+
+\begin{lstlisting}
+.container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.stud-list {
+    list-style: none;
+    padding: 0;
+}
+
+    .stud-list li {
+        background: #ffffff;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease-in-out;
+    }
+
+        .stud-list li:hover {
+            background: #e3e6ea;
+            cursor: pointer;
+        }
+\end{lstlisting}
+
+List element should be outsourced to the components.
+Add the components folder in \verb"src", there add StudList.js file.
+
+There we add the following:
+
+\begin{lstlisting}
+import React from 'react';
+
+const StudList = () => {
+    return (
+        <ul className='stud-list'>
+        <li>Ivanov</li>
+        <li>Petrov</li>
+        <li>Frolov</li>
+      </ul>
+    )
+}
+
+export default StudList;
+\end{lstlisting}
+
+And change the App.js to the following:
+
+\begin{lstlisting}
+import './App.css';
+import React from 'react';
+import StudList from './components/StudList';
+
+function App() {
+  return (
+    <div className='container'>
+      <h2>Student list </h2>
+      <StudList />
+    </div>
+  );
+}
+
+export default App;
+\end{lstlisting}
+
+If we save now, we see the same output and the same styling as before.
+But it is still a good practice to add a separate css file for a component.
+StudList.css in components folder:
+
+\begin{lstlisting}
+.stud-list {
+    list-style: none;
+    padding: 0;
+}
+
+    .stud-list li {
+        background: #ffffff;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease-in-out;
+    }
+
+        .stud-list li:hover {
+            background: #e3e6ea;
+            cursor: pointer;
+        }
+\end{lstlisting}
+
+\medskip
+\textbf{React Props.}
+
+With splitting our code into components, we have now achieved separation of concerns. But how do we pass data between the components?
+Here useful concept to introduce is the concept of props. Props are arguments that are passed automatically by react to the component.
+
+Let's rewrite \verb"App.js":
+
+\begin{lstlisting}
+import './App.css';
+import React from 'react';
+import StudList from './components/StudList';
+
+function App() {
+  const sutdList = [
+    {id:1, text: "Ivanov"},
+    {id:2, text: "Petrov"},
+    {id:3, text: "Frolov"}
+  ];
+
+  return (
+    <div className='container'>
+      <h2>Student list </h2>
+      <StudList studs={sutdList}/>
+    </div>
+  );
+}
+
+export default App;
+\end{lstlisting}
+
+\verb"StudList.js": let's map array of elements to an array of jsx objects. Also added \verb"console.log" to see, what comes in props.
+
+\begin{lstlisting}
+import React from 'react';
+import './StudList.css'
+
+const StudList = props => {
+    console.log(props.studs);
+
+    return (
+        <ul className='stud-list'>
+            {
+                props.studs.map((stud) => {
+                    return <li>{stud.text}</li>
+                })
+            }
+        </ul>
+    )
+}
+
+export default StudList;
+\end{lstlisting}
+
+\medskip
+\textbf{React Events}
+
+Add component NewStudent.js
+
+\begin{lstlisting}
+import React from 'react';
+import './NewStudent.css'
+
+const NewStudent = props => {
+    const addStudentHandler = event => {
+        event.preventDefault();
+
+        const newStud = {
+            id: 1,
+            text: 'text'
+        }
+
+        props.onAddStud(newStud);
+    }
+
+    return (
+    <form className='new-student' onSubmit={addStudentHandler}>
+        <input type='text'/>
+        <button type='submit'>Add Student</button>
+    </form>
+    )
+}
+
+export default NewStudent;
+\end{lstlisting}
+
+Add styles for it:
+
+\begin{lstlisting}
+.new-student {
+  display: flex;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.new-student input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.new-student input:focus {
+  border-color: #007bff;
+}
+
+.new-student button {
+  padding: 10px 15px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
+}
+
+.new-student button:hover {
+  background: #0056b3;
+}
+
+\end{lstlisting}
+
+And in \verb"App.js":
+
+\begin{lstlisting}
+import './App.css';
+import React from 'react';
+import StudList from './components/StudList';
+import NewStudent from './components/NewStudent/NewStudent'
+
+function App() {
+  const studList = [
+    {id:1, text: "Ivanov"},
+    {id:2, text: "Petrov"},
+    {id:3, text: "Frolov"}
+  ];
+
+  const addNewStudHandler = (newStud) => {
+    studList.push(newStud);
+  }
+
+  return (
+    <div className='container'>
+      <h2>Student list </h2>
+      <NewStudent onAddStud={addNewStudHandler} />
+      <StudList studs={studList}/>
+    </div>
+  );
+}
+
+export default App;
+\end{lstlisting}
+
+Now every time \verb"addNewStudHandler" method is triggered in the child component via submittion of the form, the parent event is notified and has a new entry in the array.
+
+
+\medskip
+\textbf{React State}
+
+State in React is a way to manage dynamic data within a component. It allows components to store, update, and react to changes in data over time. State is typically declared using the useState hook in functional components.
+
+In App.js:
+
+\begin{lstlisting}
+import './App.css';
+import React, {useState} from 'react';
+import StudList from './components/StudList';
+import NewStudent from './components/NewStudent/NewStudent';
+
+
+function App() {
+  const [studList, setStud ] = useState(
+    [
+      {id:1, text: "Ivanov"},
+      {id:2, text: "Petrov"},
+      {id:3, text: "Frolov"}
+    ]
+  );
+
+  // const studList = [
+  //   {id:1, text: "Ivanov"},
+  //   {id:2, text: "Petrov"},
+  //   {id:3, text: "Frolov"}
+  // ];
+
+  const addNewStudHandler = (newStud) => {
+    // setStud(studList.concat(newStud));
+    setStud( (oldStuList) => {return oldStuList.concat(newStud)} );
+  }
+
+  return (
+    <div className='container'>
+      <h2>Student list </h2>
+      <NewStudent onAddStud={addNewStudHandler} />
+      <StudList studs={studList}/>
+    </div>
+  );
+}
+
+export default App;
+\end{lstlisting}
+
+Here setStud - method that allows to handle state updates. State can be anything. UseState always returns array with two elements - state and method to update it.
+
+
+
+\medskip
+\textbf{React Data binding}
+
+Data binding in React is the process of linking data between the component's state or props and the UI. React primarily uses one-way data binding, meaning that data flows in a single direction—from the component's state or props to the UI. This makes it predictable and easier to debug.
+
+In NewStud.js:
+
+\begin{lstlisting}
+import React, {useState} from 'react';
+import './NewStudent.css'
+
+const NewStudent = props => {
+    const [enteredText, setText] = useState('');
+
+    const addStudentHandler = event => {
+        event.preventDefault();
+
+        const newStud = {
+            id: 1,
+            text: enteredText
+        }
+
+        setText('');
+
+        props.onAddStud(newStud);
+    }
+
+    const textChangeHandler = event => {
+        setText(event.target.value);
+    }
+
+    return (
+    <form className='new-student' onSubmit={addStudentHandler}>
+        <input type='text' value={enteredText} onChange={textChangeHandler}/>
+        <button type='submit'>Add Student</button>
+    </form>
+    )
+}
+
+export default NewStudent;
+\end{lstlisting}
+
+

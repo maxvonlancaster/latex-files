@@ -1,8 +1,7 @@
 
 \pagebreak
-\begin{center}
-\section*{REST.}
-\end{center}
+\chapter{REST.}
+
 
 \medskip
 
@@ -26,8 +25,7 @@ The REST API supports caching, which means that the client can temporarily store
 \item Layered System: advantages of a layered system of architecture
 REST API servers can be organized in layers, which makes them more flexible and scalable. Each layer performs specific functions and can be added or removed without changing the client code.
 
-\item Code on Demand: An optional restriction that allows you to download client code
-Take a free English Back-end Test
+\item Code on Demand: An optional restriction that allows you to download client code.
 This principle is optional and allows the server to send executable code to the client. This is rarely used and requires additional security measures.
 \end{itemize}
 
@@ -355,9 +353,9 @@ public class StudentController : ControllerBase
 
 Now we have to register our services in Program.cs class of Web API project via dependency injection.
 
-Dependency Injection (DI) is a design pattern and technique used in .NET to achieve Inversion of Control (IoC). 
-It enables the creation and management of object dependencies by delegating this responsibility to an external framework or container, 
-rather than directly instantiating those dependencies within a class. This promotes loose coupling, testability, and maintainability 
+Dependency Injection (DI) is a design pattern and technique used in .NET to achieve Inversion of Control (IoC).
+It enables the creation and management of object dependencies by delegating this responsibility to an external framework or container,
+rather than directly instantiating those dependencies within a class. This promotes loose coupling, testability, and maintainability
 in applications.
 
 An example dependency injection in .Net can be implemented in the following way:
@@ -411,7 +409,7 @@ app.Run();
 
 \end{lstlisting}
 
-Before we startup our application, we have to create our database via migration. 
+Before we startup our application, we have to create our database via migration.
 
 In Entity Framework, a migration is a feature that enables you to manage and apply incremental changes to your database schema while keeping it in sync with your application's data model. Migrations are particularly useful in scenarios where the data model evolves over time as the application grows or requirements change.
 
@@ -513,9 +511,9 @@ namespace demo_rest.dal.Migrations
 }
 \end{lstlisting}
 
-Now, when we start our project in Visual Studio, we can use CRUD operations using Swagger. Swagger is a set of open-source tools for 
-designing, building, documenting, and consuming RESTful APIs. In the .NET ecosystem, Swagger is implemented using Swashbuckle, a popular 
-library that integrates seamlessly with ASP.NET Core to generate interactive API documentation. Swagger is built on the OpenAPI Specification 
+Now, when we start our project in Visual Studio, we can use CRUD operations using Swagger. Swagger is a set of open-source tools for
+designing, building, documenting, and consuming RESTful APIs. In the .NET ecosystem, Swagger is implemented using Swashbuckle, a popular
+library that integrates seamlessly with ASP.NET Core to generate interactive API documentation. Swagger is built on the OpenAPI Specification
 (OAS), a standard format for API definitions.
 
 In .NET 8, new Web API projects that you intialize via Visual Studio, have Swagger built in, so you should be greeted with a landing page in your browser, that lists all the endpoints, that you have described in StudentController.cs.

@@ -1,12 +1,14 @@
 
 \pagebreak
 \begin{center}
-\textbf{Laboratory assignment 1: Front-End application.}
+\textbf{Laboratory assignment 1: REST API.}
 \end{center}
 
 \medskip
 
+\begin{enumerate}
 
+\item Choose on of the following topics for your application:
 \begin{itemize}
 \item Study Buddy: An app that allows students to connect with each other for studying and sharing resources. It could include features like study groups, file sharing, and chat functionality.
 
@@ -53,4 +55,78 @@
 \item Real-Time Collaborative Code Editor: Description: Develop a collaborative code editor that allows multiple users to work on the same codebase simultaneously, promoting real-time collaboration among developers.
 
 
+\end{itemize} 
+
+\item Generate github repository using a classroom link from moodle course.
+
+\item Choose tech stack for implementation 
+
+\begin{itemize}
+\item Node.js with Express
+
+\item Python Django
+
+\item ASP.NET or .Net WebApi
 \end{itemize}
+
+
+
+\item Build a simple REST API with the following endpoints: 
+
+\begin{itemize}
+\item \verb"GET /items" – List all items
+
+\item \verb"POST /items" – Add a new item
+
+\item \verb"GET /items/{id}" – Get details of a specific item
+
+\item \verb"PUT /items/{id}" – Update item info
+
+\item \verb"DELETE /items/{id}" – Remove an item
+\end{itemize}
+
+Here instead of items you might use a more descriptive word specific for your task (for example, for budget planner app~--- \verb"budgets")
+
+\item Create a simple frontend (html+css+js /React /Vue.js) that interacts with the REST API endpoints.
+    
+Example of fetching data from API endpoint:
+
+\begin{lstlisting}
+async function getData() {
+  const url = "https://your-app-domain//items";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    update(json); // update your front-end with data from back-end here
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+\end{lstlisting}
+
+Using different request method (for example POST)
+
+\begin{lstlisting}
+const response = await fetch("https://your-app-domain//items", {
+  method: "POST",
+  // ...
+});
+\end{lstlisting}
+
+\item Update README.md file with well-structured information to document your API. It should include:
+    
+    
+\begin{itemize}
+\item Brief description of your application.
+
+\item Technologies used (Node.js, Django, Asp.NET).
+
+\item Step-by-step setup instructions, prerequisites for local setup and how to run project locally.
+\end{itemize}
+
+
+\end{enumerate}

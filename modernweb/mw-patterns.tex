@@ -1,8 +1,6 @@
 
 \pagebreak
-\begin{center}
-\section*{Architecture patterns, GoF, SOLID.}
-\end{center}
+\chapter{Architecture patterns, GoF, SOLID.}
 
 \medskip
 
@@ -22,7 +20,7 @@ SOLID is an acronym that stands for:
 \item Dependency Inversion Principle (DIP)
 \end{itemize}
 
-In the coming sections, we’ll look at what each of those principles means in detail.
+In the coming sections, weï¿½ll look at what each of those principles means in detail.
 
 The SOLID design principles are a subcategory of many principles introduced by the American computer scientist and instructor, Robert C. Martin (A.K.A Uncle Bob) in a 2000 paper.
 
@@ -94,9 +92,9 @@ public class Guitar {
 
 What if we later decide the Guitar is a little boring and could use a cool flame pattern to make it look more rock and roll.
 
-At this point, it might be tempting to just open up the Guitar class and add a flame pattern — but who knows what errors that might throw up in our application.
+At this point, it might be tempting to just open up the Guitar class and add a flame pattern ï¿½ but who knows what errors that might throw up in our application.
 
-Instead, let’s stick to the open-closed principle and simply extend our Guitar class:
+Instead, letï¿½s stick to the open-closed principle and simply extend our Guitar class:
 
 \begin{lstlisting}
 public class SuperCoolGuitarWithFlames extends Guitar {
@@ -163,7 +161,7 @@ The interface segregation principle states that clients should not be forced to 
 
 More specifically, the ISP suggests that software developers should break down large interfaces into smaller, more specific ones, so that clients only need to depend on the interfaces that are relevant to them. This can make the codebase easier to maintain.
 
-This principle is fairly similar to the single responsibility principle (SRP). But it’s not just about a single interface doing only one thing – it’s about breaking the whole codebase into multiple interfaces or components.
+This principle is fairly similar to the single responsibility principle (SRP). But itï¿½s not just about a single interface doing only one thing ï¿½ itï¿½s about breaking the whole codebase into multiple interfaces or components.
 
 Think about this as the same thing you do while working with frontend frameworks and libraries like React, Svelte, and Vue. You usually break down the codebase into components you only bring in when needed.
 
@@ -179,9 +177,9 @@ public interface BearKeeper {
 }
 \end{lstlisting}
 
-As avid zookeepers, we’re more than happy to wash and feed our beloved bears. But we’re all too aware of the dangers of petting them. Unfortunately, our interface is rather large, and we have no choice but to implement the code to pet the bear.
+As avid zookeepers, weï¿½re more than happy to wash and feed our beloved bears. But weï¿½re all too aware of the dangers of petting them. Unfortunately, our interface is rather large, and we have no choice but to implement the code to pet the bear.
 
-Let’s fix this by splitting our large interface into three separate ones:
+Letï¿½s fix this by splitting our large interface into three separate ones:
 
 \begin{lstlisting}
 public interface BearCleaner {
@@ -228,9 +226,9 @@ public class Windows {
 }
 \end{lstlisting}
 
-Not only does this make our Windows class hard to test, but we’ve also lost the ability to switch out our StandardKeyboard class with a different one should the need arise. And we’re stuck with our Monitor class too.
+Not only does this make our Windows class hard to test, but weï¿½ve also lost the ability to switch out our StandardKeyboard class with a different one should the need arise. And weï¿½re stuck with our Monitor class too.
 
-Let’s decouple our machine from the StandardKeyboard by adding a more general Keyboard interface and using this in our class:
+Letï¿½s decouple our machine from the StandardKeyboard by adding a more general Keyboard interface and using this in our class:
 
 \begin{lstlisting}
 public interface Keyboard { }
@@ -255,9 +253,9 @@ public class Windows{
 \section*{GoF patterns.}
 \end{center}
 
-Gangs of Four Design Patterns is the collection of 23 design patterns from the book “Design Patterns: Elements of Reusable Object-Oriented Software”.
+Gangs of Four Design Patterns is the collection of 23 design patterns from the book ï¿½Design Patterns: Elements of Reusable Object-Oriented Softwareï¿½.
 
-This book was first published in 1994 and it’s one of the most popular books to learn design patterns. The book was authored by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. It got nicknamed as Gangs of Four design patterns because of four authors. Furthermore, it got a shorter name as “GoF Design Patterns”.
+This book was first published in 1994 and itï¿½s one of the most popular books to learn design patterns. The book was authored by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. It got nicknamed as Gangs of Four design patterns because of four authors. Furthermore, it got a shorter name as ï¿½GoF Design Patternsï¿½.
 
 GoF Design Patterns are divided into three categories:
 
@@ -278,7 +276,7 @@ GoF Design Patterns are divided into three categories:
 
 The Singleton Pattern is one of the most commonly used design patterns in software development. It ensures that a class has only one instance while providing a global access point to that instance. This pattern is particularly useful for managing shared resources such as configuration settings, logging, or database connections.
 
-The Singleton Pattern ensures single instance (only one instance of the class exists throughout the application’s lifecycle) and global access (provides a centralized point of access to the single instance).
+The Singleton Pattern ensures single instance (only one instance of the class exists throughout the applicationï¿½s lifecycle) and global access (provides a centralized point of access to the single instance).
 
 Advantages: controlled access, resource efficiency and global point of access.
 
@@ -940,7 +938,7 @@ public class PaymentAdapter : IPaymentProcessor
     }
 }
 
-// Here’s how a client interacts with the adapter:
+// Hereï¿½s how a client interacts with the adapter:
 class Program
 {
     static void Main(string[] args)
@@ -1209,9 +1207,9 @@ Key Components:
 \item Component: An interface or abstract class that defines the core functionality.
 
 \item Concrete Component: A class that implements the Component interface and provides the default behavior.
-    
+
 \item Decorator: An abstract class that implements the Component interface and holds a reference to a Component object. It delegates operations to the wrapped object.
-    
+
 \item Concrete Decorator: A class that extends the functionality of the Decorator.
 
 \end{itemize}
@@ -1242,7 +1240,7 @@ public class PlainText : IText
     }
 }
 
-// The Decorator: 
+// The Decorator:
 public abstract class TextDecorator : IText
 {
     protected IText Text;
@@ -1328,9 +1326,9 @@ Key Components:
 
 \begin{itemize}
 \item Subsystem Classes: These are the components of the system that perform various tasks. They are usually complex and require intricate interactions.
-    
+
 \item Facade: The class that provides a simplified interface to the subsystem. It delegates client requests to appropriate subsystems.
-    
+
 \item Client: The consumer of the facade. It interacts with the facade rather than directly with the subsystems.
 \end{itemize}
 
@@ -1347,7 +1345,7 @@ public class LightingSystem
 public class AirConditioningSystem
 {
     public void SetTemperature(int temperature) =>
-        Console.WriteLine($"Air conditioning set to {temperature}°C.");
+        Console.WriteLine($"Air conditioning set to {temperature}ï¿½C.");
     public void TurnOffAC() => Console.WriteLine("Air conditioning is turned off.");
 }
 
@@ -1416,15 +1414,106 @@ class Program
 \textbf{Flyweight}
 \end{center}
 
+The Flyweight Pattern is a structural design pattern that focuses on reducing memory usage by sharing as much data as possible among similar objects.
+This is particularly useful when dealing with a large number of objects that have identical or nearly identical data.
 
+The pattern achieves this by separating an objectâ€™s intrinsic state (shared among multiple objects) from its extrinsic state
+(specific to an instance). The intrinsic state is stored in a single shared object, while the extrinsic state is managed externally.
 
+You can use this pattern, when your application needs to handle a large number of similar objects or memory usage is a concern,
+and sharing common data can significantly reduce memory consumption.
+
+Key components:
 \begin{itemize}
-\item
+\item Flyweight: An interface or abstract class that defines the shared behavior.
+
+\item Concrete Flyweight: Implements the Flyweight interface and stores intrinsic state.
+
+\item Flyweight Factory: Manages a pool of Flyweight objects and ensures shared objects are reused.
+
+\item Client: Uses Flyweight objects and supplies the extrinsic state when needed.
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} Imagine a drawing application that renders a forest with thousands of trees.
+Each tree has shared characteristics like species, texture, and color (intrinsic state) but unique properties such as
+position and size (extrinsic state). Using the Flyweight Pattern, we can efficiently manage these tree objects.
+
 
 \begin{lstlisting}
+# The Flyweight interface defines the method that accepts the extrinsic state.
+public interface ITree
+{
+    void Display(int x, int y, int size);
+}
+
+# The concrete flyweight stores the intrinsic state.
+public class TreeType : ITree
+{
+    public string Species { get; }
+    public string Color { get; }
+    public string Texture { get; }
+
+    public TreeType(string species, string color, string texture)
+    {
+        Species = species;
+        Color = color;
+        Texture = texture;
+    }
+
+    public void Display(int x, int y, int size)
+    {
+        Console.WriteLine($"Tree [{Species}, {Color}, {Texture}] at ({x}, {y}) with size {size}.");
+    }
+}
+
+# The factory manages the pool of shared flyweight objects
+using System.Collections.Generic;
+
+public class TreeFactory
+{
+    private readonly Dictionary<string, ITree> _treeTypes = new();
+
+    public ITree GetTreeType(string species, string color, string texture)
+    {
+        var key = $"{species}-{color}-{texture}";
+        if (!_treeTypes.ContainsKey(key))
+        {
+            _treeTypes[key] = new TreeType(species, color, texture);
+        }
+
+        return _treeTypes[key];
+    }
+}
+
+# Usage:
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var treeFactory = new TreeFactory();
+        var trees = new List<(ITree tree, int x, int y, int size)>();
+
+        // Add trees to the forest
+        var oakTree = treeFactory.GetTreeType("Oak", "Green", "Rough");
+        trees.Add((oakTree, 10, 20, 5));
+        trees.Add((oakTree, 15, 25, 6));
+
+        var pineTree = treeFactory.GetTreeType("Pine", "Dark Green", "Smooth");
+        trees.Add((pineTree, 30, 40, 8));
+        trees.Add((pineTree, 35, 45, 10));
+
+        // Render the trees
+        foreach (var (tree, x, y, size) in trees)
+        {
+            tree.Display(x, y, size);
+        }
+
+        Console.ReadKey();
+    }
+}
 
 \end{lstlisting}
 
@@ -1441,13 +1530,52 @@ class Program
 
 
 
-\begin{itemize}
-\item
-\end{itemize}
+The Proxy pattern is a structural design pattern that acts as an intermediary between a client and an object, controlling access to the actual implementation. It can be used for caching, logging, security, or lazy initialization.
+
+A common use case in web applications is implementing an API request proxy to cache responses and reduce the load on external services.
 
 \textbf{Example.}
 
 \begin{lstlisting}
+public interface IProductService
+{
+    Task<string> GetProductsAsync();
+}
+
+public class ProductService : IProductService
+{
+    private readonly HttpClient _httpClient;
+    public ProductService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<string> GetProductsAsync()
+    {
+        return await _httpClient.GetStringAsync("https://api.example.com/products");
+    }
+}
+
+// Implementing a Proxy for Caching
+public class ProductServiceProxy : IProductService
+{
+    private readonly IProductService _realService;
+    private string? _cachedResponse;
+
+    public ProductServiceProxy(IProductService realService)
+    {
+        _realService = realService;
+    }
+
+    public async Task<string> GetProductsAsync()
+    {
+        if (_cachedResponse == null)
+        {
+            _cachedResponse = await _realService.GetProductsAsync();
+        }
+        return _cachedResponse;
+    }
+}
 
 \end{lstlisting}
 
@@ -1461,14 +1589,81 @@ class Program
 \textbf{Chain of Responsibility}
 \end{center}
 
+The \textit{Chain of Responsibility} pattern is a behavioral design pattern that allows multiple objects to process a request sequentially. Each object in the chain either handles the request or passes it to the next handler in line. This pattern promotes loose coupling between senders and receivers of a request.
+
+Application:
+
 \begin{itemize}
-\item
+\item Logging frameworks (different log levels such as Debug, Info, Error)
+
+\item Middleware pipelines in web applications
+
+\item Request validation and authorization
+
+\item Handling UI events (e.g., event bubbling)
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} A common use case in Web Development is middleware. Middleware components in the request pipeline process HTTP requests in sequence. Let's create a custom middleware that uses the Chain of Responsibility pattern.
 
 \begin{lstlisting}
+// handler interface
+public abstract class MiddlewareHandler
+{
+    protected MiddlewareHandler? NextHandler;
 
+    public void SetNext(MiddlewareHandler next)
+    {
+        NextHandler = next;
+    }
+
+    public abstract Task Handle(HttpContext context);
+}
+
+// specific handlers
+
+// login middleware
+public class LoggingMiddleware : MiddlewareHandler
+{
+    public override async Task Handle(HttpContext context)
+    {
+        Console.WriteLine($"Request received: {context.Request.Path}");
+
+        if (NextHandler != null)
+        {
+            await NextHandler.Handle(context);
+        }
+    }
+}
+
+// authentication middleware
+public class AuthenticationMiddleware : MiddlewareHandler
+{
+    public override async Task Handle(HttpContext context)
+    {
+        if (!context.Request.Headers.ContainsKey("Authorization"))
+        {
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("Unauthorized");
+            return;
+        }
+
+        if (NextHandler != null)
+        {
+            await NextHandler.Handle(context);
+        }
+    }
+}
+
+
+// response middleware
+public class ResponseMiddleware : MiddlewareHandler
+{
+    public override async Task Handle(HttpContext context)
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.WriteAsync("Request processed successfully");
+    }
+}
 \end{lstlisting}
 
 
@@ -1482,14 +1677,81 @@ class Program
 \textbf{Command}
 \end{center}
 
+The Command pattern is a behavioral design pattern that turns a request into a stand-alone object. This allows you to parameterize methods with different requests, delay execution, queue commands, and support undo/redo operations.
+
 \begin{itemize}
-\item
+\item Implementing undo/redo functionality in applications.
+
+\item Queuing and scheduling operations.
+
+\item Encapsulating business logic to decouple sender and receiver.
+
+\item Using commands in ASP.NET controllers or mediators (e.g., CQRS pattern).
+
+
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} We will implement the Command pattern to handle user actions in an Web Application. The example simulates an order processing system where commands handle different operations.
 
 \begin{lstlisting}
+public interface ICommand
+{
+    Task Execute();
+}
 
+public class PlaceOrderCommand : ICommand
+{
+    private readonly OrderService _orderService;
+    private readonly string _orderDetails;
+
+    public PlaceOrderCommand(OrderService orderService, string orderDetails)
+    {
+        _orderService = orderService;
+        _orderDetails = orderDetails;
+    }
+
+    public async Task Execute()
+    {
+        await _orderService.PlaceOrder(_orderDetails);
+    }
+}
+
+public class CancelOrderCommand : ICommand
+{
+    private readonly OrderService _orderService;
+    private readonly int _orderId;
+
+    public CancelOrderCommand(OrderService orderService, int orderId)
+    {
+        _orderService = orderService;
+        _orderId = orderId;
+    }
+
+    public async Task Execute()
+    {
+        await _orderService.CancelOrder(_orderId);
+    }
+}
+
+public class CommandInvoker
+{
+    private readonly List<ICommand> _commandQueue = new();
+
+    public void AddCommand(ICommand command)
+    {
+        _commandQueue.Add(command);
+    }
+
+    public async Task ExecuteCommands()
+    {
+        foreach (var command in _commandQueue)
+        {
+            await command.Execute();
+        }
+
+        _commandQueue.Clear(); // Clear after execution
+    }
+}
 \end{lstlisting}
 
 
@@ -1503,14 +1765,112 @@ class Program
 \textbf{Iterator}
 \end{center}
 
+The Iterator pattern is a behavioral design pattern that provides a way to traverse a collection without exposing its underlying structure. It abstracts the traversal logic, allowing different types of collections to be iterated in a uniform way.
+
 \begin{itemize}
-\item
+\item Providing a standard way to iterate over complex data structures (e.g., trees, graphs).
+
+\item Supporting multiple iteration algorithms without modifying the collection.
+
+\item Implementing lazy loading or pagination in web applications.
+
+\item Encapsulating traversal logic inside an iterator object.
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} We can implement Iterator pattern to traverse collection of certain items (for example, products) in the web application:
 
 \begin{lstlisting}
+// Iterator interface
+public interface IIterator<T>
+{
+    bool HasNext();
+    T Next();
+}
 
+// Concrete iterator:
+public class ProductIterator : IIterator<Product>
+{
+    private readonly List<Product> _products;
+    private int _position = 0;
+
+    public ProductIterator(List<Product> products)
+    {
+        _products = products;
+    }
+
+    public bool HasNext()
+    {
+        return _position < _products.Count;
+    }
+
+    public Product Next()
+    {
+        if (!HasNext())
+        {
+            throw new InvalidOperationException("No more products.");
+        }
+        return _products[_position++];
+    }
+}
+
+
+// Iterable collection:
+public interface IProductCollection
+{
+    IIterator<Product> CreateIterator();
+}
+
+// And its implementation:
+public class ProductCollection : IProductCollection
+{
+    private readonly List<Product> _products = new();
+
+    public void AddProduct(Product product)
+    {
+        _products.Add(product);
+    }
+
+    public IIterator<Product> CreateIterator()
+    {
+        return new ProductIterator(_products);
+    }
+}
+
+// Define product model:
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+}
+
+// Example usage of product iterator in web api controller:
+[ApiController]
+[Route("api/products")]
+public class ProductsController : ControllerBase
+{
+    private readonly ProductCollection _productCollection;
+
+    public ProductsController()
+    {
+        _productCollection = new ProductCollection();
+        _productCollection.AddProduct(new Product { Id = 1, Name = "Laptop" });
+        _productCollection.AddProduct(new Product { Id = 2, Name = "Smartphone" });
+        _productCollection.AddProduct(new Product { Id = 3, Name = "Tablet" });
+    }
+
+    [HttpGet("next")]
+    public IActionResult GetNextProduct()
+    {
+        var iterator = _productCollection.CreateIterator();
+
+        if (!iterator.HasNext())
+        {
+            return NotFound("No more products.");
+        }
+
+        return Ok(iterator.Next());
+    }
+}
 \end{lstlisting}
 
 
@@ -1524,13 +1884,95 @@ class Program
 \textbf{Mediator}
 \end{center}
 
+The Mediator pattern is a behavioral design pattern that reduces direct dependencies between components by centralizing communication through a mediator object. Instead of components communicating directly with each other, they send messages to a mediator, which handles interactions.
+
 \begin{itemize}
-\item
+\item Decoupling UI elements (e.g., Blazor or WPF applications).
+
+\item Managing interactions between multiple services in a web application.
+
+\item Implementing CQRS using MediatR in ASP.NET Core.
+
+\item Handling event-driven systems where multiple objects interact.
+
+
 \end{itemize}
 
 \textbf{Example.}
 
 \begin{lstlisting}
+// We will create a query that fetches products.
+using MediatR;
+
+public record GetProductsQuery() : IRequest<List<Product>>;
+
+
+// This class handles the query and returns a list of products.
+public class GetProductsHandler : IRequestHandler<GetProductsQuery, List<Product>>
+{
+    private readonly ProductService _productService;
+
+    public GetProductsHandler(ProductService productService)
+    {
+        _productService = productService;
+    }
+
+    public async Task<List<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    {
+        return await _productService.GetProductsAsync();
+    }
+}
+
+
+// Define the Product Model and Service
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+}
+
+public class ProductService
+{
+    private static readonly List<Product> _products = new()
+    {
+        new Product { Id = 1, Name = "Laptop" },
+        new Product { Id = 2, Name = "Smartphone" },
+        new Product { Id = 3, Name = "Tablet" }
+    };
+
+    public Task<List<Product>> GetProductsAsync()
+    {
+        return Task.FromResult(_products);
+    }
+}
+
+
+// And controller:
+[ApiController]
+[Route("api/products")]
+public class ProductsController : ControllerBase
+{
+    private readonly IMediator _mediator;
+
+    public ProductsController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetProducts()
+    {
+        var products = await _mediator.Send(new GetProductsQuery());
+        return Ok(products);
+    }
+}
+
+
+// Register mediator in Program.cs
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddControllers();
+
 
 \end{lstlisting}
 
@@ -1544,14 +1986,91 @@ class Program
 \textbf{Memento}
 \end{center}
 
+The Memento pattern is a behavioral design pattern that allows you to capture and save an object's internal state without violating encapsulation — so it can be restored to that state later. It’s commonly used for implementing undo functionality.
+
+Use cases:
+
 \begin{itemize}
-\item
+\item Undo or redo in forms or editors.
+
+\item Snapshots of an entity before performing risky updates.
+
+\item Session history in web applications.
+
+\item Temporal state tracking (e.g., configuration changes).
+
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} Web application with functionality to edit a product and undo the edit using memento pattern.
 
 \begin{lstlisting}
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 
+    public ProductMemento SaveState()
+    {
+        return new ProductMemento(Id, Name);
+    }
+
+    public void RestoreState(ProductMemento memento)
+    {
+        Id = memento.Id;
+        Name = memento.Name;
+    }
+}
+
+public class ProductMemento
+{
+    public int Id { get; }
+    public string Name { get; }
+
+    public ProductMemento(int id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+}
+
+public class ProductHistory
+{
+    private readonly Stack<ProductMemento> _history = new();
+
+    public void Save(Product product)
+    {
+        _history.Push(product.SaveState());
+    }
+
+    public void Undo(Product product)
+    {
+        if (_history.Count > 0)
+        {
+            var previousState = _history.Pop();
+            product.RestoreState(previousState);
+        }
+    }
+}
+
+// Usage:
+public class ProductService
+{
+    private Product _product = new Product { Id = 1, Name = "Original Product" };
+    private readonly ProductHistory _history = new();
+
+    public Product Get() => _product;
+
+    public void Update(string newName)
+    {
+        _history.Save(_product);
+        _product.Name = newName;
+    }
+
+    public void Undo()
+    {
+        _history.Undo(_product);
+    }
+}
 \end{lstlisting}
 
 
@@ -1565,14 +2084,78 @@ class Program
 \textbf{Observer}
 \end{center}
 
+The Observer pattern is a behavioral design pattern that defines a one-to-many dependency between objects so that when one object (the Subject) changes state, all its dependents (called Observers) are notified and updated automatically.
+
+Applications:
+
 \begin{itemize}
-\item
+\item Notifying multiple services of an event (e.g., user registration).
+
+\item WebSocket or SignalR-based real-time updates.
+
+\item Event-driven architecture / pub-sub messaging.
+
+\item Logging, caching, or triggering background jobs on state change.
 \end{itemize}
 
-\textbf{Example.}
+\textbf{Example.} We'll simulate a user registration system where observers (like logging and email services) are notified when a new user is registered.
 
 \begin{lstlisting}
+public interface IUserObserver
+{
+    void OnUserRegistered(User user);
+}
 
+public class UserService
+{
+    private readonly List<IUserObserver> _observers = new();
+
+    public void RegisterObserver(IUserObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnregisterObserver(IUserObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void RegisterUser(User user)
+    {
+        Console.WriteLine($"User registered: {user.Name}");
+
+        // Notify all observers
+        foreach (var observer in _observers)
+        {
+            observer.OnUserRegistered(user);
+        }
+    }
+}
+
+// User Model
+public class User
+{
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+}
+
+// Email notification of the user:
+public class EmailNotificationService : IUserObserver
+{
+    public void OnUserRegistered(User user)
+    {
+        Console.WriteLine($"[Email] Welcome email sent to {user.Email}");
+    }
+}
+
+// Logging service:
+public class LoggingService : IUserObserver
+{
+    public void OnUserRegistered(User user)
+    {
+        Console.WriteLine($"[Log] User {user.Name} has been registered.");
+    }
+}
 \end{lstlisting}
 
 
@@ -1586,13 +2169,107 @@ class Program
 \textbf{State}
 \end{center}
 
-\begin{itemize}
-\item
-\end{itemize}
+The State design pattern (GoF) is a behavioral pattern that lets an object alter its behavior when its internal state changes.
 
-\textbf{Example.}
+Instead of writing big if/else or switch statements everywhere, you encapsulate state-specific behavior in separate classes and let the object delegate work to the current state.
+
+
+\textbf{Example.} Let’s say we’re building an e-commerce site. An Order can be in multiple states (Pending, Paid, Shipped), and its behavior changes depending on the state.
 
 \begin{lstlisting}
+// State intefrace
+public interface IOrderState
+{
+    void Pay(OrderContext context);
+    void Ship(OrderContext context);
+}
+
+
+
+// Implement concrete states
+public class PendingState : IOrderState
+{
+    public void Pay(OrderContext context)
+    {
+        Console.WriteLine("Order is now Paid.");
+        context.SetState(new PaidState());
+    }
+
+    public void Ship(OrderContext context)
+    {
+        Console.WriteLine("Cannot ship. Order is still pending payment.");
+    }
+}
+
+public class PaidState : IOrderState
+{
+    public void Pay(OrderContext context)
+    {
+        Console.WriteLine("Order already paid.");
+    }
+
+    public void Ship(OrderContext context)
+    {
+        Console.WriteLine("Order is now Shipped.");
+        context.SetState(new ShippedState());
+    }
+}
+
+public class ShippedState : IOrderState
+{
+    public void Pay(OrderContext context)
+    {
+        Console.WriteLine("Cannot pay. Order already shipped.");
+    }
+
+    public void Ship(OrderContext context)
+    {
+        Console.WriteLine("Order already shipped.");
+    }
+}
+
+
+// The Context class
+public class OrderContext
+{
+    private IOrderState _state;
+
+    public OrderContext()
+    {
+        _state = new PendingState(); // default state
+    }
+
+    public void SetState(IOrderState state) => _state = state;
+
+    public void Pay() => _state.Pay(this);
+    public void Ship() => _state.Ship(this);
+}
+
+
+// Usage example
+public class OrdersController : ControllerBase
+{
+    private readonly OrderContext _orderContext;
+
+    public OrdersController(OrderContext orderContext)
+    {
+        _orderContext = orderContext;
+    }
+
+    [HttpPost("pay")]
+    public IActionResult Pay()
+    {
+        _orderContext.Pay();
+        return Ok("Order processed.");
+    }
+
+    [HttpPost("ship")]
+    public IActionResult Ship()
+    {
+        _orderContext.Ship();
+        return Ok("Order processed.");
+    }
+}
 
 \end{lstlisting}
 
@@ -1607,13 +2284,91 @@ class Program
 \textbf{Strategy}
 \end{center}
 
-\begin{itemize}
-\item
-\end{itemize}
+The Strategy Pattern is one of the most widely used behavioral design patterns. It enables selecting an algorithm’s behavior at runtime instead of hard-coding it. By encapsulating algorithms in separate classes and making them interchangeable, the Strategy Pattern adheres to the Open/Closed Principle: classes are open for extension but closed for modification.
 
-\textbf{Example.}
+\textbf{Example.} Imagine a .NET Web API where users can place orders. Discounts vary depending on the customer type (e.g., Regular, Premium, VIP). Instead of hard-coding discount logic into the service, we can apply the Strategy Pattern.
 
 \begin{lstlisting}
+// Define the Strategy Interface
+public interface IDiscountStrategy
+{
+    decimal ApplyDiscount(decimal amount);
+}
+
+
+
+// Implement Concrete Strategies
+public class RegularCustomerDiscount : IDiscountStrategy
+{
+    public decimal ApplyDiscount(decimal amount) => amount; // no discount
+}
+
+public class PremiumCustomerDiscount : IDiscountStrategy
+{
+    public decimal ApplyDiscount(decimal amount) => amount * 0.9m; // 10% off
+}
+
+public class VipCustomerDiscount : IDiscountStrategy
+{
+    public decimal ApplyDiscount(decimal amount) => amount * 0.8m; // 20% off
+}
+
+
+
+
+// Create a Context
+public class DiscountService
+{
+    private readonly IDiscountStrategy _discountStrategy;
+
+    public DiscountService(IDiscountStrategy discountStrategy)
+    {
+        _discountStrategy = discountStrategy;
+    }
+
+    public decimal CalculatePrice(decimal amount)
+    {
+        return _discountStrategy.ApplyDiscount(amount);
+    }
+}
+
+// Register Strategies in Dependency Injection, in Program.cs
+builder.Services.AddScoped<RegularCustomerDiscount>();
+builder.Services.AddScoped<PremiumCustomerDiscount>();
+builder.Services.AddScoped<VipCustomerDiscount>();
+builder.Services.AddScoped<DiscountService>();
+
+
+// Usage:
+[ApiController]
+[Route("api/[controller]")]
+public class OrdersController : ControllerBase
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public OrdersController(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    [HttpPost("{customerType}")]
+    public IActionResult CreateOrder(string customerType, [FromBody] decimal amount)
+    {
+        IDiscountStrategy strategy = customerType.ToLower() switch
+        {
+            "regular" => _serviceProvider.GetRequiredService<RegularCustomerDiscount>(),
+            "premium" => _serviceProvider.GetRequiredService<PremiumCustomerDiscount>(),
+            "vip"     => _serviceProvider.GetRequiredService<VipCustomerDiscount>(),
+            _         => throw new ArgumentException("Unknown customer type")
+        };
+
+        var discountService = new DiscountService(strategy);
+        var finalPrice = discountService.CalculatePrice(amount);
+
+        return Ok(new { OriginalPrice = amount, FinalPrice = finalPrice });
+    }
+}
+
 
 \end{lstlisting}
 
@@ -1628,17 +2383,95 @@ class Program
 \textbf{Template Method}
 \end{center}
 
-\begin{itemize}
-\item
-\end{itemize}
+The Template Method pattern is a behavioral design pattern that defines the skeleton of an algorithm in a base class while allowing subclasses to override specific steps without changing the algorithm’s overall structure. It is particularly useful when you have a process that always follows the same outline but has variations in some of its steps. By applying this pattern, you promote code reuse and enforce a consistent workflow, while giving flexibility to extend or customize parts of the process.
 
 \textbf{Example.}
 
 \begin{lstlisting}
+public abstract class DataImportTemplate
+{
+    // The Template Method defines the skeleton of the workflow
+    public void ImportData(IEnumerable<string> records)
+    {
+        Validate(records);
+        Process(records);
+        Log(records);
+    }
+
+    // Steps that can be overridden
+    protected abstract void Validate(IEnumerable<string> records);
+    protected abstract void Process(IEnumerable<string> records);
+
+    // Common step shared across all subclasses
+    protected virtual void Log(IEnumerable<string> records)
+    {
+        Console.WriteLine($"{records.Count()} records have been imported at {DateTime.UtcNow}");
+    }
+}
+
+public class CustomerImportService : DataImportTemplate
+{
+    protected override void Validate(IEnumerable<string> records)
+    {
+        if (!records.All(r => r.Contains("@")))
+            throw new InvalidOperationException("All customer records must contain an email.");
+    }
+
+    protected override void Process(IEnumerable<string> records)
+    {
+        foreach (var record in records)
+        {
+            Console.WriteLine($"Processing customer record: {record}");
+            // Insert into database
+        }
+    }
+}
+
+public class ProductImportService : DataImportTemplate
+{
+    protected override void Validate(IEnumerable<string> records)
+    {
+        if (!records.All(r => r.Split(',').Length >= 2))
+            throw new InvalidOperationException("Product records must contain at least name and price.");
+    }
+
+    protected override void Process(IEnumerable<string> records)
+    {
+        foreach (var record in records)
+        {
+            Console.WriteLine($"Processing product record: {record}");
+            // Insert into database
+        }
+    }
+}
 
 \end{lstlisting}
 
+In your Web API controller, you can now reuse the workflow for different imports:
 
+\begin{lstlisting}
+[ApiController]
+[Route("api/[controller]")]
+public class ImportController : ControllerBase
+{
+    [HttpPost("customers")]
+    public IActionResult ImportCustomers([FromBody] List<string> records)
+    {
+        var service = new CustomerImportService();
+        service.ImportData(records);
+        return Ok("Customer data imported successfully");
+    }
+
+    [HttpPost("products")]
+    public IActionResult ImportProducts([FromBody] List<string> records)
+    {
+        var service = new ProductImportService();
+        service.ImportData(records);
+        return Ok("Product data imported successfully");
+    }
+}
+
+\end{lstlisting}
 
 
 
@@ -1648,17 +2481,92 @@ class Program
 \textbf{Visitor}
 \end{center}
 
+The Visitor pattern is a behavioral design pattern that lets you separate an algorithm from the objects it operates on. Instead of putting logic inside your data models, you “visit” them with a separate object (the visitor), which encapsulates the operation.
 
-\begin{itemize}
-\item
-\end{itemize}
+The main benefit is that you can add new operations without changing the classes of the elements you’re working with. This is useful when you have a hierarchy of objects and want to perform different actions depending on the object type, but don’t want to clutter the model classes with many methods.
 
-\textbf{Example.}
+\textbf{Example.} Suppose you have an API that handles different notifications: Email and SMS. Each notification needs to be processed differently (e.g., send via SMTP vs. send via Twilio). The Visitor pattern can help keep this clean.
+
 
 \begin{lstlisting}
+// Step 1. Define the element interface (accepts a visitor):
+public interface INotification
+{
+    void Accept(INotificationVisitor visitor);
+}
 
+
+// Step 2. Implement concrete elements:
+public class EmailNotification : INotification
+{
+    public string Subject { get; set; }
+    public string Body { get; set; }
+
+    public void Accept(INotificationVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+}
+
+public class SmsNotification : INotification
+{
+    public string PhoneNumber { get; set; }
+    public string Message { get; set; }
+
+    public void Accept(INotificationVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+}
+
+
+
+// Step 3. Define the visitor interface:
+public interface INotificationVisitor
+{
+    void Visit(EmailNotification email);
+    void Visit(SmsNotification sms);
+}
+
+
+
+// Step 4. Create concrete visitors (operations):
+public class SendNotificationVisitor : INotificationVisitor
+{
+    public void Visit(EmailNotification email)
+    {
+        Console.WriteLine($"Sending Email: {email.Subject} - {email.Body}");
+        // logic: SMTP send
+    }
+
+    public void Visit(SmsNotification sms)
+    {
+        Console.WriteLine($"Sending SMS to {sms.PhoneNumber}: {sms.Message}");
+        // logic: SMS gateway
+    }
+}
+
+
+
+// Step 5. Use in a Web API controller:
+[ApiController]
+[Route("api/[controller]")]
+public class NotificationsController : ControllerBase
+{
+    [HttpPost("send")]
+    public IActionResult SendNotifications([FromBody] List<INotification> notifications)
+    {
+        var visitor = new SendNotificationVisitor();
+
+        foreach (var notification in notifications)
+        {
+            notification.Accept(visitor);
+        }
+
+        return Ok("Notifications sent.");
+    }
+}
 \end{lstlisting}
-
 
 
 

@@ -1,7 +1,100 @@
 
 \pagebreak
 \begin{center}
-\textbf{Laboratory assignment 2: Backend application.}
+\textbf{Laboratory assignment 2: GraphQL.}
 \end{center}
 
+
 \medskip
+
+
+\begin{enumerate}
+\item Build a GraphQL API for your application (topic choosen in previous assignment).
+
+\begin{itemize}
+\item In Node.js you can use Apollo Server, in Asp.NET - HotChocolate nuget package.
+
+\item Create GraphQL schema with defined types
+\end{itemize}
+
+
+
+\item Implement basic queries and mutations:
+
+\begin{itemize}
+\item Query all items
+
+\item Query an item by ID
+
+\item Add a new item mutation
+
+\item Update item’s details via mutation
+
+\item Delete an item
+\end{itemize}
+
+
+
+
+\item Provide query and mutation schema in a separate file.
+
+\begin{itemize}
+\item Example query:
+
+\begin{lstlisting}
+query {
+  items(filter: "test", skip: 0, take: 5) {
+    _id
+    fieldOne
+    fieldTwo
+  }
+}
+\end{lstlisting}
+
+
+\end{itemize}
+
+
+
+\item Introduce query and mutation to your ui. You can use Apollo package if you use React, or just via plane POST requests of the format:
+
+\begin{lstlisting}
+const url = 'https://your-netlify-site.netlify.app/.netlify/functions/graphql';
+
+const query = `
+  query GetItems($filter: String) {
+    items(filter: $filter) {
+      _id
+    fieldOne
+    fieldTwo
+    }
+  }
+`;
+
+const variables = {
+  filter: 'test', // Replace with the desired value or leave null for all values
+};
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    query,
+    variables,
+  }),
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Response data:', data);
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+\end{lstlisting}
+
+
+\end{enumerate}
+
+

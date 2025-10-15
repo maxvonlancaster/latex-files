@@ -1,8 +1,8 @@
 
 \pagebreak
-\begin{center}
-\textbf{Authentication, Authorization, JWT and OAuth2.0 .}
-\end{center}
+
+\chapter{Authentication, Authorization, JWT and OAuth2.0 .}
+
 
 \medskip
 
@@ -16,9 +16,9 @@ Modern applications use a variety of tools and techniques to implement authentic
 
 \begin{itemize}
 \item Session-Based Authentication: The server creates a session for the user upon login and stores it in memory. A session ID is sent to the client as a cookie.
-    
+
 \item Token-Based Authentication: After login, the server generates a token (e.g., JWT) that the client includes in each request for authentication.
-    
+
 \item Authorization can be implemented via middleware, Access Control Lists (ACLs) or API gateways.
 \end{itemize}
 
@@ -70,12 +70,232 @@ your-256-bit-secret
 
 \textbf{OAuth 2.0}, short for Open Authorization 2.0, is a protocol that enables third-party applications to gain limited access to a user's resources without sharing their username and password. It provides an efficient way to implement secure delegated access, focusing on authorization rather than authentication.
 
+\medskip
+\textbf{Example of JWT authentication in .Net.}
+
+Add \verb"Microsoft.AspNetCore.Authentication.JwtBearer" to demo-rest.bll.
+
+Now add the following two models:
+
+\begin{lstlisting}
+public class User
+{
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string PasswordHash { get; set; }
+    public bool IsLoggedIn { get; set; }
+}
+
+public class LoginRequest
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+
+\end{lstlisting}
+
+
+And a TokenService with it's interface:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace demo_rest.bll.Services;
+
+public class TokenService : ITokenService
+{
+    private readonly IConfiguration _config;
+    public TokenService(IConfiguration config)
+    {
+        _config = config;
+    }
+
+    public string GenerateToken(string username)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, username)
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddHours(1),
+            signingCredentials: creds);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+}
+
+
+public interface ITokenService
+{
+    string GenerateToken(string username);
+}
+
+\end{lstlisting}
+
+Add Account controller, that will provide endpoints for user tracking:
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace demo_rest.Controllers;
+
+[Route("[controller]/[action]")]
+[ApiController]
+public class AccountController : ControllerBase
+{
+    private readonly ITokenService _tokenService;
+
+    public AccountController(ITokenService tokenService)
+    {
+        _tokenService = tokenService;
+    }
+
+    private static List<User> _users = new()
+    {
+        new User {
+            Id = 1, Username = "admin",
+            PasswordHash = "password", IsLoggedIn = false }
+    };
+
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequest request)
+    {
+        var user = _users.FirstOrDefault(u => u.Username == request.Username && u.PasswordHash == request.Password);
+        if (user == null)
+            return Unauthorized("Invalid credentials");
+
+        user.IsLoggedIn = true;
+
+        var token = _tokenService.GenerateToken(user.Username);
+        return Ok(new { token });
+    }
+
+    [HttpGet("logged-in-users")]
+    public IActionResult GetLoggedInUsers()
+    {
+        var loggedIn = _users.Where(u => u.IsLoggedIn).Select(u => u.Username);
+        return Ok(loggedIn);
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    public IActionResult GetCurrentUser()
+    {
+        var username = User.Identity?.Name;
+
+        if (string.IsNullOrEmpty(username))
+            return Unauthorized();
+
+        var user = _users.FirstOrDefault(u => u.Username == username);
+
+        if (user == null)
+            return NotFound("User not found");
+
+        return Ok(new
+        {
+            user.Id,
+            user.Username,
+            user.IsLoggedIn
+        });
+    }
+
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        var username = User.Identity?.Name;
+        var user = _users.FirstOrDefault(u => u.Username == username);
+        if (user != null)
+            user.IsLoggedIn = false;
+
+        return Ok();
+    }
+}
+
+\end{lstlisting}
+
+Register token services in \verb"Program.cs":
+
+\begin{lstlisting}
+using demo_rest.bll.Interfaces;
+using demo_rest.bll.Services;
+using demo_rest.dal;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DemoDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddTransient<IStudentService, StudentService>();
+builder.Services.AddTransient<ITokenService, TokenService>();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+\end{lstlisting}
 
 
 \begin{lstlisting}
 
 \end{lstlisting}
-
 
 
 

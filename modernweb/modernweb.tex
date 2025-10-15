@@ -1,12 +1,15 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 \usepackage{cmap}
 \usepackage[cp1251]{inputenc}
-\usepackage[english, ukrainian, russian]{babel}
+\usepackage[russian, ukrainian, english]{babel}
 \usepackage[left=2cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage[T2A]{fontenc}
+\usepackage{setspace}
 
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -34,25 +37,73 @@
 
 \begin{document}
 
-\pagenumbering{gobble}
+\pagestyle{plain}
 
 \begin{large}
 
-\begin{center}
-\section*{Modern client web technologies.}
-\end{center}
+\begin{titlepage}
+    \begin{center}
+        {\Large \textbf{Yuriy Fedkovych Chernivtsi National University \\
+Faculty of Mathematics and Computer Science}} \\[5cm]   % University at the top
+
+        {\Large O. Matvyi} \\
+        {\Large H. Melnyk} \\
+        {\Large V. Melnyk} \\[6cm]                   % Names
+
+        {\Huge \textbf{Modern Client Web-Technologies}} \\[0.5cm]
+        {\Large Textbook} \\[9cm]                        % Title & type
+
+        {\large Chernivtsi, 2025}                              % Bottom
+    \end{center}
+\end{titlepage}
+
+% -------------------------------
+% Second Page (info, disclaimer, etc.)
+% -------------------------------
+\newpage
+\thispagestyle{empty}   % No page number here
+
+
+    \textbf{Modern Client Web-Technologies} \\[0.5cm]
+
+    Published by the decision of the Editorial and Publishing Council
+of Yuriy Fedkovych Chernivtsi National University
+
+    Textbook prepared for students studying modern approaches in web development. \\[1cm]
+
+    Examples throughout the book are primarily based on the .NET Web API framework,
+    with coverage of technologies such as Blazor, React, REST API, GraphQL, JWT authentication,
+    Webhooks, WebSockets, security practices (including CORS), logging,
+    and architectural patterns for web development. \\[1cm]
+
+
+    Recommended for students of the Faculty of Mathematics and
+Informatics.
+
+
+    \vfill
+
+
+\pagebreak
+\tableofcontents
+
+\input intro.tex
+
+
 
 \input mw-blazor.tex
 
 \input mw-react.tex
 
-\input mw-css.tex
+%\input mw-css.tex
 
 
 
 
 
 \input mw-rest.tex
+
+\input mw-cqrs.tex
 
 \input mw-graphql.tex
 
@@ -70,15 +121,16 @@
 
 \input mw-logging.tex
 
+\input mw-lit.tex
 
 
-\input mw-1.tex
+%\input mw-1.tex
 
-\input mw-2.tex
+%\input mw-2.tex
 
-\input mw-3.tex
+%\input mw-3.tex
 
-\input mw-4.tex
+%\input mw-4.tex
 
 
 

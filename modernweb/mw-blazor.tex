@@ -1,10 +1,17 @@
 
 \pagebreak
-\begin{center}
-\textbf{ASP.NET and Blazor.}
-\end{center}
+\chapter{ASP.NET and Blazor.}
+
 
 \medskip
+
+ASP.NET is a robust framework developed by Microsoft for building modern web applications. It provides a scalable and high-performance environment for web development, supporting various technologies such as MVC, Razor Pages, Web APIs, and Blazor.
+
+Blazor is a relatively new framework within the ASP.NET ecosystem that enables developers to build interactive web applications using C\# and .NET instead of JavaScript. With Blazor, developers can create both client-side and server-side web applications with a consistent programming model.
+
+Blazor is a component-based UI framework that allows developers to build web applications using C\# and Razor templates instead of JavaScript. It offers two hosting models: Blazor Server (the application runs on the server, and UI updates are sent over a SignalR connection) and Blazor WebAssembly (the application runs entirely in the user's browser using WebAssembly)
+
+ASP.NET and Blazor together provide a powerful framework for building modern web applications. Whether using Blazor Server or WebAssembly, developers can leverage C\# and .NET to create interactive and scalable web applications.
 
 
 \textbf{Implementation.}
@@ -12,5 +19,421 @@
 Let's create a new solution using Visual Studio, and choose Blazor Web App from the list of available template options.
 
 After we have created a new solution with Blazor project (in our case, we named the project 'demo-sln'),
+
+When we run our application, we are greeted with a standard landing page, that we can now configure to our liking.
+
+
+Let's start by adding folder 'Models' and adding new item 'Product.cs' that would encapsulate information about certain product our application would be handling.
+
+\begin{lstlisting}
+namespace demo_sln.Models;
+
+public class Product
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public decimal Price { get; set; }
+    public string? Category { get; set; }
+}
+
+\end{lstlisting}
+
+Now we have to create a service, that would be handling these products. This service will be returning products upon request and adding new products to a mock database (we will not be actually creating a database as a part of this particular lesson). Let's name our service 'ProductService.cs'. We will first create an interface and then an actual implementation class:
+
+\begin{lstlisting}
+using demo_sln.Models;
+
+namespace demo_sln.Services;
+
+public interface IProductsService
+{
+    void AddProduct(Product product);
+    List<Product> GetProducts();
+    Product GetProduct(int id);
+}
+
+\end{lstlisting}
+
+Implementation of that interface will inherit the interface:
+
+\begin{lstlisting}
+using demo_sln.Models;
+
+namespace demo_sln.Services;
+
+public class ProductsService : IProductsService
+{
+    private List<Product> _products;
+
+    public ProductsService()
+    {
+        _products = new List<Product>()
+            {
+                new Product { Id = 1, Name = "Test name", Description = "Descr"},
+                new Product { Id = 2, Name = "Test name 2", Description = "Descr 2"}
+            };
+    }
+
+    public List<Product> GetProducts()
+    {
+        return _products;
+    }
+
+    public void AddProduct(Product product)
+    {
+        product.Id = _products.Count() + 1;
+        _products.Add(product);
+    }
+
+    public Product GetProduct(int id)
+    {
+        var product = _products.FirstOrDefault(p => p.Id == id);
+        if (product == null)
+        {
+            throw new KeyNotFoundException();
+        }
+        return product;
+    }
+}
+
+\end{lstlisting}
+
+A few notes about interfaces and why we need them in C\#:
+
+An interface in C\# is a contract that defines a set of methods and properties without providing an implementation. Classes that implement the interface must provide concrete implementations for all its members.
+
+Using interfaces in C\# provides several benefits. First of all, they provide abstraction - they hide implementation details and expose only necessary functionalities. Loose coupling - interfaces reduce dependencies between classes, making the system more modular. When it comes to testability - they make unit testing easier by allowing mock implementations. And code maintainability - simplify updating or replacing components without breaking the existing code.
+
+Here we use interfaces to provide dependency injection to our code: design pattern that allows injecting dependencies instead of creating them inside a class. This approach improves testability and maintainability. Thus, we use at all times interfaces instead of actual implementations.
+
+
+Here is an example of how we can provide actual dependency injection of our ProductService:
+
+\begin{lstlisting}
+builder.Services.AddSingleton<IProductsService, ProductsService>();
+\end{lstlisting}
+
+Note, that we choose AddSingleton option - that is important. We will provide more information on singleton pattern later - for now what is important, is that this way we can ensure data consistency for the application lifetime without resorting to actually adding database to our application for now.
+
+Now let's add our first razor component - file '' to folder Components//Pages
+
+\begin{lstlisting}
+@using demo_sln.Models
+
+<div class="item-row">
+    <p class="item-name">@Product?.Name</p>
+
+    <p class="item-description">@Product?.Description</p>
+</div>
+
+@code {
+    [Parameter]
+    public Product? Product { get; set; }
+}
+
+\end{lstlisting}
+
+This is a Razor component. Blazor Razor components are the building blocks of Blazor applications. Think of them as reusable UI pieces, like buttons, forms, or entire pages, written in a mix of C\# and HTML. Here in the 'code' segment we see C\# code inside the component, and '@Product' variable binds data in code part with the view. Product is market with attribute '[Parameter]' which means that it is a parameter that is passed to that component from another component. Before we define the higher level component, let's first add a ProductItem.razor.css file, that would contain styles for this component:
+
+\begin{lstlisting}
+.item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.item-description {
+    font-size: 14px;
+    color: #666;
+    flex-grow: 1;
+}
+\end{lstlisting}
+
+And now let's define top-level component Products.razor:
+
+\begin{lstlisting}
+@page "/products"
+@using demo_sln.Models
+@using demo_sln.Services
+@rendermode InteractiveServer
+@inject IProductsService _productsService
+
+<h3>Products</h3>
+
+@if (_products == null)
+{
+    <h3>Please wait a bit</h3>
+}
+else
+{
+    <div>
+        @foreach (var product in _products)
+        {
+            <ProductItem Product="product"></ProductItem>
+        }
+    </div>
+}
+<div>
+    <input @bind="_name" />
+    <input @bind="_description" />
+    <button @onclick="SubmitData">Click me to add new product</button>
+
+</div>
+
+
+
+@code {
+    private List<Product>? _products;
+
+    private string? _name;
+    private string? _description;
+
+    protected override Task OnInitializedAsync()
+    {
+        _products = _productsService.GetProducts();
+        return base.OnInitializedAsync();
+    }
+
+    private void SubmitData()
+    {
+        _productsService.AddProduct(
+            new Product() { Name = _name, Description = _description }
+        );
+        _name = String.Empty;
+        _description = String.Empty;
+        _products = _productsService.GetProducts();
+    }
+}
+
+\end{lstlisting}
+
+In this component:
+\begin{itemize}
+
+\item @page "/products" - Defines the route where this component will be accessible.
+
+\item @inject IProductsService \_productsService - Injects a service to fetch product data.
+
+\item @if (\_products == null) - Displays a loading message if data isn't available yet.
+
+\item @foreach (var product in \_products) - Iterates over the products list and displays them using the ProductItem component.
+
+\item @bind - Binds input fields to \_name and \_description properties.
+
+\item @onclick="SubmitData" - Calls SubmitData() when the button is clicked.
+\end{itemize}
+
+
+Before we start our application, we need to add a link that would re-address us to the products list - we do it in the NavMenu.razor component in folder Layout, modify it in the following way:
+
+
+
+\begin{lstlisting}
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">demo-sln</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="products">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Products
+            </NavLink>
+        </div>
+    </nav>
+</div>
+\end{lstlisting}
+
+Now suppose we want to add a page for each individual product item. We can do that with routing: define a route pattern with id of the product in the address of the page - add item ProductPage.razor:
+
+\begin{lstlisting}
+@page "/products/{Id:int}"
+@inject IProductsService _productsService
+@using demo_sln.Models
+@using demo_sln.Services
+<h3>Product</h3>
+
+<p>@_product?.Name</p>
+
+<p>@_product?.Description</p>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Product? _product { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        _product = _productsService.GetProduct(Id);
+        return base.OnInitializedAsync();
+    }
+}
+
+\end{lstlisting}
+
+Here directive @page "/products/{Id:int}" defines the route by which we can access that component.
+Now we modify our ProductItem.razor component a bit to have a link to that page:
+
+\begin{lstlisting}
+@using demo_sln.Models
+
+<div class="item-row">
+    <span class="item-name">@Product?.Name</span>
+
+    <span class="item-description">@Product?.Description</span>
+
+    <NavLink href=@link>Click</NavLink>
+</div>
+
+@code {
+    [Parameter]
+    public Product? Product { get; set; }
+
+    public string link => "/products/" + Product?.Id;
+}
+\end{lstlisting}
+
+Now when we click on the link, we are re-addressed to the page of a specific product entity, that we can now modify to our liking.
+
+\medskip
+
+\textbf{A few words on JS Interop.}
+
+In essence, JS Interop allows bidirectional communication between C\# and JavaScript, in other words, it allows C\# code to invoke JS functions, and JS functions to call C\# code.
+
+Let's integrate JS Interop to our code. First, add folder named 'js' to wwwroot folder and add app.js file there. Write the following to it:
+
+\begin{lstlisting}
+function sayHello(name) {
+    alert(`Hello ${name}`);
+}
+\end{lstlisting}
+
+And add the following line to the App.razor file:
+
+\begin{lstlisting}
+<script src="js/app.js"></script>
+\end{lstlisting}
+
+Modify Prodcuts.razor file:
+
+\begin{lstlisting}
+@page "/products"
+@using demo_sln.Models
+@using demo_sln.Services
+@rendermode InteractiveServer
+@inject IProductsService _productsService
+@inject IJSRuntime Js
+
+<h3>Products</h3>
+
+@if (_products == null)
+{
+    <h3>Please wait a bit</h3>
+}
+else
+{
+    <div>
+        @foreach (var product in _products)
+        {
+            <ProductItem Product="product"></ProductItem>
+        }
+    </div>
+}
+<div>
+    <input @bind="_name" />
+    <input @bind="_description" />
+    <button @onclick="SubmitData">Click me to add new product</button>
+    <button @onclick="SayHello">Say Hello</button>
+</div>
+
+
+
+@code {
+    private List<Product>? _products;
+
+    private string? _name;
+    private string? _description;
+
+    protected override Task OnInitializedAsync()
+    {
+        _products = _productsService.GetProducts();
+        return base.OnInitializedAsync();
+    }
+
+    private void SubmitData()
+    {
+        _productsService.AddProduct(
+            new Product() { Name = _name, Description = _description }
+        );
+        _name = String.Empty;
+        _description = String.Empty;
+        _products = _productsService.GetProducts();
+    }
+
+    private async Task SayHello()
+    {
+        await Js.InvokeVoidAsync("sayHello", args: "products");
+    }
+}
+
+\end{lstlisting}
+
+Now you see browser alert any time you click button. You can integrate more Java Script functionality to your Razor components!
+
+We can also call C\# code from JavaScript file using JSInterop. Take a look at the following static method in ProductsService.cs:
+
+\begin{lstlisting}
+[JSInvokable("LogMessage")]
+public static Product LogMessage(int id)
+{
+    Console.WriteLine("Hello message " + id);
+    return new Product() { Id = 3, Name = "test"};
+}
+\end{lstlisting}
+
+We can call it from JavaScript file by specifying assembly (in our case, 'demo-sln'), method identifier (LogMessage) and parameter to be passed:
+
+\begin{lstlisting}
+async function callCSharpMethod() {
+    const result = await DotNet.invokeMethodAsync("demo-sln", "LogMessage", 1);
+    console.log(result);
+}
+\end{lstlisting}
+
+Noiw by adding the following button:
+
+\begin{lstlisting}
+<button onclick="callCSharpMethod()">Call C# Method</button>
+\end{lstlisting}
+
+We can see the execution result being logged to console in both browser and DotNet console.
+
 
 
