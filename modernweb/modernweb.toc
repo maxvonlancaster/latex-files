@@ -1,15 +1,15 @@
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{Introduction}{3}{}%
 \contentsline {chapter}{\numberline {1}ASP.NET and Blazor.}{4}{}%
-\contentsline {chapter}{\numberline {2}React basics.}{15}{}%
-\contentsline {chapter}{\numberline {3}REST.}{26}{}%
-\contentsline {chapter}{\numberline {4}CQRS pattern in web-development.}{40}{}%
-\contentsline {chapter}{\numberline {5}GraphQL basics, queries and mutations. GraphQL subscriptions.}{45}{}%
-\contentsline {chapter}{\numberline {6}Authentication, Authorization, JWT and OAuth2.0 .}{61}{}%
-\contentsline {chapter}{\numberline {7}WebSockets and WebHooks. Integration with WebSocket servers.}{68}{}%
-\contentsline {chapter}{\numberline {8}XSS, CSRF, CORS, security and OWASP top 10.}{72}{}%
-\contentsline {chapter}{\numberline {9}Web performance optimization, lazy loading.}{80}{}%
-\contentsline {chapter}{\numberline {10}Architecture patterns, GoF, SOLID.}{83}{}%
-\contentsline {chapter}{\numberline {11}Unit and integration testing. Tools for unit testing web applications.}{142}{}%
-\contentsline {chapter}{\numberline {12}Logging.}{153}{}%
-\contentsline {chapter}{References}{158}{}%
+\contentsline {chapter}{\numberline {2}React basics.}{16}{}%
+\contentsline {chapter}{\numberline {3}REST.}{27}{}%
+\contentsline {chapter}{\numberline {4}CQRS pattern in web-development.}{41}{}%
+\contentsline {chapter}{\numberline {5}GraphQL basics, queries and mutations. GraphQL subscriptions.}{46}{}%
+\contentsline {chapter}{\numberline {6}Authentication, Authorization, JWT and OAuth2.0 .}{62}{}%
+\contentsline {chapter}{\numberline {7}WebSockets and WebHooks. Integration with WebSocket servers.}{70}{}%
+\contentsline {chapter}{\numberline {8}XSS, CSRF, CORS, security and OWASP top 10.}{74}{}%
+\contentsline {chapter}{\numberline {9}Web performance optimization, lazy loading.}{82}{}%
+\contentsline {chapter}{\numberline {10}Architecture patterns, GoF, SOLID.}{86}{}%
+\contentsline {chapter}{\numberline {11}Unit and integration testing. Tools for unit testing web applications.}{145}{}%
+\contentsline {chapter}{\numberline {12}Logging.}{156}{}%
+\contentsline {chapter}{References}{161}{}%

@@ -1,0 +1,167 @@
+\documentclass[10pt, openany]{book}
+
+\usepackage[T2A]{fontenc}    % Встановлює внутрішнє кодування шрифтів для кирилиці
+\usepackage[utf8]{inputenc}  % Дозволяє розпізнавати символи UTF-8
+\usepackage[ukrainian]{babel} % Налаштовує правила переносів та мовні команди
+\usepackage{graphicx}
+\usepackage[left=2cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{pifont}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\large\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\definecolor{my-light-gray}{gray}{0.95}
+
+% Створюємо окремий стиль для виводу терміналу
+\lstnewenvironment{console}[1][]
+{
+    \lstset{
+        backgroundcolor=\color{my-light-gray}, % Світло-сірий фон для консолі
+        basicstyle=\ttfamily\small\color{black}, % Моноширинний шрифт
+        frame=single,                    % Рамка навколо тексту
+        frameround=tttt,                 % Закруглені кути рамки
+        rulecolor=\color{my-light-gray},       % Колір рамки
+        numbers=none,                    % Без нумерації рядків
+        keepspaces=true,
+        #1
+    }
+}
+{}
+
+\raggedbottom
+
+\begin{document}
+\pagestyle{plain}
+
+\begin{large}
+\thispagestyle{empty}
+
+\begin{titlepage}
+\begin{center}
+        {\Large \textbf{Чернівецький Національний університет імені Юрія Федьковича \\
+Факультет математики та інформатики}} \\[5cm]   % University at the top
+
+        {\Large В. Косован} \\
+        {\Large О. Матвій} \\
+        {\Large Г. Мельник} \\
+        {\Large В. Мельник} \\[5cm]                   % Names
+
+        {\Huge \textbf{Інтелектуальний Аналіз Даних}} \\[0.5cm]
+
+        {\Large Навчальний посібник} \\[9cm]                        % Title & type
+
+        {\large Чернівці, 2026}                              % Bottom
+    \end{center}
+\end{titlepage}
+
+% -------------------------------
+% Second Page (info, disclaimer, etc.)
+% -------------------------------
+\newpage
+\thispagestyle{empty}   % No page number here
+
+
+УДК 004.738.5
+
+\begin{center}
+Рекомендовано до друку методичною радою факультету математики та інформатики \\
+Чернівецького національного університету імені Юрія Федьковича \\
+( протокол №  від       2026 року ) \\
+\end{center}
+
+Укладачі: \\
+Василь Косован, кандидат фізико-математичних наук, асистент кафедри математичного моделювання. \\ 
+Олександр Матвій, кандидат фізико-математичних наук, доцент кафедри математичного моделювання; \\
+Галина Мельник, кандидат економічних наук, доцент кафедри прикладної математики та інформаційних технологій; \\
+Василь Мельник, кандидат фізико-математичних наук, асистент кафедри математичного моделювання; \\
+
+
+Інтелектуальний Аналіз Даних : навчальний посібник.. Укл.: Василь Косован, Олександр Матвій, Галина Мельник, Василь Мельник – 
+Чернівці: Чернівецький національний університет ім. Юрія Федьковича, 2026. –  с.  \\
+
+Посібник висвітлює базові принципи інтелектуального аналізу даних. Матеріали посібника підготовлені на 
+основі методологічних досліджень авторів та відповідного курсу лекцій, містять основи теорії і практики аналізу даних.
+
+Рецензенти: \\
+Міночкін Дмитро Анатолійович, канд. щу сфері телекомунікацій, доцент кафедрителекомунікацій, 
+Національний технічний університет України "Київський політехнічний інститут імені Ігоря Сікорського"\\
+Семенов Віталій, сеніор інженер, SoftHouseGroup. \\
+
+ 
+Для студентів, що здобувають освіту в галузі знань „Інформаційні технології” для спеціальностей 122 - 
+“Комп’ютерні науки”, 124 - “Системний аналіз”, 113 - ”Прикладна математика” та інших спеціальностей, 
+що пов'язані із вивченням комп'ютерних інформаційних технологій. УДК 004.738.5 \\
+
+
+© Косован В.М., Матвій О.В., Мельник Г.В., Мельник В.С. \\
+
+© Чернівецький національний університет, 2026 \\
+
+
+
+    \vfill
+
+
+\pagebreak
+\tableofcontents
+
+% \input ida-intro.tex
+
+\input ida-1-data-collection.tex
+
+\input ida-2-data-processing.tex
+
+\input ida-3-data-visualization.tex
+
+\input ida-4-lin-alg.tex
+
+\input ida-5-nlp.tex
+
+\input ida-6-prob.tex
+
+\input ida-7-ml-intro.tex
+
+\input ida-8-lin-classif.tex
+
+\input ida-9-nonlinear-ml.tex
+
+\input ida-10-ensemble-ml.tex
+
+\input ida-11-unsupervised-ml.tex
+
+\input ida-12-hypothesis-test.tex
+
+\input ida-13-recommend-syst.tex
+
+\input ida-14-ts.tex
+
+\input ida-15-crysis-prognos.tex
+
+\input ida-16-dl.tex
+
+
+\end{large}
+\end{document}

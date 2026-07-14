@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1760513172.12442 "c:/personal/math/latex-files/modernweb/modernweb.tex" "modernweb.pdf" "modernweb" 1760513174.2123 0
+["pdflatex"] 1761124103.97089 "c:/personal/math/latex-files/modernweb/modernweb.tex" "modernweb.pdf" "modernweb" 1761124108.23282 0
   "c:/Users/vmelnyk2/.texlive2025/texmf-var/fonts/tfm/lh/lh-t2a/labx1440.tfm" 1760512548 3304 6a543c07045572737981351171e0505e ""
   "c:/Users/vmelnyk2/.texlive2025/texmf-var/fonts/tfm/lh/lh-t2a/labx1728.tfm" 1760512547 3312 d199be9bd555944e2403193d58a0256a ""
   "c:/Users/vmelnyk2/.texlive2025/texmf-var/fonts/tfm/lh/lh-t2a/labx2488.tfm" 1760513169 3304 10c1a71cb294f8a8339c46823bcc15f2 ""
@@ -76,9 +76,9 @@
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760466010 3629013 5396aa3c5e082cd9694a687fd8714163 ""
   "c:/texlive/2025/texmf.cnf" 1760465470 713 e69b156964470283e0530f5060668171 ""
   "intro.tex" 1756035206 2347 6d34537ed1a3d174df7c8b23d338ed99 ""
-  "modernweb.aux" 1760513174 2952 08402fd3a8e79f2a16833e85360ee645 "pdflatex"
+  "modernweb.aux" 1761124107 2952 08402fd3a8e79f2a16833e85360ee645 "pdflatex"
   "modernweb.tex" 1760513164 2871 d143123041100451110db94b00788dd1 ""
-  "modernweb.toc" 1760513174 1135 8a6898993adf031b83b3acb68b561259 "pdflatex"
+  "modernweb.toc" 1761124107 1135 8a6898993adf031b83b3acb68b561259 "pdflatex"
   "mw-blazor.tex" 1756031840 14123 161166e904f16eeb4a887f92227be2c5 ""
   "mw-cqrs.tex" 1756033646 7370 1ef8e92920e271a90dd6e55ae4690d22 ""
   "mw-graphql.tex" 1756032018 18886 0961ad668bb5571c908174dafbe7ae2e ""
@@ -89,7 +89,7 @@
   "mw-patterns.tex" 1756032140 73045 0b1feefa85f440ec0e326f9a6c71b04f ""
   "mw-react.tex" 1756032707 12047 4f49671982df26478bc2c244408f7946 ""
   "mw-rest.tex" 1756032006 21363 6c3c46d95ba02641f1ddea73ae47a36b ""
-  "mw-security.tex" 1756032069 13481 6a4d09b60d5dbe0628bfb6f4a3e70f7d ""
+  "mw-security.tex" 1761124100 13519 544795116a89e0d63d9421a96d1bb1c2 ""
   "mw-testing.tex" 1756032159 14423 c09de2ec12876a226934a41e814f4f4c ""
   "mw-webhooks.tex" 1756032054 5408 9199596a4006d4a669203e507bf6d5fa ""
   (generated)

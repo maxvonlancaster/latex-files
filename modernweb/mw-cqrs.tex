@@ -14,20 +14,20 @@ The motivation behind CQRS comes from the different requirements of reading and 
 
 One of the key benefits of CQRS is scalability. Applications with a large number of users often have an imbalance between reads and writes, where queries vastly outnumber commands. By splitting the two responsibilities, developers can scale query handling independently of command processing. For example, caching layers, read replicas, or even entirely different database technologies can be introduced for queries without affecting the integrity of command operations.
 
-Another important advantage is clearer domain modeling. Commands express intentions that modify the system’s state, such as "create a new order" or "update customer details." Queries express information needs, such as "list all pending orders" or "retrieve a customer profile." This separation reflects real-world thinking and allows developers to design business logic in a way that is more aligned with the domain language and user scenarios.
+Another important advantage is clearer domain modeling. Commands express intentions that modify the systemï¿½s state, such as "create a new order" or "update customer details." Queries express information needs, such as "list all pending orders" or "retrieve a customer profile." This separation reflects real-world thinking and allows developers to design business logic in a way that is more aligned with the domain language and user scenarios.
 
 CQRS also lays the foundation for more advanced patterns, particularly event sourcing. When combined, these approaches enable full traceability of system changes, audit capabilities, and the possibility to reconstruct the system state at any point in time. This is particularly valuable in domains where accountability, compliance, or historical analysis is essential.
 
 Despite its advantages, CQRS is not always necessary. For smaller systems with straightforward requirements, separating commands and queries may introduce unnecessary complexity. It is best applied when the system has complex business rules, large-scale read and write operations, or requirements for independent optimization of queries and commands. In these cases, the clarity, scalability, and maintainability offered by CQRS outweigh the added architectural overhead.
 
-In conclusion, CQRS is a pattern that embodies a separation of concerns at the architectural level. It helps developers design systems where queries and commands are handled independently, leading to greater flexibility and scalability. When used in appropriate contexts, it becomes a powerful tool in the modern web developer’s toolkit, enabling applications to evolve gracefully as their complexity and usage grow. 
+In conclusion, CQRS is a pattern that embodies a separation of concerns at the architectural level. It helps developers design systems where queries and commands are handled independently, leading to greater flexibility and scalability. When used in appropriate contexts, it becomes a powerful tool in the modern web developerï¿½s toolkit, enabling applications to evolve gracefully as their complexity and usage grow. 
 
 
 \medskip
 
 \textbf{Example of application.}
 
-Let’s extend the previous chapter with a practical example in .NET Web API where we apply CQRS to an application that handles students. We’ll keep it structured and realistic, but clear enough for everybody to follow.
+Letï¿½s extend the previous chapter with a practical example in .NET Web API where we apply CQRS to an application that handles students. Weï¿½ll keep it structured and realistic, but clear enough for everybody to follow.
 
 In a traditional architecture, we might have a StudentController with methods like GetStudents, GetStudentById, AddStudent, and UpdateStudent, all calling a single StudentService or StudentRepository. While this works for small applications, it can quickly become messy when the application grows. Queries and commands are mixed, and optimizations for reading can interfere with rules for writing.
 
@@ -35,7 +35,7 @@ Using CQRS, we separate these two concerns.
 
 \textit{Commands (Write Operations)}
 
-Commands represent intentions to change the system’s state. In our student management system, commands might include: add a new student, update student information and delete a student
+Commands represent intentions to change the systemï¿½s state. In our student management system, commands might include: add a new student, update student information and delete a student
 
 Each command is represented by a dedicated object (DTO) and handled by a corresponding command handler. For example:
 
@@ -140,3 +140,43 @@ public class StudentController : ControllerBase
 
 \end{lstlisting}
 
+
+\medskip
+
+\begin{itemize}
+    \item What problem does the CQRS pattern aim to solve in modern web applications?
+    
+    \item What does the acronym CQRS stand for?
+    
+    \item What is the difference between commands and queries in CQRS architecture?
+    
+    \item Why can separating read and write operations improve application scalability?
+    
+    \item How can query operations be optimized differently from command operations?
+    
+    \item What are some examples of command operations in a student management system?
+    
+    \item What are some examples of query operations in a student management system?
+    
+    \item What is the purpose of a command handler in CQRS?
+    
+    \item What is the purpose of a query handler in CQRS?
+    
+    \item Why are commands usually associated with validation and business logic?
+    
+    \item How does CQRS contribute to clearer domain modeling?
+    
+    \item What is the role of the controller in a CQRS-based ASP.NET application?
+    
+    \item Why can CQRS improve maintainability in large systems?
+    
+    \item What is event sourcing and how can it complement CQRS?
+    
+    \item In what situations might CQRS introduce unnecessary complexity?
+    
+    \item Why are read-heavy systems particularly suitable for CQRS architecture?
+    
+    \item What are the advantages of separating query models from command models?
+    
+    \item How does CQRS support independent scaling of read and write operations?
+\end{itemize}

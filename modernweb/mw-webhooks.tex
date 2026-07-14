@@ -14,14 +14,14 @@ Common Use Cases for WebSockets include: live chat and messaging applications, d
 
 \textbf{WebHooks} are a mechanism for servers to notify other systems when certain events occur. Instead of continuously polling an API to check for updates, a WebHook pushes data automatically by sending an HTTP POST request to a predefined URL.
 
-Common Use Cases for WebHooks are: payment gateways (notify a merchant’s system when a transaction is completed), CI/CD pipelines (trigger automated builds and deployments when code is pushed to a repository), CRM and marketing platforms (sync customer data when new leads are created) and notifications (send alerts to third-party apps when important events occur).
+Common Use Cases for WebHooks are: payment gateways (notify a merchantï¿½s system when a transaction is completed), CI/CD pipelines (trigger automated builds and deployments when code is pushed to a repository), CRM and marketing platforms (sync customer data when new leads are created) and notifications (send alerts to third-party apps when important events occur).
 
 
 Modern applications often need both real-time communication (WebSockets) and event-driven integration (WebHooks)
 
 WebSockets and WebHooks are complementary technologies that bring real-time interaction and event-driven automation to web applications. WebSockets enable ongoing two-way conversations between clients and servers, while WebHooks empower systems to notify one another when specific events occur. Together, they form the backbone of modern, interactive, and integrated web ecosystems.
 
-By adopting both, developers can build applications that not only respond to user actions instantly but also seamlessly integrate with the broader digital world—meeting the expectations of today’s real-time internet.
+By adopting both, developers can build applications that not only respond to user actions instantly but also seamlessly integrate with the broader digital worldï¿½meeting the expectations of todayï¿½s real-time internet.
 
 SignalR is an open-source library for ASP.NET that simplifies adding real-time web functionality to applications. It allows for server-side code to push content to connected clients instantly, enabling features like live updates, chat applications, and dashboards. SignalR handles the complexities of connection management and messaging, allowing developers to focus on building real-time features rather than low-level communication protocols.
 
@@ -65,7 +65,7 @@ namespace WebSocketDemo.Hubs
 }
 \end{lstlisting}
 
-JavaScript Client (HTML Page). You’ll need the SignalR JS client library. Add via CDN:
+JavaScript Client (HTML Page). Youï¿½ll need the SignalR JS client library. Add via CDN:
 
 
 \begin{lstlisting}
@@ -116,3 +116,28 @@ JavaScript Client (HTML Page). You’ll need the SignalR JS client library. Add vi
 \end{lstlisting}
 
 Start your .NET Web API app. After that, open the HTML page in two different browser tabs. Enter a username + message, and click Send. Both tabs will see the broadcasted message instantly.
+
+\medskip
+
+\begin{itemize}
+    \item What is the main difference between the HTTP request-response model and the WebSocket communication model?
+
+    \item Why are WebSockets considered a full-duplex communication protocol, and what does this enable in web applications?
+
+    \item In what scenarios are WebSockets more suitable than traditional HTTP polling, and why?
+
+    \item What is a WebHook, and how does it differ from WebSockets in terms of communication direction and triggering mechanism?
+
+    \item Why are WebHooks considered an event-driven integration mechanism, and what advantage do they have over continuous API polling?
+
+    \item Give examples of real-world systems where WebHooks are commonly used and explain how they improve system integration.
+
+    \item How do WebSockets and WebHooks complement each other in modern web application architectures?
+
+    \item What is SignalR, and how does it simplify working with real-time communication in ASP.NET applications?
+
+    \item How does SignalR choose between WebSockets, Server-Sent Events, and long polling, and why is this flexibility important?
+
+    \item In the provided SignalR example, what is the role of the Hub class and the SendMessage method in enabling real-time communication?
+\end{itemize}
+

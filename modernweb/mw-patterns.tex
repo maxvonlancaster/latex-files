@@ -1986,7 +1986,7 @@ builder.Services.AddControllers();
 \textbf{Memento}
 \end{center}
 
-The Memento pattern is a behavioral design pattern that allows you to capture and save an object's internal state without violating encapsulation — so it can be restored to that state later. It’s commonly used for implementing undo functionality.
+The Memento pattern is a behavioral design pattern that allows you to capture and save an object's internal state without violating encapsulation ï¿½ so it can be restored to that state later. Itï¿½s commonly used for implementing undo functionality.
 
 Use cases:
 
@@ -2174,7 +2174,7 @@ The State design pattern (GoF) is a behavioral pattern that lets an object alter
 Instead of writing big if/else or switch statements everywhere, you encapsulate state-specific behavior in separate classes and let the object delegate work to the current state.
 
 
-\textbf{Example.} Let’s say we’re building an e-commerce site. An Order can be in multiple states (Pending, Paid, Shipped), and its behavior changes depending on the state.
+\textbf{Example.} Letï¿½s say weï¿½re building an e-commerce site. An Order can be in multiple states (Pending, Paid, Shipped), and its behavior changes depending on the state.
 
 \begin{lstlisting}
 // State intefrace
@@ -2284,7 +2284,7 @@ public class OrdersController : ControllerBase
 \textbf{Strategy}
 \end{center}
 
-The Strategy Pattern is one of the most widely used behavioral design patterns. It enables selecting an algorithm’s behavior at runtime instead of hard-coding it. By encapsulating algorithms in separate classes and making them interchangeable, the Strategy Pattern adheres to the Open/Closed Principle: classes are open for extension but closed for modification.
+The Strategy Pattern is one of the most widely used behavioral design patterns. It enables selecting an algorithmï¿½s behavior at runtime instead of hard-coding it. By encapsulating algorithms in separate classes and making them interchangeable, the Strategy Pattern adheres to the Open/Closed Principle: classes are open for extension but closed for modification.
 
 \textbf{Example.} Imagine a .NET Web API where users can place orders. Discounts vary depending on the customer type (e.g., Regular, Premium, VIP). Instead of hard-coding discount logic into the service, we can apply the Strategy Pattern.
 
@@ -2383,7 +2383,7 @@ public class OrdersController : ControllerBase
 \textbf{Template Method}
 \end{center}
 
-The Template Method pattern is a behavioral design pattern that defines the skeleton of an algorithm in a base class while allowing subclasses to override specific steps without changing the algorithm’s overall structure. It is particularly useful when you have a process that always follows the same outline but has variations in some of its steps. By applying this pattern, you promote code reuse and enforce a consistent workflow, while giving flexibility to extend or customize parts of the process.
+The Template Method pattern is a behavioral design pattern that defines the skeleton of an algorithm in a base class while allowing subclasses to override specific steps without changing the algorithmï¿½s overall structure. It is particularly useful when you have a process that always follows the same outline but has variations in some of its steps. By applying this pattern, you promote code reuse and enforce a consistent workflow, while giving flexibility to extend or customize parts of the process.
 
 \textbf{Example.}
 
@@ -2481,9 +2481,9 @@ public class ImportController : ControllerBase
 \textbf{Visitor}
 \end{center}
 
-The Visitor pattern is a behavioral design pattern that lets you separate an algorithm from the objects it operates on. Instead of putting logic inside your data models, you “visit” them with a separate object (the visitor), which encapsulates the operation.
+The Visitor pattern is a behavioral design pattern that lets you separate an algorithm from the objects it operates on. Instead of putting logic inside your data models, you ï¿½visitï¿½ them with a separate object (the visitor), which encapsulates the operation.
 
-The main benefit is that you can add new operations without changing the classes of the elements you’re working with. This is useful when you have a hierarchy of objects and want to perform different actions depending on the object type, but don’t want to clutter the model classes with many methods.
+The main benefit is that you can add new operations without changing the classes of the elements youï¿½re working with. This is useful when you have a hierarchy of objects and want to perform different actions depending on the object type, but donï¿½t want to clutter the model classes with many methods.
 
 \textbf{Example.} Suppose you have an API that handles different notifications: Email and SMS. Each notification needs to be processed differently (e.g., send via SMTP vs. send via Twilio). The Visitor pattern can help keep this clean.
 
@@ -2569,5 +2569,27 @@ public class NotificationsController : ControllerBase
 \end{lstlisting}
 
 
+
+\begin{itemize}
+    \item What does the acronym SOLID stand for, and what is the main goal of applying these principles in software design?
+
+    \item What is the Single Responsibility Principle (SRP), and how can violating it lead to maintenance problems in a codebase?
+
+    \item In the provided example, why does the original \texttt{BadBook} class violate SRP, and how does separating printing logic improve the design?
+
+    \item What does the Open-Closed Principle (OCP) state, and why is it important that software entities are open for extension but closed for modification?
+
+    \item In the Guitar example, how does inheritance demonstrate adherence to the Open-Closed Principle?
+
+    \item What is the Liskov Substitution Principle (LSP), and why is substitutability important in object-oriented programming?
+
+    \item How does the \texttt{ElectricCar} example violate LSP, and what kind of design change is suggested to fix this issue?
+
+    \item What is the Interface Segregation Principle (ISP), and how does it improve maintainability in large systems?
+
+    \item Why is splitting large interfaces into smaller ones (as shown in the BearKeeper example) considered a good design practice?
+
+    \item What is the Dependency Inversion Principle (DIP), and how does dependency on abstractions improve flexibility and testability in software systems?
+\end{itemize}
 
 

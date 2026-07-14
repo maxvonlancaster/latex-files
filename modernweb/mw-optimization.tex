@@ -8,11 +8,11 @@
 
 Web performance optimization is a crucial aspect of modern development because the speed and responsiveness of a website directly influence how users perceive it and whether they choose to stay or leave. One of the most effective techniques for improving performance is lazy loading. The idea behind lazy loading is simple: instead of forcing the browser to load every single asset or piece of content immediately when a page opens, resources are loaded only when they are needed. This reduces the initial loading time and improves the overall user experience.
 
-Consider a webpage that contains dozens of high-resolution images. If all of them are downloaded at once, the page will take longer to render, especially on slower networks or mobile devices. This can frustrate users who might leave before even seeing the content. With lazy loading, only the images visible in the user’s viewport are fetched, while others are loaded later as the user scrolls down. This means the page feels faster and more responsive right from the beginning.
+Consider a webpage that contains dozens of high-resolution images. If all of them are downloaded at once, the page will take longer to render, especially on slower networks or mobile devices. This can frustrate users who might leave before even seeing the content. With lazy loading, only the images visible in the userï¿½s viewport are fetched, while others are loaded later as the user scrolls down. This means the page feels faster and more responsive right from the beginning.
 
 Lazy loading is also beneficial for conserving bandwidth and server resources. For example, on a news site, a user may only read the first few articles and never scroll further. Without lazy loading, all the images and media for the entire page are downloaded unnecessarily, wasting both client and server capacity. By deferring these requests, the system becomes more efficient and scales better under heavy traffic.
 
-In practice, lazy loading has become particularly important in the context of mobile browsing, where network conditions are often less reliable. A fast and responsive mobile experience can make the difference between keeping a user engaged or losing them to a competitor’s site. That is why lazy loading is not just a technical trick but a user-centered strategy that aligns with the broader goal of web performance optimization.
+In practice, lazy loading has become particularly important in the context of mobile browsing, where network conditions are often less reliable. A fast and responsive mobile experience can make the difference between keeping a user engaged or losing them to a competitorï¿½s site. That is why lazy loading is not just a technical trick but a user-centered strategy that aligns with the broader goal of web performance optimization.
 
 \medskip
 
@@ -89,4 +89,29 @@ const observer = new IntersectionObserver(lazyLoad, { threshold: 0.1 });
 images.forEach(img => observer.observe(img));
 
 \end{lstlisting}
+
+
+\medskip
+
+\begin{itemize}
+    \item What is web performance optimization, and why does it play a critical role in modern web applications?
+
+    \item What is lazy loading, and how does it differ from the traditional approach of loading all resources at page load?
+
+    \item How does lazy loading improve initial page load time and perceived performance for the user?
+
+    \item In what situations can loading all images or assets at once become inefficient or problematic?
+
+    \item How does lazy loading help reduce bandwidth usage for both clients and servers?
+
+    \item Why is lazy loading especially important for mobile users and networks with limited bandwidth or higher latency?
+
+    \item How does the example with separate lightweight and detailed product endpoints demonstrate the concept of lazy loading at the API level?
+
+    \item What is the purpose of the HTML attribute \texttt{loading="lazy"}, and what types of elements does it typically optimize?
+
+    \item How does the Intersection Observer API enable more advanced lazy loading behavior in modern JavaScript applications?
+
+    \item What are the potential trade-offs or challenges when implementing lazy loading in a web application?
+\end{itemize}
 

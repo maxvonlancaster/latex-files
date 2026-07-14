@@ -28,10 +28,10 @@ cryptography which often leads to sensitive data exposure or system compromise.
 \item A03:2021-Injection slides down to the third position. 94\% of the applications were tested for some form of injection, and the 33 CWEs mapped into this category have the second most occurrences in applications. Cross-sit Scripting is now part of this category in this edition.
 
 \item A04:2021-Insecure Design is a new cate
-gory for 2021, with a focus on risks related to design flaws. If we genuinely want to “move left” as an industry, it calls for more use of threat modeling,
+gory for 2021, with a focus on risks related to design flaws. If we genuinely want to ï¿½move leftï¿½ as an industry, it calls for more use of threat modeling,
 secure design patterns and principles, and reference architectures.
 
-\item A05:2021-Security Misconfiguration moves up from \#6 in the previous edition; 90\% of applications were tested for some form of misconfiguration. With more shifts into highly configurable software, it’s not surprising to see this category move up. The former category for XML External Entities (XXE) is now part of this category.
+\item A05:2021-Security Misconfiguration moves up from \#6 in the previous edition; 90\% of applications were tested for some form of misconfiguration. With more shifts into highly configurable software, itï¿½s not surprising to see this category move up. The former category for XML External Entities (XXE) is now part of this category.
 
 \item A06:2021-Vulnerable and Outdated Components was previously titled Using Components with Known Vulnerabilities and is \#2 in the Top 10 community survey, but also had enough data to make the Top 10 via data analysis. This category moves up from \#9 in 2017 and is a known issue that we struggle to test and assess risk. It is the only category not to have any Common Vulnerability and Exposures (CVEs) mapped to the included CWEs, so a default exploit and impact weights of 5.0 are factored into their scores.
 
@@ -39,9 +39,9 @@ secure design patterns and principles, and reference architectures.
 
 \item A08:2021-Software and Data Integrity Failures is a new category for 2021, focusing on making assumptions related to software updates, critical data, and CI/CD pipelines without verifying integrity. One of the highest weighted impacts from Common Vulnerability and Exposures/Common Vulnerability Scoring System (CVE/CVSS) data mapped to the 10 CWEs in this category. Insecure Deserialization from 2017 is now a part of this larger category.
 
-\item A09:2021-Security Logging and Monitoring Failures was previously Insufficient Logging \& Monitoring and is added from the industry survey (\#3), moving up from \#10 previously. This category is expanded to include more types of failures, is challenging to test for, and isn’t well represented in the CVE/CVSS data. However, failures in this category can directly impact visibility, incident alerting, and forensics.
+\item A09:2021-Security Logging and Monitoring Failures was previously Insufficient Logging \& Monitoring and is added from the industry survey (\#3), moving up from \#10 previously. This category is expanded to include more types of failures, is challenging to test for, and isnï¿½t well represented in the CVE/CVSS data. However, failures in this category can directly impact visibility, incident alerting, and forensics.
 
-\item A10:2021-Server-Side Request Forgery is added from the Top 10 community survey (\#1). The data shows a relatively low incidence rate with above average testing coverage, along with above-average ratings for Exploit and Impact potential. This category represents the scenario where the security community members are telling us this is important, even though it’s not illustrated in the data at this time.
+\item A10:2021-Server-Side Request Forgery is added from the Top 10 community survey (\#1). The data shows a relatively low incidence rate with above average testing coverage, along with above-average ratings for Exploit and Impact potential. This category represents the scenario where the security community members are telling us this is important, even though itï¿½s not illustrated in the data at this time.
 
 \end{itemize}
 
@@ -49,11 +49,11 @@ secure design patterns and principles, and reference architectures.
 
 \textbf{Example of XSS handling in .net}
 
-In a .NET Web API, you don’t usually have direct HTML rendering (like in MVC views or Razor Pages), but XSS can still creep in if your API sends unsafe data that is later rendered in a browser (e.g., in a React/Angular UI or directly in HTML).
+In a .NET Web API, you donï¿½t usually have direct HTML rendering (like in MVC views or Razor Pages), but XSS can still creep in if your API sends unsafe data that is later rendered in a browser (e.g., in a React/Angular UI or directly in HTML).
 
 The key principle is: sanitize or encode any untrusted input before returning or displaying it.
 
-Here’s a simple example of unsafe code:
+Hereï¿½s a simple example of unsafe code:
 
 \begin{lstlisting}
 // Model
@@ -94,7 +94,7 @@ public class CommentsController : ControllerBase
 
 \end{lstlisting}
 
-And your frontend renders it directly, you’ll get a popup script execution — classic XSS.
+And your frontend renders it directly, youï¿½ll get a popup script execution ï¿½ classic XSS.
 
 We sanitize or encode the content before returning it:
 
@@ -130,7 +130,7 @@ public class CommentsController : ControllerBase
 
 \end{lstlisting}
 
-In this case, for the malicious input the API will return:
+In this case, for the malicious input the API will return:  
 
 \begin{lstlisting}
 {
@@ -143,7 +143,7 @@ In this case, for the malicious input the API will return:
 
 \textbf{Example of CSRF handling in .net}
 
-Unlike XSS, CSRF is not about injecting malicious scripts, but about tricking a victim’s browser into making an authenticated request to your API without their consent. For example: if your Web API has an endpoint /api/account/transfer and the victim is logged in, a malicious site could cause their browser to unknowingly send a request to that endpoint.
+Unlike XSS, CSRF is not about injecting malicious scripts, but about tricking a victimï¿½s browser into making an authenticated request to your API without their consent. For example: if your Web API has an endpoint /api/account/transfer and the victim is logged in, a malicious site could cause their browser to unknowingly send a request to that endpoint.
 
 Suppose you have a controller like this:
 
@@ -168,9 +168,9 @@ public class TransferRequest
 
 \end{lstlisting}
 
-If your app uses cookie-based authentication (common with Identity or Azure AD B2C), then the browser will automatically send cookies with this request — even if it originates from a malicious site. That’s the CSRF attack.
+If your app uses cookie-based authentication (common with Identity or Azure AD B2C), then the browser will automatically send cookies with this request ï¿½ even if it originates from a malicious site. Thatï¿½s the CSRF attack.
 
-If you’re using ASP.NET Core with cookie auth, you can require an anti-forgery token with every request that modifies data.
+If youï¿½re using ASP.NET Core with cookie auth, you can require an anti-forgery token with every request that modifies data.
 
 \begin{lstlisting}
 // Program.cs:
@@ -181,7 +181,7 @@ builder.Services.AddControllersWithViews(options =>
 });
 builder.Services.AddAntiforgery(options =>
 {
-    options.HeaderName = "X-CSRF-TOKEN"; // we’ll expect this header
+    options.HeaderName = "X-CSRF-TOKEN"; // weï¿½ll expect this header
 });
 
 
@@ -214,7 +214,7 @@ fetch("/api/account/transfer", {
 
 By default, browsers enforce the same-origin policy. A frontend running at https://app.example.com can freely call APIs hosted on the same origin (https://app.example.com/api/...). But if it tries to call an API at https://api.otherdomain.com, the browser will block the request unless the API explicitly allows it.
 
-This is where CORS comes in — it’s the server telling the browser: “Yes, I trust requests from this origin. You may allow them.” Without proper CORS handling your legitimate frontend might not be able to reach your API, and if configured too loosely, your API could be open to abuse from untrusted origins.
+This is where CORS comes in ï¿½ itï¿½s the server telling the browser: ï¿½Yes, I trust requests from this origin. You may allow them.ï¿½ Without proper CORS handling your legitimate frontend might not be able to reach your API, and if configured too loosely, your API could be open to abuse from untrusted origins.
 
 Example of CORS Setup in .NET Web API, in Program.cs:
 
@@ -242,3 +242,28 @@ app.MapControllers();
 app.Run();
 
 \end{lstlisting}
+
+
+
+\begin{itemize}
+    \item What is the difference between XSS (Cross-Site Scripting) and CSRF (Cross-Site Request Forgery), and how do their attack mechanisms differ?
+
+    \item Why is proper input sanitization or encoding essential for preventing XSS vulnerabilities in web applications?
+
+    \item In a typical web architecture (e.g., React frontend + .NET Web API), at what stage can XSS vulnerabilities be introduced, and why?
+
+    \item How does a CSRF attack exploit browser behavior related to cookies and authentication?
+
+    \item What is the role of anti-forgery tokens in preventing CSRF attacks, and how are they validated on the server side?
+
+    \item What is CORS, and how does it relate to the browser's same-origin policy?
+
+    \item Why can misconfigured CORS policies (e.g., allowing all origins) create serious security risks?
+
+    \item What is the purpose of the OWASP Top 10 list, and how should developers use it in the software development lifecycle?
+
+    \item How does the provided .NET example demonstrate prevention of XSS attacks using HTML encoding?
+
+    \item In the CORS configuration example, why is it safer to explicitly specify allowed origins instead of using a wildcard policy?
+\end{itemize}
+
