@@ -64,20 +64,31 @@
 \contentsline {subsection}{\numberline {6.1.1}Закон великих чисел}{71}{}%
 \contentsline {section}{\numberline {6.2}Використання NumPy для роботи з розподілами ймовірностей.}{71}{}%
 \contentsline {subsection}{\numberline {6.2.1}Рівномірний розподіл.}{71}{}%
-\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{71}{}%
-\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{72}{}%
-\contentsline {section}{\numberline {6.3}Теорема Байєса.}{73}{}%
+\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{72}{}%
+\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{73}{}%
+\contentsline {section}{\numberline {6.3}Теорема Байєса.}{74}{}%
 \contentsline {chapter}{\numberline {7}Вступ в машинне навчання.}{76}{}%
 \contentsline {section}{\numberline {7.1}Градієнтний спуск.}{78}{}%
 \contentsline {subsection}{\numberline {7.1.1}Біблотека scikit-learn.}{83}{}%
 \contentsline {section}{\numberline {7.2}Трохи більше про машинне навчання.}{85}{}%
 \contentsline {subsection}{\numberline {7.2.1}Приклади алгоритмів машинного навчання.}{85}{}%
-\contentsline {chapter}{\numberline {8}Лінійна Класифікація.}{88}{}%
-\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{89}{}%
-\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{90}{}%
-\contentsline {chapter}{\numberline {11}Навчання без учителя.}{91}{}%
-\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{92}{}%
-\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{93}{}%
-\contentsline {chapter}{\numberline {14}Часові Ряди.}{94}{}%
-\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{95}{}%
-\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{96}{}%
+\contentsline {chapter}{\numberline {8}Лінійна Класифікація та Логістична Регресія.}{88}{}%
+\contentsline {section}{\numberline {8.1}Лінійна Класифікація.}{88}{}%
+\contentsline {subsection}{\numberline {8.1.1}Приклад лінійної класифікації: класифікація раку молочної залози}{88}{}%
+\contentsline {subsection}{\numberline {8.1.2}Функція втрат (Loss function)}{89}{}%
+\contentsline {section}{\numberline {8.2}Логістична регресія.}{90}{}%
+\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{94}{}%
+\contentsline {section}{\numberline {9.1}Поліноміальна Регресія.}{96}{}%
+\contentsline {subsection}{\numberline {9.1.1}Узагальнення та перенавчання.}{97}{}%
+\contentsline {subsection}{\numberline {9.1.2}k-кратна перехресна валідація.}{98}{}%
+\contentsline {section}{\numberline {9.2}Поліноміальна класифікація.}{98}{}%
+\contentsline {section}{\numberline {9.3}Метод Опорних Векторів.}{101}{}%
+\contentsline {section}{\numberline {9.4}Наївний баєсів класифікатор (Naive Bayes classifier).}{105}{}%
+\contentsline {section}{\numberline {9.5}Дерева прийняття рішень (Decision trees).}{105}{}%
+\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{106}{}%
+\contentsline {chapter}{\numberline {11}Навчання без учителя.}{107}{}%
+\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{108}{}%
+\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{109}{}%
+\contentsline {chapter}{\numberline {14}Часові Ряди.}{110}{}%
+\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{111}{}%
+\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{112}{}%
