@@ -58,6 +58,7 @@ plt.plot(X_line, y_line)
 
 Очевидно, що лінійна модель не найкращим чином наближає ці дані.
 
+Нелінійна модель машинного навчання — це модель, яка здатна описувати складні, нелінійні залежності між вхідними ознаками та цільовою змінною. На відміну від лінійних моделей, вона не обмежується прямою або площиною як межею прогнозування, а може будувати криволінійні поверхні, що точніше відображають закономірності реальних даних.
 
 
 
@@ -460,26 +461,245 @@ plt.show()
 \includegraphics[scale=0.75]{img/203-7}
 
 
-\section{Наївний баєсів класифікатор (Naive Bayes classifier).}
+\section{Наївний баєсів класифікатор.}
 
+Наївний баєсівський класифікатор (Naive Bayes classifier) — це ймовірнісний метод класифікації, який базується на теоремі Байєса.
+Він оцінює, до якого класу належить об’єкт $ x $, обчислюючи ймовірність $P(C_k | x)$ для кожного класу $C_k$.
 
-\section{Дерева прийняття рішень (Decision trees).}
+Теорема Байєса: основна формула
 
+$$P(C_k | x) = \frac{P(x | C_k) , P(C_k)}{P(x)}$$
 
+де $P(C_k | x)$ — апостеріорна ймовірність класу після спостереження ознак, $P(x | C_k)$ — правдоподібність (як імовірно отримати ознаки, якщо відомий клас), $P(C_k)$ — апріорна ймовірність класу, $P(x)$ — нормувальний коефіцієнт (спільна ймовірність ознак).
 
+при цьому методі машинного навчання, ми робимо так зване \textit{"наївне" припущення незалежності}: методологічних вважає, що всі ознаки $x_1, x_2, \dots, x_n$ незалежні одна від одної, якщо відомо, до якого класу належить об’єкт.
 
+$$P(x | C_k) = \prod_{j=1}^n P(x_j | C_k)$$
 
+Це "наївне" припущення значно спрощує обчислення, навіть якщо насправді ознаки частково залежать.
 
+Формула класифікації: Підставимо у формулу Байєса:
 
+$$P(C_k | x) \propto P(C_k) \prod_{j=1}^n P(x_j | C_k)$$
 
+Оскільки $ P(x) $ однакова для всіх класів, її можна не враховувати при порівнянні.
 
+Отже, ми вибираємо клас з максимальною апостеріорною ймовірністю:
+
+$$\hat{C} = \arg\max_{C_k} ; P(C_k) \prod_{j=1}^n P(x_j | C_k)$$
+
+Наведемо приклад використання наївного баєсівого класифікатора для задачі класифікації пухлин:
 
 \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score
 
+data = load_breast_cancer()
+X = data.data[:, [3, 25]]  
+y = data.target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+clf = GaussianNB()
+clf.fit(X_train_scaled, y_train)
+
+y_pred = clf.predict(X_test_scaled)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+x_min, x_max = X_train_scaled[:, 0].min() - 1, X_train_scaled[:, 0].max() + 1
+y_min, y_max = X_train_scaled[:, 1].min() - 1, X_train_scaled[:, 1].max() + 1
+xx, yy = np.meshgrid(
+    np.linspace(x_min, x_max, 200),
+    np.linspace(y_min, y_max, 200)
+)
+
+Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.contourf(xx, yy, Z, alpha=0.2, cmap='coolwarm')
+plt.scatter(X_test_scaled[:, 0], X_test_scaled[:, 1], c=y_test, cmap='coolwarm', edgecolors='k')
+plt.xlabel('mean radius (scaled)')
+plt.ylabel('mean perimeter (scaled)')
+plt.title('Classification with Gaussian Naive Bayes')
+plt.show()
+
+ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap='Blues')
+plt.title("Confusion Matrix")
+plt.show()
 \end{lstlisting}
 
 Результат:
 
-\begin{console}
+\includegraphics[scale=0.75]{img/203-8}
 
-\end{console}
+\includegraphics[scale=0.75]{img/203-9}
+
+
+
+\section{Дерева прийняття рішень.}
+
+Алгоритм дерева прийняття рішень (Decision trees) використовується для класифікації або регресії.
+Його ідея — розділяти простір ознак на підмножини так, щоб отримати групи об’єктів, максимально однорідні за цільовою змінною.
+
+Дерево прийняття рішень — це ієрархічна структура, де вузол (node) містить умову розділення (наприклад, $x_{i} < t$), гілки (branches) це варіанти переходу (так/ні), а листки (leaves) — фінальні рішення (клас або числове значення)
+
+Нехай ми маємо навчальну вибірку:
+
+$${(x_i, y_i)}_{i=1}^n, \quad x_i \in \mathbb{R}^d, ; y_i \in {1, 2, \dots, K}$$
+
+Наша мета — знайти функцію $ f(x) $, яка розбиває простір ознак на області $ R_m $, і кожній області відповідає передбачення класу:
+
+$$f(x) = \sum_{m=1}^{M} c_m \cdot I(x \in R_m)$$
+
+де $ R_m $ — регіон (листок дерева), $c_m $ — значення або клас, який передбачається для цього регіону,  $ I(\cdot) $ — індикаторна функція (1, якщо умова виконується).
+
+На кожному кроці вибирається ознака $ x_j $ та поріг $ t $, які найкраще поділяють дані на дві частини:
+
+$$R_1(j, t) = {x \mid x_j \le t}, \quad R_2(j, t) = {x \mid x_j > t}$$
+
+Ми вибираємо такі $j, t$, що мінімізують певну функцію втрат $L$.
+
+Тут можна навести приклад із класифікацією пацієнтів за ризиком серцевих захворювань. Нехай перед нами стоїть задача класифікувати пацієнтів таким чином. Тут логічно будувати дерево, в якому на вузлах пацієнти будуть розділятися за віком (вік, більший за певне число - підвищений ризик), вагою (вага, більша за певне число - також ризик захворювань), та схильністю до куріння. Питання лише в підборі конкретних чисел (гранична вага та вік) таким чином, щоб мінімізувати ентропію (пацієнти, що будуть неправильно класифіковані). 
+
+Як бачимо, дерево прийняття рішень є цілком інтуїтивно зрозумілим алгоритмом, а значною перевагою цієї моделі є її інтерпретованість.
+
+\includegraphics[scale=0.5]{img/203-12}
+
+Приклад з використанням sklearn:
+
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.model_selection import train_test_split
+
+data = load_breast_cancer()
+
+X = data.data[:, [3, 25]]
+y = data.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+clf = DecisionTreeClassifier(max_depth=5, criterion='gini', random_state=42)
+clf.fit(X_train, y_train)
+
+print("Accuracy on test set:", clf.score(X_test, y_test))
+
+x_min, x_max = X[:, 0].min() - 0.01, X[:, 0].max() + 0.01
+y_min, y_max = X[:, 1].min() - 0.01, X[:, 1].max() + 0.01
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 300),
+                     np.linspace(y_min, y_max, 300))
+
+Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.figure(figsize=(10, 6))
+plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.RdYlBu)
+scatter = plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdYlBu, edgecolor='k', s=50)
+
+plt.xlabel(data.feature_names[3])
+plt.ylabel(data.feature_names[25])
+plt.title("Decision Tree Classifier (Depth=3)")
+# plt.legend(handles=scatter.legend_elements()[0], labels=data.target_names)
+plt.show()
+
+plt.figure(figsize=(14, 8))
+plot_tree(clf, feature_names=[data.feature_names[3], data.feature_names[25]],
+          class_names=data.target_names, filled=True, rounded=True)
+plt.title("Decision Tree Structure (2 features)")
+plt.show()
+\end{lstlisting}
+
+Результат:
+
+\includegraphics[scale=0.75]{img/203-10}
+
+\includegraphics[scale=0.5]{img/203-11}
+
+
+\ding{46} \textbf{Питання для самоконтролю.}
+
+\begin{enumerate}
+\item Що таке нелінійна модель машинного навчання?
+\item Чим нелінійні моделі відрізняються від лінійних?
+\item Які переваги мають нелінійні алгоритми?
+\item Які недоліки можуть виникати під час використання нелінійних моделей?
+\item У яких випадках лінійних моделей недостатньо?
+\item Що таке складність моделі?
+\item Як складність моделі впливає на її здатність до узагальнення?
+\item Що таке поліноміальна регресія?
+\item Чому поліноміальна регресія вважається нелінійною моделлю?
+\item Як формується поліноміальна ознака другого степеня?
+\item Як виглядає рівняння поліноміальної регресії другого порядку?
+\item Для чого використовуються поліноміальні ознаки?
+\item Як вибір степеня полінома впливає на модель?
+\item Які переваги має поліноміальна регресія?
+\item Які недоліки має поліноміальна регресія?
+\item Що відбувається при надто великому степені полінома?
+\item Як поліноміальна регресія може призвести до перенавчання?
+\item Що таке узагальнююча здатність моделі?
+\item Що таке перенавчання (Overfitting)?
+\item Які ознаки свідчать про перенавчання моделі?
+\item Що таке недонавчання (Underfitting)?
+\item Чим перенавчання відрізняється від недонавчання?
+\item Які причини виникнення перенавчання?
+\item Як кількість ознак впливає на ризик перенавчання?
+\item Які методи використовують для боротьби з перенавчанням?
+\item Чому важливо оцінювати модель на даних, які не використовувались під час навчання?
+\item Що таке перехресна валідація (Cross-Validation)?
+\item Для чого використовується k-кратна перехресна валідація?
+\item Як працює метод k-fold cross-validation?
+\item Що означає параметр k у k-fold validation?
+\item Які переваги має перехресна валідація порівняно зі звичайним поділом даних?
+\item Як обчислюється підсумкова якість моделі при k-fold validation?
+\item Як вибір значення k впливає на результати оцінювання?
+\item Чому k-кратна перехресна валідація допомагає виявляти перенавчання?
+\item Що таке поліноміальна класифікація?
+\item Як поліноміальні ознаки дозволяють будувати нелінійні межі класифікації?
+\item Чим поліноміальна класифікація відрізняється від лінійної?
+\item Які переваги має використання поліноміальних ознак у класифікації?
+\item Що таке метод опорних векторів (Support Vector Machine)?
+\item Яка основна ідея алгоритму SVM?
+\item Що таке гіперплощина класифікації в SVM?
+\item Що таке опорні вектори?
+\item Що називають відступом (margin) між класами?
+\item Чому SVM прагне максимізувати margin?
+\item Для чого використовується ядро (kernel) в SVM?
+\item Які типи ядер найчастіше використовуються в SVM?
+\item Як ядровий трюк (Kernel Trick) дозволяє будувати нелінійні класифікатори?
+\item Що таке наївний баєсівський класифікатор?
+\item На якій математичній теоремі базується цей алгоритм?
+\item У чому полягає припущення про незалежність ознак?
+\item Чому класифікатор називають «наївним»?
+\item Які переваги має наївний баєсівський класифікатор?
+\item Які недоліки має наївний баєсівський підхід?
+\item У яких задачах особливо часто застосовують Naive Bayes?
+\item Чому цей алгоритм популярний у задачах обробки тексту?
+\item Що таке дерево прийняття рішень?
+\item З яких основних елементів складається дерево рішень?
+\item Що таке кореневий вузол дерева?
+\item Що таке внутрішній вузол дерева?
+\item Що таке лист дерева?
+\item Як дерево приймає рішення щодо класифікації об'єкта?
+\item Що таке критерій розбиття вузла?
+\item Для чого використовується ентропія під час побудови дерева?
+\item Що таке Information Gain?
+\item Як індекс Джині (Gini Index) використовується при побудові дерева?
+\item Які переваги мають дерева прийняття рішень?
+\item Які недоліки мають дерева прийняття рішень?
+\item Чому дерева схильні до перенавчання?
+\end{enumerate}
+
+
