@@ -1,95 +1,133 @@
 \babel@toc {ukrainian}{}\relax 
-\contentsline {chapter}{\numberline {1}Збір даних.}{6}{}%
-\contentsline {section}{\numberline {1.1}Збір даних з веб-джерел.}{6}{}%
-\contentsline {section}{\numberline {1.2}RESTful API}{7}{}%
-\contentsline {section}{\numberline {1.3}CSV-файли.}{8}{}%
-\contentsline {section}{\numberline {1.4}Парсинг JSON в Python.}{9}{}%
-\contentsline {section}{\numberline {1.5}Парсинг XML/HTML в Python.}{10}{}%
-\contentsline {section}{\numberline {1.6}Регулярні вирази.}{12}{}%
-\contentsline {subsection}{\numberline {1.6.1}Відповідність декількох потенційних символів.}{13}{}%
-\contentsline {subsection}{\numberline {1.6.2}Групування.}{13}{}%
-\contentsline {subsection}{\numberline {1.6.3}Заміни.}{14}{}%
-\contentsline {subsection}{\numberline {1.6.4}Порядок і жадібне зіставлення.}{14}{}%
-\contentsline {chapter}{\numberline {2}Обробка даних.}{17}{}%
-\contentsline {section}{\numberline {2.1}Pandas}{17}{}%
-\contentsline {section}{\numberline {2.2}Методи очищення даних та обробка відсутніх значень.}{20}{}%
-\contentsline {subsection}{\numberline {2.2.1}Видалення відсутніх даних.}{21}{}%
-\contentsline {subsection}{\numberline {2.2.2}Заповнення середнім.}{22}{}%
-\contentsline {subsection}{\numberline {2.2.3}Заміщення медіанним значенням.}{22}{}%
-\contentsline {subsection}{\numberline {2.2.4}Заміщення модою.}{22}{}%
-\contentsline {section}{\numberline {2.3}Масштабування та нормалізація даних.}{23}{}%
-\contentsline {subsection}{\numberline {2.3.1}Мінімально-максимальне масштабування.}{23}{}%
-\contentsline {subsection}{\numberline {2.3.2}Нормалізація (стандартизація) за Z-балом.}{25}{}%
-\contentsline {subsection}{\numberline {2.3.3}Надійне масштабування.}{25}{}%
-\contentsline {section}{\numberline {2.4}Вступ до конструювання ознак.}{26}{}%
-\contentsline {subsection}{\numberline {2.4.1}Створення нових ознак.}{26}{}%
-\contentsline {subsection}{\numberline {2.4.2}Кодування категоріальних змінних.}{27}{}%
-\contentsline {subsection}{\numberline {2.4.3}Функція взаємодії.}{28}{}%
-\contentsline {subsection}{\numberline {2.4.4}Поліноміальні ознаки.}{29}{}%
-\contentsline {chapter}{\numberline {3}Візуалізація даних.}{32}{}%
-\contentsline {section}{\numberline {3.1}Типи даних.}{32}{}%
-\contentsline {section}{\numberline {3.2}1D дані}{33}{}%
-\contentsline {subsection}{\numberline {3.2.1}Стовпчасті діаграми — категоріальні дані}{33}{}%
-\contentsline {subsection}{\numberline {3.2.2}Кругові діаграми.}{34}{}%
-\contentsline {subsection}{\numberline {3.2.3}Гістограми — числові дані}{35}{}%
-\contentsline {section}{\numberline {3.3}2D дані}{36}{}%
-\contentsline {subsection}{\numberline {3.3.1}Точкові діаграми — числові x числові.}{36}{}%
-\contentsline {subsection}{\numberline {3.3.2}Лінійна діаграма - числові x числові.}{37}{}%
-\contentsline {subsection}{\numberline {3.3.3}Коробкова і скрипкові діаграми — категоріальні x числові}{38}{}%
-\contentsline {subsection}{\numberline {3.3.4}Теплова карта та бульбашкові діаграми — категоріальні x категоріальні}{40}{}%
-\contentsline {section}{\numberline {3.4}3D дані}{42}{}%
-\contentsline {subsection}{\numberline {3.4.1}Матриці розсіювання (точкові матриці).}{42}{}%
-\contentsline {subsection}{\numberline {3.4.2}Бульбашкові діаграми.}{43}{}%
-\contentsline {chapter}{\numberline {4}Лінійна алгебра та бібліотека NumPy.}{47}{}%
-\contentsline {section}{\numberline {4.1}Основи лінійної алгебри.}{47}{}%
-\contentsline {subsection}{\numberline {4.1.1}Порядок рядків і стовпців.}{47}{}%
-\contentsline {subsection}{\numberline {4.1.2}Основні операції.}{48}{}%
-\contentsline {section}{\numberline {4.2}Масиви NumPy.}{48}{}%
-\contentsline {subsection}{\numberline {4.2.1}Індексація в масивах NumPy.}{50}{}%
-\contentsline {subsection}{\numberline {4.2.2}Основні операції над масивами в NumPy.}{51}{}%
-\contentsline {subsection}{\numberline {4.2.3}Трансляція NumPy.}{53}{}%
-\contentsline {subsection}{\numberline {4.2.4}Операції лінійної алгебри в NumPy.}{53}{}%
-\contentsline {subsection}{\numberline {4.2.5}Складність операцій.}{55}{}%
-\contentsline {subsection}{\numberline {4.2.6}Розріджені матриці.}{55}{}%
-\contentsline {chapter}{\numberline {5}Обробка Природної Мови.}{58}{}%
-\contentsline {section}{\numberline {5.1}Попередня обробка тексту.}{58}{}%
-\contentsline {subsection}{\numberline {5.1.1}Очищення тексту.}{58}{}%
-\contentsline {subsection}{\numberline {5.1.2}Токенізація, стемінг, лематизація, нормалізація.}{59}{}%
-\contentsline {section}{\numberline {5.2}Чисельне представлення тексту.}{61}{}%
-\contentsline {subsection}{\numberline {5.2.1}Мішок слів.}{62}{}%
-\contentsline {subsection}{\numberline {5.2.2}TFIDF та косинусна подібність тексту.}{62}{}%
-\contentsline {subsection}{\numberline {5.2.3}Векторне подання слів.}{66}{}%
-\contentsline {chapter}{\numberline {6}Теорія ймовірності в контексті аналізу даних.}{70}{}%
-\contentsline {section}{\numberline {6.1}Основи теорії ймовірності.}{70}{}%
-\contentsline {subsection}{\numberline {6.1.1}Закон великих чисел.}{71}{}%
-\contentsline {section}{\numberline {6.2}Використання NumPy для роботи з розподілами ймовірностей.}{72}{}%
-\contentsline {subsection}{\numberline {6.2.1}Рівномірний розподіл.}{72}{}%
-\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{72}{}%
-\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{73}{}%
-\contentsline {section}{\numberline {6.3}Теорема Байєса.}{74}{}%
-\contentsline {chapter}{\numberline {7}Вступ в машинне навчання.}{77}{}%
-\contentsline {section}{\numberline {7.1}Градієнтний спуск.}{79}{}%
-\contentsline {subsection}{\numberline {7.1.1}Біблотека scikit-learn.}{84}{}%
-\contentsline {section}{\numberline {7.2}Трохи більше про машинне навчання.}{86}{}%
-\contentsline {subsection}{\numberline {7.2.1}Приклади алгоритмів машинного навчання.}{87}{}%
-\contentsline {chapter}{\numberline {8}Лінійна Класифікація та Логістична Регресія.}{90}{}%
-\contentsline {section}{\numberline {8.1}Лінійна Класифікація.}{90}{}%
-\contentsline {subsection}{\numberline {8.1.1}Приклад лінійної класифікації: класифікація раку молочної залози}{90}{}%
-\contentsline {subsection}{\numberline {8.1.2}Функція втрат.}{91}{}%
-\contentsline {section}{\numberline {8.2}Логістична регресія.}{92}{}%
-\contentsline {subsection}{\numberline {8.2.1}Метрики моделей машинного навчання.}{95}{}%
-\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{98}{}%
-\contentsline {section}{\numberline {9.1}Поліноміальна Регресія.}{100}{}%
-\contentsline {subsection}{\numberline {9.1.1}Узагальнення та перенавчання.}{101}{}%
-\contentsline {subsection}{\numberline {9.1.2}k-кратна перехресна валідація.}{102}{}%
-\contentsline {section}{\numberline {9.2}Поліноміальна класифікація.}{102}{}%
-\contentsline {section}{\numberline {9.3}Метод Опорних Векторів.}{105}{}%
-\contentsline {section}{\numberline {9.4}Наївний баєсів класифікатор.}{109}{}%
-\contentsline {section}{\numberline {9.5}Дерева прийняття рішень.}{111}{}%
-\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{117}{}%
-\contentsline {chapter}{\numberline {11}Навчання без учителя.}{118}{}%
-\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{119}{}%
-\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{120}{}%
-\contentsline {chapter}{\numberline {14}Часові Ряди.}{121}{}%
-\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{122}{}%
-\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{123}{}%
+\contentsline {chapter}{\numberline {1}Збір даних.}{7}{}%
+\contentsline {section}{\numberline {1.1}Збір даних з веб-джерел.}{7}{}%
+\contentsline {section}{\numberline {1.2}RESTful API}{8}{}%
+\contentsline {section}{\numberline {1.3}CSV-файли.}{9}{}%
+\contentsline {section}{\numberline {1.4}Парсинг JSON в Python.}{10}{}%
+\contentsline {section}{\numberline {1.5}Парсинг XML/HTML в Python.}{11}{}%
+\contentsline {section}{\numberline {1.6}Регулярні вирази.}{13}{}%
+\contentsline {subsection}{\numberline {1.6.1}Відповідність декількох потенційних символів.}{14}{}%
+\contentsline {subsection}{\numberline {1.6.2}Групування.}{14}{}%
+\contentsline {subsection}{\numberline {1.6.3}Заміни.}{15}{}%
+\contentsline {subsection}{\numberline {1.6.4}Порядок і жадібне зіставлення.}{15}{}%
+\contentsline {chapter}{\numberline {2}Обробка даних.}{18}{}%
+\contentsline {section}{\numberline {2.1}Pandas}{18}{}%
+\contentsline {section}{\numberline {2.2}Методи очищення даних та обробка відсутніх значень.}{23}{}%
+\contentsline {subsection}{\numberline {2.2.1}Видалення відсутніх даних.}{24}{}%
+\contentsline {subsection}{\numberline {2.2.2}Заповнення середнім.}{25}{}%
+\contentsline {subsection}{\numberline {2.2.3}Заміщення медіанним значенням.}{25}{}%
+\contentsline {subsection}{\numberline {2.2.4}Заміщення модою.}{26}{}%
+\contentsline {section}{\numberline {2.3}Дублікати.}{26}{}%
+\contentsline {section}{\numberline {2.4}Масштабування та нормалізація даних.}{27}{}%
+\contentsline {subsection}{\numberline {2.4.1}Викиди.}{27}{}%
+\contentsline {subsection}{\numberline {2.4.2}Мінімально-максимальне масштабування.}{28}{}%
+\contentsline {subsection}{\numberline {2.4.3}Нормалізація (стандартизація) за Z-балом.}{29}{}%
+\contentsline {subsection}{\numberline {2.4.4}Надійне масштабування.}{30}{}%
+\contentsline {section}{\numberline {2.5}Вступ до конструювання ознак.}{31}{}%
+\contentsline {subsection}{\numberline {2.5.1}Створення нових ознак.}{31}{}%
+\contentsline {subsection}{\numberline {2.5.2}Кодування категоріальних змінних.}{32}{}%
+\contentsline {subsection}{\numberline {2.5.3}Функція взаємодії.}{33}{}%
+\contentsline {subsection}{\numberline {2.5.4}Поліноміальні ознаки.}{33}{}%
+\contentsline {chapter}{\numberline {3}Візуалізація даних.}{37}{}%
+\contentsline {section}{\numberline {3.1}Типи даних.}{37}{}%
+\contentsline {section}{\numberline {3.2}1D дані}{38}{}%
+\contentsline {subsection}{\numberline {3.2.1}Стовпчасті діаграми — категоріальні дані}{38}{}%
+\contentsline {subsection}{\numberline {3.2.2}Кругові діаграми.}{39}{}%
+\contentsline {subsection}{\numberline {3.2.3}Гістограми — числові дані}{40}{}%
+\contentsline {section}{\numberline {3.3}2D дані}{41}{}%
+\contentsline {subsection}{\numberline {3.3.1}Точкові діаграми — числові x числові.}{41}{}%
+\contentsline {subsection}{\numberline {3.3.2}Лінійна діаграма - числові x числові.}{42}{}%
+\contentsline {subsection}{\numberline {3.3.3}Коробкова і скрипкові діаграми — категоріальні x числові}{43}{}%
+\contentsline {subsection}{\numberline {3.3.4}Теплова карта та бульбашкові діаграми — категоріальні x категоріальні}{45}{}%
+\contentsline {section}{\numberline {3.4}3D дані}{47}{}%
+\contentsline {subsection}{\numberline {3.4.1}Матриці розсіювання (точкові матриці).}{47}{}%
+\contentsline {subsection}{\numberline {3.4.2}Бульбашкові діаграми.}{48}{}%
+\contentsline {chapter}{\numberline {4}Лінійна алгебра та бібліотека NumPy.}{52}{}%
+\contentsline {section}{\numberline {4.1}Основи лінійної алгебри.}{52}{}%
+\contentsline {subsection}{\numberline {4.1.1}Порядок рядків і стовпців.}{52}{}%
+\contentsline {subsection}{\numberline {4.1.2}Основні операції.}{53}{}%
+\contentsline {section}{\numberline {4.2}Масиви NumPy.}{53}{}%
+\contentsline {subsection}{\numberline {4.2.1}Індексація в масивах NumPy.}{55}{}%
+\contentsline {subsection}{\numberline {4.2.2}Основні операції над масивами в NumPy.}{56}{}%
+\contentsline {subsection}{\numberline {4.2.3}Трансляція NumPy.}{58}{}%
+\contentsline {subsection}{\numberline {4.2.4}Операції лінійної алгебри в NumPy.}{58}{}%
+\contentsline {subsection}{\numberline {4.2.5}Складність операцій.}{60}{}%
+\contentsline {subsection}{\numberline {4.2.6}Розріджені матриці.}{60}{}%
+\contentsline {chapter}{\numberline {5}Обробка Природної Мови.}{63}{}%
+\contentsline {section}{\numberline {5.1}Попередня обробка тексту.}{63}{}%
+\contentsline {subsection}{\numberline {5.1.1}Очищення тексту.}{63}{}%
+\contentsline {subsection}{\numberline {5.1.2}Токенізація, стемінг, лематизація, нормалізація.}{64}{}%
+\contentsline {section}{\numberline {5.2}Чисельне представлення тексту.}{66}{}%
+\contentsline {subsection}{\numberline {5.2.1}Мішок слів.}{67}{}%
+\contentsline {subsection}{\numberline {5.2.2}TFIDF та косинусна подібність тексту.}{67}{}%
+\contentsline {subsection}{\numberline {5.2.3}Векторне подання слів.}{71}{}%
+\contentsline {chapter}{\numberline {6}Теорія ймовірності в контексті аналізу даних.}{75}{}%
+\contentsline {section}{\numberline {6.1}Основи теорії ймовірності.}{75}{}%
+\contentsline {subsection}{\numberline {6.1.1}Закон великих чисел.}{76}{}%
+\contentsline {section}{\numberline {6.2}Використання NumPy для роботи з розподілами ймовірностей.}{77}{}%
+\contentsline {subsection}{\numberline {6.2.1}Рівномірний розподіл.}{77}{}%
+\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{77}{}%
+\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{78}{}%
+\contentsline {section}{\numberline {6.3}Теорема Байєса.}{79}{}%
+\contentsline {chapter}{\numberline {7}Вступ в машинне навчання.}{82}{}%
+\contentsline {section}{\numberline {7.1}Градієнтний спуск.}{84}{}%
+\contentsline {subsection}{\numberline {7.1.1}Біблотека scikit-learn.}{89}{}%
+\contentsline {section}{\numberline {7.2}Трохи більше про машинне навчання.}{91}{}%
+\contentsline {subsection}{\numberline {7.2.1}Приклади алгоритмів машинного навчання.}{92}{}%
+\contentsline {chapter}{\numberline {8}Лінійна Класифікація та Логістична Регресія.}{95}{}%
+\contentsline {section}{\numberline {8.1}Лінійна Класифікація.}{95}{}%
+\contentsline {subsection}{\numberline {8.1.1}Приклад лінійної класифікації: класифікація раку молочної залози}{95}{}%
+\contentsline {subsection}{\numberline {8.1.2}Функція втрат.}{96}{}%
+\contentsline {section}{\numberline {8.2}Логістична регресія.}{97}{}%
+\contentsline {subsection}{\numberline {8.2.1}Метрики моделей машинного навчання.}{100}{}%
+\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{103}{}%
+\contentsline {section}{\numberline {9.1}Поліноміальна Регресія.}{105}{}%
+\contentsline {subsection}{\numberline {9.1.1}Узагальнення та перенавчання.}{107}{}%
+\contentsline {subsection}{\numberline {9.1.2}k-кратна перехресна валідація.}{107}{}%
+\contentsline {section}{\numberline {9.2}Поліноміальна класифікація.}{107}{}%
+\contentsline {section}{\numberline {9.3}Метод Опорних Векторів.}{110}{}%
+\contentsline {section}{\numberline {9.4}Наївний баєсів класифікатор.}{114}{}%
+\contentsline {section}{\numberline {9.5}Дерева прийняття рішень.}{116}{}%
+\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{122}{}%
+\contentsline {section}{\numberline {10.1}Випадковий ліс.}{122}{}%
+\contentsline {section}{\numberline {10.2}XGBoost.}{125}{}%
+\contentsline {subsection}{\numberline {10.2.1}Пошук оптимальних гіперпараметрів.}{127}{}%
+\contentsline {section}{\numberline {10.3}Компроміс зсуву та дисперсії}{127}{}%
+\contentsline {chapter}{\numberline {11}Навчання без учителя.}{130}{}%
+\contentsline {section}{\numberline {11.1}Кластеризація методом к–середніх (k-means clustering).}{130}{}%
+\contentsline {subsection}{\numberline {11.1.1}Вибір k: метод ліктя.}{132}{}%
+\contentsline {section}{\numberline {11.2}Метод головних компонент.}{133}{}%
+\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{139}{}%
+\contentsline {section}{\numberline {12.1}Ключові поняття в тестуванні гіпотез}{139}{}%
+\contentsline {subsection}{\numberline {12.1.1}Перевірка гіпотез у машинному навчанні}{140}{}%
+\contentsline {subsection}{\numberline {12.1.2}Практичний приклад: A/B-тестування з перевіркою гіпотез}{141}{}%
+\contentsline {section}{\numberline {12.2}Приклади статистичних перевірок.}{141}{}%
+\contentsline {subsection}{\numberline {12.2.1}Одновибірковий t-критерій.}{141}{}%
+\contentsline {subsection}{\numberline {12.2.2}Однофакторний дисперсійний аналіз.}{142}{}%
+\contentsline {subsection}{\numberline {12.2.3}Одновибірковий критерій хі-квадрат.}{142}{}%
+\contentsline {subsection}{\numberline {12.2.4}Критерій незалежності хі-квадрат.}{143}{}%
+\contentsline {subsection}{\numberline {12.2.5}Коли вибрати який тест?}{143}{}%
+\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{145}{}%
+\contentsline {section}{\numberline {13.1}Колаборативна фільтрація.}{145}{}%
+\contentsline {subsection}{\numberline {13.1.1}Фільтрація на основі подібності користувачів.}{146}{}%
+\contentsline {subsection}{\numberline {13.1.2}Холодний старт.}{148}{}%
+\contentsline {section}{\numberline {13.2}Матрична факторизація.}{149}{}%
+\contentsline {section}{\numberline {13.3}Метрики рекомендаційних систем.}{149}{}%
+\contentsline {section}{\numberline {13.4}Етичні проблеми та сучасні підходи.}{150}{}%
+\contentsline {chapter}{\numberline {14}Часові Ряди.}{152}{}%
+\contentsline {section}{\numberline {14.1}Основи роботи з часовими рядами. Стаціонарність часового ряду.}{152}{}%
+\contentsline {subsection}{\numberline {14.1.1}Доповнений тест Дікі - Фуллера (ADF).}{155}{}%
+\contentsline {section}{\numberline {14.2}Автокореляція.}{156}{}%
+\contentsline {section}{\numberline {14.3}Функції втрати.}{157}{}%
+\contentsline {section}{\numberline {14.4}ARIMA.}{158}{}%
+\contentsline {section}{\numberline {14.5}Передбачення із використанням методів машинного навчання.}{161}{}%
+\contentsline {section}{\numberline {14.6}Експоненційне зглажування.}{162}{}%
+\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{166}{}%
+\contentsline {section}{\numberline {15.1}Передбачення фінансових криз.}{166}{}%
+\contentsline {section}{\numberline {15.2}Моделювання розповсюдження епідемій.}{170}{}%
+\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{175}{}%
+\contentsline {section}{\numberline {16.1}Вступ до нейронних мереж. Архітектура нейронної мережі.}{175}{}%
+\contentsline {section}{\numberline {16.2}Навчання нейронної мережі.}{175}{}%
+\contentsline {section}{\numberline {16.3}Згорткові нейронні мережі (CNN).}{175}{}%
+\contentsline {section}{\numberline {16.4}Transformer-моделі.}{175}{}%
+\contentsline {section}{\numberline {16.5}Переваги та недоліки нейронних мереж для аналізу даних. Сучасні напрями розвитку нейронних мереж.}{175}{}%
