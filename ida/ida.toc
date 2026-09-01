@@ -56,78 +56,79 @@
 \contentsline {chapter}{\numberline {5}Обробка Природної Мови.}{63}{}%
 \contentsline {section}{\numberline {5.1}Попередня обробка тексту.}{63}{}%
 \contentsline {subsection}{\numberline {5.1.1}Очищення тексту.}{63}{}%
-\contentsline {subsection}{\numberline {5.1.2}Токенізація, стемінг, лематизація, нормалізація.}{64}{}%
-\contentsline {section}{\numberline {5.2}Чисельне представлення тексту.}{66}{}%
-\contentsline {subsection}{\numberline {5.2.1}Мішок слів.}{67}{}%
-\contentsline {subsection}{\numberline {5.2.2}TFIDF та косинусна подібність тексту.}{67}{}%
-\contentsline {subsection}{\numberline {5.2.3}Векторне подання слів.}{71}{}%
-\contentsline {chapter}{\numberline {6}Теорія ймовірності в контексті аналізу даних.}{75}{}%
-\contentsline {section}{\numberline {6.1}Основи теорії ймовірності.}{75}{}%
-\contentsline {subsection}{\numberline {6.1.1}Закон великих чисел.}{76}{}%
-\contentsline {section}{\numberline {6.2}Використання NumPy для роботи з розподілами ймовірностей.}{77}{}%
-\contentsline {subsection}{\numberline {6.2.1}Рівномірний розподіл.}{77}{}%
-\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{77}{}%
-\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{78}{}%
-\contentsline {section}{\numberline {6.3}Теорема Байєса.}{79}{}%
-\contentsline {chapter}{\numberline {7}Вступ в машинне навчання.}{82}{}%
-\contentsline {section}{\numberline {7.1}Градієнтний спуск.}{84}{}%
-\contentsline {subsection}{\numberline {7.1.1}Біблотека scikit-learn.}{89}{}%
-\contentsline {section}{\numberline {7.2}Трохи більше про машинне навчання.}{91}{}%
-\contentsline {subsection}{\numberline {7.2.1}Приклади алгоритмів машинного навчання.}{92}{}%
-\contentsline {chapter}{\numberline {8}Лінійна Класифікація та Логістична Регресія.}{95}{}%
-\contentsline {section}{\numberline {8.1}Лінійна Класифікація.}{95}{}%
-\contentsline {subsection}{\numberline {8.1.1}Приклад лінійної класифікації: класифікація раку молочної залози}{95}{}%
-\contentsline {subsection}{\numberline {8.1.2}Функція втрат.}{96}{}%
-\contentsline {section}{\numberline {8.2}Логістична регресія.}{97}{}%
-\contentsline {subsection}{\numberline {8.2.1}Метрики моделей машинного навчання.}{100}{}%
-\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{103}{}%
-\contentsline {section}{\numberline {9.1}Поліноміальна Регресія.}{105}{}%
-\contentsline {subsection}{\numberline {9.1.1}Узагальнення та перенавчання.}{107}{}%
-\contentsline {subsection}{\numberline {9.1.2}k-кратна перехресна валідація.}{107}{}%
-\contentsline {section}{\numberline {9.2}Поліноміальна класифікація.}{107}{}%
-\contentsline {section}{\numberline {9.3}Метод Опорних Векторів.}{110}{}%
-\contentsline {section}{\numberline {9.4}Наївний баєсів класифікатор.}{114}{}%
-\contentsline {section}{\numberline {9.5}Дерева прийняття рішень.}{116}{}%
-\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{122}{}%
-\contentsline {section}{\numberline {10.1}Випадковий ліс.}{122}{}%
-\contentsline {section}{\numberline {10.2}XGBoost.}{125}{}%
-\contentsline {subsection}{\numberline {10.2.1}Пошук оптимальних гіперпараметрів.}{127}{}%
-\contentsline {section}{\numberline {10.3}Компроміс зсуву та дисперсії}{127}{}%
-\contentsline {chapter}{\numberline {11}Навчання без учителя.}{130}{}%
-\contentsline {section}{\numberline {11.1}Кластеризація методом к–середніх (k-means clustering).}{130}{}%
-\contentsline {subsection}{\numberline {11.1.1}Вибір k: метод ліктя.}{132}{}%
-\contentsline {section}{\numberline {11.2}Метод головних компонент.}{133}{}%
-\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{139}{}%
-\contentsline {section}{\numberline {12.1}Ключові поняття в тестуванні гіпотез}{139}{}%
-\contentsline {subsection}{\numberline {12.1.1}Перевірка гіпотез у машинному навчанні}{140}{}%
-\contentsline {subsection}{\numberline {12.1.2}Практичний приклад: A/B-тестування з перевіркою гіпотез}{141}{}%
-\contentsline {section}{\numberline {12.2}Приклади статистичних перевірок.}{141}{}%
-\contentsline {subsection}{\numberline {12.2.1}Одновибірковий t-критерій.}{141}{}%
-\contentsline {subsection}{\numberline {12.2.2}Однофакторний дисперсійний аналіз.}{142}{}%
-\contentsline {subsection}{\numberline {12.2.3}Одновибірковий критерій хі-квадрат.}{142}{}%
-\contentsline {subsection}{\numberline {12.2.4}Критерій незалежності хі-квадрат.}{143}{}%
-\contentsline {subsection}{\numberline {12.2.5}Коли вибрати який тест?}{143}{}%
-\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{145}{}%
-\contentsline {section}{\numberline {13.1}Колаборативна фільтрація.}{145}{}%
-\contentsline {subsection}{\numberline {13.1.1}Фільтрація на основі подібності користувачів.}{146}{}%
-\contentsline {subsection}{\numberline {13.1.2}Холодний старт.}{148}{}%
-\contentsline {section}{\numberline {13.2}Матрична факторизація.}{149}{}%
-\contentsline {section}{\numberline {13.3}Метрики рекомендаційних систем.}{149}{}%
-\contentsline {section}{\numberline {13.4}Етичні проблеми та сучасні підходи.}{150}{}%
-\contentsline {chapter}{\numberline {14}Часові Ряди.}{152}{}%
-\contentsline {section}{\numberline {14.1}Основи роботи з часовими рядами. Стаціонарність часового ряду.}{152}{}%
-\contentsline {subsection}{\numberline {14.1.1}Доповнений тест Дікі - Фуллера (ADF).}{155}{}%
-\contentsline {section}{\numberline {14.2}Автокореляція.}{156}{}%
-\contentsline {section}{\numberline {14.3}Функції втрати.}{157}{}%
-\contentsline {section}{\numberline {14.4}ARIMA.}{158}{}%
-\contentsline {section}{\numberline {14.5}Передбачення із використанням методів машинного навчання.}{161}{}%
-\contentsline {section}{\numberline {14.6}Експоненційне зглажування.}{162}{}%
-\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{166}{}%
-\contentsline {section}{\numberline {15.1}Передбачення фінансових криз.}{166}{}%
-\contentsline {section}{\numberline {15.2}Моделювання розповсюдження епідемій.}{170}{}%
-\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{175}{}%
-\contentsline {section}{\numberline {16.1}Вступ до нейронних мереж. Архітектура нейронної мережі.}{175}{}%
-\contentsline {section}{\numberline {16.2}Навчання нейронної мережі.}{175}{}%
-\contentsline {section}{\numberline {16.3}Згорткові нейронні мережі (CNN).}{175}{}%
-\contentsline {section}{\numberline {16.4}Transformer-моделі.}{175}{}%
-\contentsline {section}{\numberline {16.5}Переваги та недоліки нейронних мереж для аналізу даних. Сучасні напрями розвитку нейронних мереж.}{175}{}%
+\contentsline {subsection}{\numberline {5.1.2}Токенізація, стемінг, лематизація, нормалізація.}{65}{}%
+\contentsline {section}{\numberline {5.2}Чисельне представлення тексту.}{68}{}%
+\contentsline {subsection}{\numberline {5.2.1}Хмара слів та мішок слів.}{68}{}%
+\contentsline {subsection}{\numberline {5.2.2}TFIDF та косинусна подібність тексту.}{69}{}%
+\contentsline {subsection}{\numberline {5.2.3}Векторне подання слів.}{73}{}%
+\contentsline {chapter}{\numberline {6}Теорія ймовірності в контексті аналізу даних.}{77}{}%
+\contentsline {section}{\numberline {6.1}Основи теорії ймовірності.}{77}{}%
+\contentsline {subsection}{\numberline {6.1.1}Закон великих чисел.}{78}{}%
+\contentsline {section}{\numberline {6.2}Використання NumPy для роботи з розподілами ймовірностей.}{79}{}%
+\contentsline {subsection}{\numberline {6.2.1}Рівномірний розподіл.}{79}{}%
+\contentsline {subsection}{\numberline {6.2.2}Гаусівський розподіл.}{79}{}%
+\contentsline {subsection}{\numberline {6.2.3}Дискретні розподіли.}{80}{}%
+\contentsline {section}{\numberline {6.3}Теорема Байєса.}{81}{}%
+\contentsline {chapter}{\numberline {7}Вступ в машинне навчання.}{84}{}%
+\contentsline {section}{\numberline {7.1}Градієнтний спуск.}{86}{}%
+\contentsline {subsection}{\numberline {7.1.1}Лінійна Регресія.}{92}{}%
+\contentsline {subsection}{\numberline {7.1.2}Біблотека scikit-learn.}{93}{}%
+\contentsline {section}{\numberline {7.2}Трохи більше про машинне навчання.}{95}{}%
+\contentsline {subsection}{\numberline {7.2.1}Приклади алгоритмів машинного навчання.}{96}{}%
+\contentsline {chapter}{\numberline {8}Лінійна Класифікація та Логістична Регресія.}{99}{}%
+\contentsline {section}{\numberline {8.1}Лінійна Класифікація.}{99}{}%
+\contentsline {subsection}{\numberline {8.1.1}Приклад лінійної класифікації: класифікація раку молочної залози}{99}{}%
+\contentsline {subsection}{\numberline {8.1.2}Функція втрат.}{100}{}%
+\contentsline {section}{\numberline {8.2}Логістична регресія.}{101}{}%
+\contentsline {subsection}{\numberline {8.2.1}Метрики моделей машинного навчання.}{104}{}%
+\contentsline {chapter}{\numberline {9}Нелінійні Алгоритми Машинного Навчання.}{107}{}%
+\contentsline {section}{\numberline {9.1}Поліноміальна Регресія.}{109}{}%
+\contentsline {subsection}{\numberline {9.1.1}Узагальнення та перенавчання.}{111}{}%
+\contentsline {subsection}{\numberline {9.1.2}k-кратна перехресна валідація.}{111}{}%
+\contentsline {section}{\numberline {9.2}Поліноміальна класифікація.}{111}{}%
+\contentsline {section}{\numberline {9.3}Метод Опорних Векторів.}{114}{}%
+\contentsline {section}{\numberline {9.4}Наївний баєсів класифікатор.}{118}{}%
+\contentsline {section}{\numberline {9.5}Дерева прийняття рішень.}{120}{}%
+\contentsline {chapter}{\numberline {10}Ансамблеве навчання.}{126}{}%
+\contentsline {section}{\numberline {10.1}Випадковий ліс.}{126}{}%
+\contentsline {section}{\numberline {10.2}XGBoost.}{129}{}%
+\contentsline {subsection}{\numberline {10.2.1}Пошук оптимальних гіперпараметрів.}{131}{}%
+\contentsline {section}{\numberline {10.3}Компроміс зсуву та дисперсії}{131}{}%
+\contentsline {chapter}{\numberline {11}Навчання без учителя.}{134}{}%
+\contentsline {section}{\numberline {11.1}Кластеризація методом к–середніх (k-means clustering).}{134}{}%
+\contentsline {subsection}{\numberline {11.1.1}Вибір k: метод ліктя.}{136}{}%
+\contentsline {section}{\numberline {11.2}Метод головних компонент.}{137}{}%
+\contentsline {chapter}{\numberline {12}Перевірка статистичних гіпотез.}{143}{}%
+\contentsline {section}{\numberline {12.1}Ключові поняття в тестуванні гіпотез}{143}{}%
+\contentsline {subsection}{\numberline {12.1.1}Перевірка гіпотез у машинному навчанні}{144}{}%
+\contentsline {subsection}{\numberline {12.1.2}Практичний приклад: A/B-тестування з перевіркою гіпотез}{145}{}%
+\contentsline {section}{\numberline {12.2}Приклади статистичних перевірок.}{145}{}%
+\contentsline {subsection}{\numberline {12.2.1}Одновибірковий t-критерій.}{145}{}%
+\contentsline {subsection}{\numberline {12.2.2}Однофакторний дисперсійний аналіз.}{146}{}%
+\contentsline {subsection}{\numberline {12.2.3}Одновибірковий критерій хі-квадрат.}{146}{}%
+\contentsline {subsection}{\numberline {12.2.4}Критерій незалежності хі-квадрат.}{147}{}%
+\contentsline {subsection}{\numberline {12.2.5}Коли вибрати який тест?}{147}{}%
+\contentsline {chapter}{\numberline {13}Рекомендаційні Системи.}{149}{}%
+\contentsline {section}{\numberline {13.1}Колаборативна фільтрація.}{149}{}%
+\contentsline {subsection}{\numberline {13.1.1}Фільтрація на основі подібності користувачів.}{150}{}%
+\contentsline {subsection}{\numberline {13.1.2}Холодний старт.}{152}{}%
+\contentsline {section}{\numberline {13.2}Матрична факторизація.}{153}{}%
+\contentsline {section}{\numberline {13.3}Метрики рекомендаційних систем.}{153}{}%
+\contentsline {section}{\numberline {13.4}Етичні проблеми та сучасні підходи.}{154}{}%
+\contentsline {chapter}{\numberline {14}Часові Ряди.}{156}{}%
+\contentsline {section}{\numberline {14.1}Основи роботи з часовими рядами. Стаціонарність часового ряду.}{156}{}%
+\contentsline {subsection}{\numberline {14.1.1}Доповнений тест Дікі - Фуллера (ADF).}{159}{}%
+\contentsline {section}{\numberline {14.2}Автокореляція.}{160}{}%
+\contentsline {section}{\numberline {14.3}Функції втрати.}{161}{}%
+\contentsline {section}{\numberline {14.4}ARIMA.}{162}{}%
+\contentsline {section}{\numberline {14.5}Передбачення із використанням методів машинного навчання.}{165}{}%
+\contentsline {section}{\numberline {14.6}Експоненційне зглажування.}{166}{}%
+\contentsline {chapter}{\numberline {15}Моделювання Кризових Явищ.}{170}{}%
+\contentsline {section}{\numberline {15.1}Передбачення фінансових криз.}{170}{}%
+\contentsline {section}{\numberline {15.2}Моделювання розповсюдження епідемій.}{174}{}%
+\contentsline {chapter}{\numberline {16}Використання нейронних мереж для аналізу даних.}{179}{}%
+\contentsline {section}{\numberline {16.1}Вступ до нейронних мереж. Архітектура нейронної мережі.}{179}{}%
+\contentsline {section}{\numberline {16.2}Навчання нейронної мережі.}{181}{}%
+\contentsline {section}{\numberline {16.3}Згорткові нейронні мережі (CNN).}{181}{}%
+\contentsline {section}{\numberline {16.4}Transformer-моделі.}{181}{}%
+\contentsline {section}{\numberline {16.5}Переваги та недоліки нейронних мереж для аналізу даних. Сучасні напрями розвитку нейронних мереж.}{181}{}%
